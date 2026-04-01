@@ -61,7 +61,9 @@ def check(path: str, mode: str, runs: int):
         icon = "PASS" if s.violated == 0 and s.unverified == 0 else "FAIL"
         click.echo(f"\n{icon} {name}")
         click.echo(f"  depth: {report.certificate_depth}")
-        click.echo(f"  proved: {s.proved}  held: {s.held}  violated: {s.violated}  unverified: {s.unverified}")
+        click.echo(
+            f"  proved: {s.proved}  held: {s.held}  violated: {s.violated}  unverified: {s.unverified}"
+        )
         click.echo(f"  confidence: {s.confidence}")
         click.echo(f"  strength: {report.strength.rejection_rate}")
 
@@ -81,3 +83,47 @@ def check(path: str, mode: str, runs: int):
 
     if any_failed:
         sys.exit(1)
+
+
+@main.command()
+@click.option("--sources", default="mbpp", help="Comma-separated data sources")
+@click.option("--max-samples", type=int, default=500)
+@click.option("--model", default="claude-sonnet-4-6", help="Model for augmentation")
+@click.option(
+    "--dry-run", is_flag=True, help="Use synthetic certificates (no API calls)"
+)
+@click.option("--checker-runs", type=int, default=200)
+@click.option("--output", default="data/training", help="Output directory")
+def pipeline(
+    sources: str,
+    max_samples: int,
+    model: str,
+    dry_run: bool,
+    checker_runs: int,
+    output: str,
+):
+    """Run the training data pipeline."""
+    from certus.pipeline.runner import PipelineRunner, PipelineConfig
+
+    config = PipelineConfig(
+        sources=sources.split(","),
+        max_samples=max_samples,
+        augmenter_model=model,
+        dry_run=dry_run,
+        checker_runs=checker_runs,
+        output_dir=output,
+    )
+
+    click.echo(f"Running pipeline: {config.sources}, max_samples={config.max_samples}")
+    click.echo(f"Model: {config.augmenter_model}, dry_run={config.dry_run}")
+
+    runner = PipelineRunner(config)
+    report = runner.run()
+
+    click.echo(f"\nPipeline complete:")
+    click.echo(f"  Collected: {report.collected}")
+    click.echo(f"  Augmented: {report.augmented}")
+    click.echo(f"  Passed:    {report.passed}")
+    click.echo(f"  Formatted: {report.formatted}")
+    click.echo(f"  Pass rate: {report.pass_rate:.1%}")
+    click.echo(f"\nOutput: {config.output_dir}")
