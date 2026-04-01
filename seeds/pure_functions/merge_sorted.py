@@ -24,14 +24,16 @@ from certus.decorator import certus
     invariants=[
         {
             "loop": "while i < len(a) and j < len(b)",
-            "maintains": ["all(result[k] <= result[k+1] for k in range(len(result)-1))"],
+            "maintains": [
+                "all(result[k] <= result[k+1] for k in range(len(result)-1))"
+            ],
             "termination": "len(a) - i + len(b) - j",
         }
     ],
-    depends_on=[
-        {"function": "list.append", "certified": False, "uses": ["len(self) increases by 1"]},
+    assumptions=[
+        "input lists fit in memory",
+        "list.append and list.extend behave correctly",
     ],
-    assumptions=["input lists fit in memory"],
 )
 def merge_sorted(a: list, b: list) -> list:
     result = []

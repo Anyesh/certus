@@ -1,0 +1,8 @@
+.hypothesis/
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+uv.lock
+dist/
+build/
