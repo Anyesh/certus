@@ -1,0 +1,168 @@
+Loaded 90 model outputs, 90 samples
+
+You can reproduce this failure by adding @seed(177163193359140120347392930814913209116) to this test.
+You can reproduce this failure by adding @seed(74887009060951158436960179947867460447) to this test.
+You can reproduce this failure by adding @seed(100125221961834078480457792948479506981) to this test.
+You can reproduce this failure by adding @seed(221492159248776832766800301335550307095) to this test.
+You can reproduce this failure by adding @seed(267941091161456706204037974537583066311) to this test.
+You can reproduce this failure by adding @seed(223506115343388757543086981747684756800) to this test.
+You can reproduce this failure by adding @seed(123243995542783746100349819945246646204) to this test.
+You can reproduce this failure by adding @seed(64148890300174622799214751614365222175) to this test.
+You can reproduce this failure by adding @seed(276737811683417627609438490991011317743) to this test.
+You can reproduce this failure by adding @seed(204589441750299052220653269623932632092) to this test.
+You can reproduce this failure by adding @seed(270950415586018721523168954249109028126) to this test.
+You can reproduce this failure by adding @seed(49750842877237204546114038919849467262) to this test.
+You can reproduce this failure by adding @seed(272286030006867338043364881344085546727) to this test.
+You can reproduce this failure by adding @seed(47944120616580802979668391873576906290) to this test.
+You can reproduce this failure by adding @seed(299362317095478294296915214460256723994) to this test.
+You can reproduce this failure by adding @seed(215387983767504850503022767121947147784) to this test.
+You can reproduce this failure by adding @seed(195280585718861186346078813207649989206) to this test.
+You can reproduce this failure by adding @seed(158353947991819982389658077664011297223) to this test.
+You can reproduce this failure by adding @seed(207304160516489613334875493238388836688) to this test.
+You can reproduce this failure by adding @seed(112965064598929131447264386703012748880) to this test.
+You can reproduce this failure by adding @seed(182693023649742472427359363817253765584) to this test.
+You can reproduce this failure by adding @seed(12189239518760100089231148704086802607) to this test.
+You can reproduce this failure by adding @seed(53796949257403107988839968325184193165) to this test.
+You can reproduce this failure by adding @seed(153709222073688664052164851893512433408) to this test.
+You can reproduce this failure by adding @seed(171751309251316409233153397042647463603) to this test.
+You can reproduce this failure by adding @seed(267039402175108300895291556003665882959) to this test.
+You can reproduce this failure by adding @seed(274488971539707674209472980482740781788) to this test.
+You can reproduce this failure by adding @seed(258289834235600818534495000179048814532) to this test.
+You can reproduce this failure by adding @seed(170828902784870406595420271128214606750) to this test.
+You can reproduce this failure by adding @seed(62626358481723932867438945520591533714) to this test.
+You can reproduce this failure by adding @seed(322779764158164852638504190398784468954) to this test.
+You can reproduce this failure by adding @seed(269006732825589208264157965079341565046) to this test.
+You can reproduce this failure by adding @seed(180635171709364340925522742722446399420) to this test.
+You can reproduce this failure by adding @seed(117468543945516656441372758536420411378) to this test.
+You can reproduce this failure by adding @seed(279989899118810445683347997391646739784) to this test.
+You can reproduce this failure by adding @seed(92741460909125850352378840003815865943) to this test.
+You can reproduce this failure by adding @seed(81682357836866607508297136261076780302) to this test.
+You can reproduce this failure by adding @seed(38996167928779287692728944380137555799) to this test.
+You can reproduce this failure by adding @seed(276965874394931442851823235270107881965) to this test.
+You can reproduce this failure by adding @seed(102229457208340259158233061088527200966) to this test.
+You can reproduce this failure by adding @seed(175514465574501284187532371785794467424) to this test.
+You can reproduce this failure by adding @seed(121125124090043062083513139285435755940) to this test.
+You can reproduce this failure by adding @seed(50424203155917659731174398000725119265) to this test.
+You can reproduce this failure by adding @seed(73327711739341846162811806479576874527) to this test.
+You can reproduce this failure by adding @seed(89154061148286506222584354591279724639) to this test.
+You can reproduce this failure by adding @seed(204444291522049695399308688237532524456) to this test.
+You can reproduce this failure by adding @seed(3641170378907707389914120220257764170) to this test.
+You can reproduce this failure by adding @seed(236976243734284224577638506634312586729) to this test.
+You can reproduce this failure by adding @seed(62816795257451196782652745892097232455) to this test.
+You can reproduce this failure by adding @seed(249532551791337215970122078398604225769) to this test.
+You can reproduce this failure by adding @seed(25841220471285220339568062069643464995) to this test.
+You can reproduce this failure by adding @seed(137289000846043211852289086396612430323) to this test.
+You can reproduce this failure by adding @seed(301921410804085122455915869785528951656) to this test.
+You can reproduce this failure by adding @seed(162333453241861253747530211838983346743) to this test.
+You can reproduce this failure by adding @seed(154516953944153367029607566473021582533) to this test.
+You can reproduce this failure by adding @seed(297641165436605844328602674426800288721) to this test.
+You can reproduce this failure by adding @seed(311416496621499358642566068658644768554) to this test.
+You can reproduce this failure by adding @seed(202252805554338207389333037603040932754) to this test.
+You can reproduce this failure by adding @seed(322821829494165477679410102694837214643) to this test.
+You can reproduce this failure by adding @seed(46310514939792830407183720501548519105) to this test.
+You can reproduce this failure by adding @seed(188786106318274483590726479371037420135) to this test.
+You can reproduce this failure by adding @seed(63574767915019874033993081656242719389) to this test.
+You can reproduce this failure by adding @seed(319020442555856469457835214662922936791) to this test.
+You can reproduce this failure by adding @seed(66064708218671357920325846150255820142) to this test.
+You can reproduce this failure by adding @seed(56746941220677909474801042534681507999) to this test.
+You can reproduce this failure by adding @seed(186214345219395700337045716332587640804) to this test.
+You can reproduce this failure by adding @seed(228242072287951713135650325076317166560) to this test.
+You can reproduce this failure by adding @seed(232346192723254003224824304310561666025) to this test.
+You can reproduce this failure by adding @seed(289241187017897679329748124859662821374) to this test.
+You can reproduce this failure by adding @seed(319379657813651485000552122779500107938) to this test.
+You can reproduce this failure by adding @seed(218158257993436290140429584927098799031) to this test.
+You can reproduce this failure by adding @seed(57834076709766370265226351849392136701) to this test.
+You can reproduce this failure by adding @seed(46015254015710484299388202739592633001) to this test.
+You can reproduce this failure by adding @seed(70860166147313240629210199939038278885) to this test.
+You can reproduce this failure by adding @seed(81444651415948574369117120123435459116) to this test.
+You can reproduce this failure by adding @seed(8119416273648951569350085044172398477) to this test.
+You can reproduce this failure by adding @seed(286872136761469958807071598327096433318) to this test.
+You can reproduce this failure by adding @seed(144327298322786174204494472271821577548) to this test.
+You can reproduce this failure by adding @seed(274998415531897072156524733345787763351) to this test.
+You can reproduce this failure by adding @seed(55214263936631232272293427420914811631) to this test.
+You can reproduce this failure by adding @seed(18065136041800706095209235218658498410) to this test.
+You can reproduce this failure by adding @seed(340041869846627056868239109717559266883) to this test.
+You can reproduce this failure by adding @seed(147113736935543511290258580835482837144) to this test.
+You can reproduce this failure by adding @seed(45943812605682369917922120224637132946) to this test.
+You can reproduce this failure by adding @seed(283341789289822848041677793050872372634) to this test.
+You can reproduce this failure by adding @seed(39555956784618140058640476292678323087) to this test.
+You can reproduce this failure by adding @seed(305000476381082573531149266934969952091) to this test.
+You can reproduce this failure by adding @seed(64208103609738875127001333568501157985) to this test.
+You can reproduce this failure by adding @seed(68409918157712599098224727589692091671) to this test.
+You can reproduce this failure by adding @seed(139610250059147613505779458440451837218) to this test.
+You can reproduce this failure by adding @seed(174914217393350453797098518770549383491) to this test.
+You can reproduce this failure by adding @seed(216980382255318898416973031826936849642) to this test.
+You can reproduce this failure by adding @seed(249730310755817835873903849743715429361) to this test.
+You can reproduce this failure by adding @seed(234366189482051327920519985001864063309) to this test.
+You can reproduce this failure by adding @seed(145581680594247389458425408356990607623) to this test.
+You can reproduce this failure by adding @seed(139696114268243457102776144017094815029) to this test.
+You can reproduce this failure by adding @seed(116902387915981777186226757057987508321) to this test.
+You can reproduce this failure by adding @seed(300504664029835198590183264977151236110) to this test.
+You can reproduce this failure by adding @seed(186130527462143466962768105376575359707) to this test.
+You can reproduce this failure by adding @seed(197605544352061911182661850658310708452) to this test.
+You can reproduce this failure by adding @seed(232119273077010019476230099786845937164) to this test.
+You can reproduce this failure by adding @seed(92984606246972818191933859797077326653) to this test.
+You can reproduce this failure by adding @seed(86974767525991287244144425284173441572) to this test.
+You can reproduce this failure by adding @seed(117520002142481610888098994987465844806) to this test.
+You can reproduce this failure by adding @seed(202949202512067960198087913410725784287) to this test.
+You can reproduce this failure by adding @seed(162155737877072547171388249273889991152) to this test.
+You can reproduce this failure by adding @seed(143003944238183893332835172840984171520) to this test.
+You can reproduce this failure by adding @seed(111098648988256624554005067566443549983) to this test.
+You can reproduce this failure by adding @seed(3266873945690647207650829888232577043) to this test.
+You can reproduce this failure by adding @seed(288941666365827014373396422730651526396) to this test.
+You can reproduce this failure by adding @seed(103149227099890228168601759588041331071) to this test.
+You can reproduce this failure by adding @seed(67294179586142043567032937925664493576) to this test.
+You can reproduce this failure by adding @seed(199915434766086228327314687604563162840) to this test.
+You can reproduce this failure by adding @seed(106886260295551091090966703612859160969) to this test.
+You can reproduce this failure by adding @seed(169284404837626061751632747526366134401) to this test.
+You can reproduce this failure by adding @seed(24902803647218933054051428953930512818) to this test.
+You can reproduce this failure by adding @seed(100479728848326057945976877378771723134) to this test.
+You can reproduce this failure by adding @seed(249666382583158485163025263030339933827) to this test.
+You can reproduce this failure by adding @seed(175577994551591328271451890739195465234) to this test.
+You can reproduce this failure by adding @seed(338003705785992178523496148778729961002) to this test.
+You can reproduce this failure by adding @seed(175591151973172075412592432687466248332) to this test.
+You can reproduce this failure by adding @seed(31386881762309142695454065811183974376) to this test.
+You can reproduce this failure by adding @seed(23899571188742353466378076555667335584) to this test.
+<augmented>:3: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<augmented>:3: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+<unknown>:3: SyntaxWarning: "\." is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\."? A raw string is also an option.
+You can reproduce this failure by adding @seed(138242134740587490939874441189730739092) to this test.
+You can reproduce this failure by adding @seed(83493009339408841501439507166191390272) to this test.
+You can reproduce this failure by adding @seed(14042443555959260132158439854754841468) to this test.
+============================================================
+CERTUS MODEL EVALUATION REPORT
+============================================================
+
+Total samples:           90
+Parse success:           89/90 (98.9%)
+Structural pass:         71/90 (78.9%)
+Dynamic (Hypothesis):    67/90 (74.4%)
+Tautological:            9/90 (10.0%)
+
+--- Failure Breakdown ---
+Parse failures:          1
+Structural failures:     9
+Dynamic failures:        4
+Tautological:            9
+
+--- Parse Failures (first 5) ---
+  task 543: @certus(
+    preconditions=["isinstance(num1, int)", "isinstance(num2, int)"],
+    postconditions=[
+...
+
+--- Structural Failures (first 5) ---
+  task 538: Validation errors (unsafe expressions or malformed certificate)
+  task 550: Validation errors (unsafe expressions or malformed certificate)
+  task 570: Validation errors (unsafe expressions or malformed certificate)
+  task 573: Validation errors (unsafe expressions or malformed certificate)
+  task 580: Validation errors (unsafe expressions or malformed certificate)
+
+--- Dynamic Failures (first 5) ---
+  task 511: Postcondition violated
+  task 518: Postcondition violated
+  task 541: Postcondition violated
+  task 581: Postcondition violated
+
+Full report saved to data/eval_report.json

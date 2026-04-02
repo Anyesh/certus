@@ -1,30 +1,31 @@
 {
   "total": 90,
-  "parsed": 90,
-  "parse_rate": 1.0,
-  "structural_pass": 82,
-  "structural_rate": 0.9111,
-  "dynamic_pass": 75,
-  "dynamic_rate": 0.8333,
-  "tautological": 1,
-  "tautological_rate": 0.0111,
+  "parsed": 89,
+  "parse_rate": 0.9889,
+  "structural_pass": 71,
+  "structural_rate": 0.7889,
+  "dynamic_pass": 67,
+  "dynamic_rate": 0.7444,
+  "tautological": 9,
+  "tautological_rate": 0.1,
   "failures": {
-    "parse_failed": [],
+    "parse_failed": [
+      {
+        "task_id": "543",
+        "raw": "@certus(\n    preconditions=[\"isinstance(num1, int)\", \"isinstance(num2, int)\"],\n    postconditions=[\n        {\"when\": \"always\", \"guarantees\": [\"result >= 0\", \"result == len(str(abs(num1 + num2))\"]},\n  "
+      }
+    ],
     "structural_failed": [
       {
-        "task_id": "511",
+        "task_id": "538",
         "reason": "Validation errors (unsafe expressions or malformed certificate)"
       },
       {
-        "task_id": "512",
+        "task_id": "550",
         "reason": "Validation errors (unsafe expressions or malformed certificate)"
       },
       {
-        "task_id": "519",
-        "reason": "Validation errors (unsafe expressions or malformed certificate)"
-      },
-      {
-        "task_id": "541",
+        "task_id": "570",
         "reason": "Validation errors (unsafe expressions or malformed certificate)"
       },
       {
@@ -32,47 +33,79 @@
         "reason": "Validation errors (unsafe expressions or malformed certificate)"
       },
       {
-        "task_id": "592",
+        "task_id": "580",
         "reason": "Validation errors (unsafe expressions or malformed certificate)"
       },
       {
-        "task_id": "596",
+        "task_id": "583",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "584",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "589",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "594",
         "reason": "Validation errors (unsafe expressions or malformed certificate)"
       }
     ],
     "dynamic_failed": [
       {
+        "task_id": "511",
+        "reason": "Postcondition violated"
+      },
+      {
         "task_id": "518",
         "reason": "Postcondition violated"
       },
       {
-        "task_id": "543",
-        "reason": "Postcondition violated"
-      },
-      {
-        "task_id": "574",
-        "reason": "Postcondition violated"
-      },
-      {
-        "task_id": "575",
+        "task_id": "541",
         "reason": "Postcondition violated"
       },
       {
         "task_id": "581",
         "reason": "Postcondition violated"
-      },
-      {
-        "task_id": "590",
-        "reason": "Postcondition violated"
-      },
-      {
-        "task_id": "598",
-        "reason": "Postcondition violated"
       }
     ],
     "tautological": [
       {
-        "task_id": "594",
+        "task_id": "514",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "517",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "523",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "546",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "575",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "577",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "588",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "595",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      },
+      {
+        "task_id": "597",
         "reason": "Tautological: strength 0.0 below threshold 0.1"
       }
     ]

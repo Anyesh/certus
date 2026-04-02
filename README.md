@@ -111,12 +111,23 @@ The 14B model has higher final loss because larger models need more data and epo
 
 ### Does finetuning matter? Base model comparison
 
-To verify that our QLoRA finetuning adds real value, we also ran the base Qwen 2.5 Coder 14B (without any LoRA adapter) on the same 90 held-out samples. Two experiments:
+To verify that our QLoRA finetuning adds real value, we ran the base Qwen 2.5 Coder 14B (without any LoRA adapter) on the same 90 held-out samples under two conditions:
 
-1. **Same prompt** (bare "Generate a Certus certificate"): tests whether the base model can produce the format at all.
-2. **Detailed prompt** (full format spec, allowed builtins, example output): tests whether the base model can match claim quality when given every advantage.
+| Metric | Base (bare prompt) | Base (detailed prompt) | **Finetuned 14B** |
+|---|---|---|---|
+| Parse rate | 0% | 98.9% | **100%** |
+| Structural pass | 0% | 78.9% | **91.1%** |
+| Dynamic pass | 0% | 74.4% | **83.3%** |
+| Tautological | 0% | 10.0% | **1.1%** |
 
-*Results will be added when the comparison completes.*
+**Bare prompt**: the base model has no concept of Certus and produces explanations about blockchain security. Zero parseable certificates.
+
+**Detailed prompt** (format spec, allowed builtins, example): the base model produces valid output 98.9% of the time and 74.4% passes end-to-end verification. This is a strong baseline, but finetuning adds clear value in two ways:
+
+1. **Tautological rate drops from 10% to 1.1%.** The base model hedges with weak claims like `isinstance(result, int)` that are always true. The finetuned model learned that certificates need to make strong, falsifiable claims.
+2. **No prompt engineering needed.** The finetuned model produces correct format from "Generate a Certus certificate" alone. The base model needs a 15-line detailed prompt with format spec, allowed builtins list, and worked examples.
+
+The base model is more conservative (4 semantic errors vs 7 for finetuned), but that conservatism comes at the cost of 9 tautological certificates that provide zero value. The finetuned model takes more risks and is wrong slightly more often, but the checker catches every error, and the certificates that pass are stronger and more informative.
 
 ## Quick start
 
