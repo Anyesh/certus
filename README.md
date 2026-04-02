@@ -95,7 +95,26 @@ The one failure (`group_by`) uses `callable()` in a precondition, which isn't in
 
 ## Evaluation results
 
-We finetuned Qwen 2.5 Coder models (via QLoRA) on 1420 training examples derived from the MBPP dataset and evaluated on 90 held-out samples.
+### How we built the training data
+
+There is no existing dataset of Python functions paired with Certus certificates, so we built one. The challenge: generating high-quality certificates requires an LLM that understands code semantics, but we didn't have API access to call Claude or GPT programmatically.
+
+The solution: we used Claude Code's subagent system to generate certificates in-session. We split 874 MBPP samples (374 train + 500 test) into 8 batches and dispatched 8 parallel subagents, each processing ~50-60 functions. Each subagent read the code, understood the function's behavior, and generated a `@certus` certificate with meaningful preconditions and postconditions.
+
+The raw certificates then went through the Certus checker (structural validation + strength scoring, no Hypothesis at this stage) to filter out malformed or tautological ones. 710 of 874 survived (81.2%), producing 1420 training examples: each function appears twice, once as Task A ("generate code + certificate from description") and once as Task B ("generate certificate for existing code").
+
+| Step | Input | Output | Pass rate |
+|---|---|---|---|
+| MBPP collection | HuggingFace dataset | 874 code samples | N/A |
+| Subagent generation | 874 samples, 16 agents | 874 certificates | 100% generated |
+| Structural validation | 874 certificates | 710 valid | 81.2% |
+| Training formatting | 710 valid | 1420 examples | Task A + Task B |
+
+Total data generation time was about 10 minutes (subagent inference) plus 2 minutes (validation). No API key needed.
+
+### Evaluation
+
+We finetuned Qwen 2.5 Coder models (via QLoRA) on the 1420 training examples and evaluated on 90 held-out samples (MBPP validation split, never seen during training or data generation).
 
 ### Evaluation metrics (held-out MBPP validation split, n=90)
 
@@ -146,6 +165,21 @@ The 7 dynamic failures (7.8%) represent the model's actual semantic error rate. 
 | Hardware | RTX 4070 Ti SUPER (16GB) | RTX 4070 Ti SUPER (16GB) |
 
 The 14B model has higher final loss because larger models need more data and epochs to converge, but its evaluation metrics are better across the board, confirming that model scale matters more than training loss for downstream task quality.
+
+### Inference speed
+
+Measured on 90 held-out functions (MBPP validation split) and 10 real-world utility functions. All numbers on a single RTX 4070 Ti SUPER with Unsloth's patched fast inference.
+
+| Metric | 7B model | 14B model |
+|---|---|---|
+| Inference per function | ~3s | ~5.8s |
+| Checker per function | ~5s | ~6.1s |
+| End-to-end per function | ~8s | ~11.9s |
+| Throughput | ~20 tok/s | 13.2 tok/s |
+| Tokens per certificate | ~70 | 77 |
+| 90 functions (batch) | ~5 min | ~9 min |
+
+For comparison, the same 90 functions took ~45 min with vanilla transformers (no Unsloth). The Unsloth fast inference path gives roughly a 5x speedup. Training both models back-to-back (7B + 14B) takes about 26 minutes total on the same hardware.
 
 ### Does finetuning matter? Base model comparison
 
