@@ -273,21 +273,6 @@ pip install -r requirements-train.txt
 python scripts/train_certus.py --data data/training/training_data.jsonl
 ```
 
-## Architecture
-
-```
-certus/
-  spec/           Schema (Pydantic), safe subset validator, serializers
-  checker/        Structural validation, Hypothesis testing, composition, caching
-  pipeline/       MBPP collection, prompt templates, validation, formatting
-  generator.py    End-to-end: inference server call, parse, check, report
-  decorator.py    @certus decorator (disabled/assert/audit modes)
-  cli.py          certus check, certus generate, certus pipeline
-scripts/          Training, inference, evaluation, serving
-seeds/            10 example certificates (valid and broken)
-tests/            176 tests
-```
-
 ### Verification pipeline
 
 The checker runs three passes on each certificate:
@@ -302,14 +287,6 @@ A **strength score** measures what fraction of random inputs the certificate rej
 
 Certificates declare preconditions (what must be true of inputs), postconditions (what the function guarantees about its output, branched by conditions), and optional fields for effects, invariants, exceptions, and compositional dependencies. All expressions must be valid Python within the safe subset.
 
-## Status
-
-- **M0+M1**: Schema, seeds, fast-mode checker (106 tests)
-- **M2**: Data collection and augmentation pipeline (+27 tests)
-- **M2.5**: Subagent-based certificate generation, structural validation mode (+10 tests)
-- **M3**: QLoRA finetuning, evaluation, end-to-end CLI (+33 tests)
-
-Total: 176 passing tests.
 
 ## License
 
