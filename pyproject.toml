@@ -1,7 +1,9 @@
 [project]
 name = "certus"
 version = "0.1.0"
-description = "Certificate-augmented generation for verifiable AI code"
+description = "Correctness certificates for AI-generated code. A finetuned model proposes what your function guarantees; an automated checker proves it or finds a counterexample."
+license = {text = "Apache-2.0"}
+authors = [{name = "Anish Shrestha"}]
 requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.0",

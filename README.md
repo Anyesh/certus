@@ -293,4 +293,4 @@ Total: 176 passing tests.
 
 ## License
 
-TBD
+Apache 2.0. See [LICENSE](LICENSE).
