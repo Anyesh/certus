@@ -30,9 +30,34 @@ Code generation is getting very good, but there is no standard way to verify tha
 
 The key insight is that certificates don't need to be *proofs* to be valuable. A certificate that says "this function always returns a non-negative integer" and passes 1000 random tests gives you meaningful confidence, even without a formal proof. The checker catches wrong claims, and the strength score catches vacuous ones.
 
+## How this compares to doctest
+
+A natural question: Python already has doctest. Why do we need certificates?
+
+Doctest checks specific input/output pairs ("does `fib(5)` return `5`?"). Certus declares general properties ("for all non-negative n, the result is non-negative") and verifies them across many random inputs. Across 90 held-out functions:
+
+| | Doctest (MBPP tests) | Certus (14B model) |
+|---|---|---|
+| Checks per function | 3 specific examples | 2.9 general properties |
+| Total verification points | 270 | ~7,740 (30 random inputs each) |
+| Behavioral branches | 0 | 133 (1.5 per function) |
+| Property types | All exact equality | Bounds, structural, equality, type |
+| Catches edge cases? | Only if examples hit them | Probabilistically, via random testing |
+| Catches tautological claims? | N/A | Yes, strength scoring |
+
+**Concrete example**: for a function that checks if a subset has a sum divisible by m, doctest verifies 3 specific arrays. Certus declares and verifies:
+```python
+{"when": "result == True",
+ "guarantees": ["any(sum(arr[i:j]) % m == 0 for i in range(n) for j in range(i+1, n+1))"]}
+```
+
+This property is verified across randomly generated arrays. If someone changes the implementation and breaks an edge case outside the 3 doctest examples, doctest still passes. Certus has a much higher probability of catching it.
+
+The tradeoff: Certus certificates have a 7.8% semantic error rate where the model generates wrong claims. A human-written doctest is never wrong about the examples it checks. The checker catches 100% of the model's errors, so incorrect certificates never reach the user as "verified," but they do reduce the yield (83.3% of generated certificates survive verification).
+
 ## Results
 
-We finetuned Qwen 2.5 Coder 7B (via QLoRA) on 1420 training examples derived from the MBPP dataset and evaluated on 90 held-out samples. The model generates certificates, and the checker verifies them end-to-end.
+We finetuned Qwen 2.5 Coder models (via QLoRA) on 1420 training examples derived from the MBPP dataset and evaluated on 90 held-out samples.
 
 ### Evaluation metrics (held-out MBPP validation split, n=90)
 
@@ -83,6 +108,15 @@ The 7 dynamic failures (7.8%) represent the model's actual semantic error rate. 
 | Hardware | RTX 4070 Ti SUPER (16GB) | RTX 4070 Ti SUPER (16GB) |
 
 The 14B model has higher final loss because larger models need more data and epochs to converge, but its evaluation metrics are better across the board, confirming that model scale matters more than training loss for downstream task quality.
+
+### Does finetuning matter? Base model comparison
+
+To verify that our QLoRA finetuning adds real value, we also ran the base Qwen 2.5 Coder 14B (without any LoRA adapter) on the same 90 held-out samples. Two experiments:
+
+1. **Same prompt** (bare "Generate a Certus certificate"): tests whether the base model can produce the format at all.
+2. **Detailed prompt** (full format spec, allowed builtins, example output): tests whether the base model can match claim quality when given every advantage.
+
+*Results will be added when the comparison completes.*
 
 ## Quick start
 

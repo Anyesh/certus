@@ -1,0 +1,16 @@
+{
+  "doctest_total_cases": 270,
+  "doctest_avg_per_function": 3.0,
+  "certus_parsed": 90,
+  "certus_total_guarantees": 258,
+  "certus_avg_guarantees": 2.87,
+  "certus_total_branches": 133,
+  "certus_verification_points": 7740,
+  "guarantee_types": {
+    "type-check": 58,
+    "equality": 54,
+    "bound": 68,
+    "structural": 67,
+    "other": 11
+  }
+}
