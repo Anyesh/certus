@@ -26,6 +26,7 @@ class ValidationResult:
 def validate_augmentation(
     aug_result: AugmentationResult,
     num_runs: int = 200,
+    checker_mode: str = "fast",
 ) -> ValidationResult:
     """Validate a single augmentation result using the checker."""
     if aug_result.certificate_kwargs is None:
@@ -106,7 +107,9 @@ def validate_augmentation(
     )
 
     try:
-        report = run_checker(func, cert, sample.code, mode="fast", num_runs=num_runs)
+        report = run_checker(
+            func, cert, sample.code, mode=checker_mode, num_runs=num_runs
+        )
     except Exception as e:
         return ValidationResult(
             augmentation=aug_result,

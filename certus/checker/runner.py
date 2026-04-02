@@ -9,7 +9,9 @@ from certus.checker.validation import validate_certificate
 from certus.checker.dynamic import run_dynamic_checks, _build_safe_namespace, _eval_expr
 from certus.checker.composition import check_composition
 from certus.checker.report import (
-    ClaimResult, StrengthScore, VerificationReport,
+    ClaimResult,
+    StrengthScore,
+    VerificationReport,
 )
 
 # Alias so the module surface matches what callers expect
@@ -75,14 +77,17 @@ def run_checker(
         for err in validation_errors:
             claims.append(ClaimResult(claim=err, status="unverified"))
         return VerificationReport(
-            function=cert.function, certificate_depth=depth,
-            claims=claims, dependencies=dep_results,
+            function=cert.function,
+            certificate_depth=depth,
+            claims=claims,
+            dependencies=dep_results,
             strength=StrengthScore(rejection_rate=0.0),
         )
 
-    # Pass 2: Dynamic
-    dynamic_results = run_dynamic_checks(func, cert, num_runs=num_runs)
-    claims.extend(dynamic_results)
+    # Pass 2: Dynamic (skipped in structural mode)
+    if mode != "structural":
+        dynamic_results = run_dynamic_checks(func, cert, num_runs=num_runs)
+        claims.extend(dynamic_results)
 
     # Pass 3: Composition
     if cert.depends_on and registry is not None:
@@ -91,6 +96,9 @@ def run_checker(
     strength = _measure_strength(cert)
 
     return VerificationReport(
-        function=cert.function, certificate_depth=depth,
-        claims=claims, dependencies=dep_results, strength=strength,
+        function=cert.function,
+        certificate_depth=depth,
+        claims=claims,
+        dependencies=dep_results,
+        strength=strength,
     )

@@ -86,6 +86,70 @@ def check(path: str, mode: str, runs: int):
 
 
 @main.command()
+@click.argument("path", type=click.Path(exists=True))
+@click.option(
+    "--function", "-f", default=None, help="Specific function name (default: all)"
+)
+@click.option("--server", default="http://localhost:8234", help="Inference server URL")
+@click.option(
+    "--mode",
+    type=click.Choice(["fast", "structural"]),
+    default="fast",
+    help="Checker mode",
+)
+@click.option("--runs", type=int, default=30, help="Hypothesis test runs per guarantee")
+def generate(path: str, function: str | None, server: str, mode: str, runs: int):
+    """Generate and verify Certus certificates for functions in a Python file."""
+    from certus.generator import generate_for_file
+
+    results = generate_for_file(
+        path, server, function_name=function, checker_mode=mode, num_runs=runs
+    )
+
+    any_failed = False
+    for r in results:
+        if r.error:
+            click.echo(f"\nERROR {r.function_name}: {r.error}")
+            if r.raw_certificate:
+                click.echo(f"  raw output: {r.raw_certificate[:200]}")
+            any_failed = True
+            continue
+
+        vr = r.validation
+        passed = vr.passed if vr else False
+        icon = "PASS" if passed else "FAIL"
+
+        click.echo(f"\n{icon} {r.function_name}")
+        click.echo(f"  certificate:")
+        for line in (r.raw_certificate or "").strip().splitlines():
+            click.echo(f"    {line}")
+
+        if vr and vr.report:
+            s = vr.report.summary
+            click.echo(f"  verification:")
+            click.echo(
+                f"    proved: {s.proved}  held: {s.held}  violated: {s.violated}  unverified: {s.unverified}"
+            )
+            click.echo(f"    confidence: {s.confidence}")
+            click.echo(f"    strength: {vr.report.strength.rejection_rate}")
+
+            if s.violated > 0:
+                for c in vr.report.claims:
+                    if c.status == "violated":
+                        click.echo(f"    VIOLATED: {c.claim}")
+                        if c.counterexample:
+                            click.echo(f"      counterexample: {c.counterexample}")
+        elif vr and not vr.passed:
+            click.echo(f"  reason: {vr.reason}")
+
+        if not passed:
+            any_failed = True
+
+    if any_failed:
+        sys.exit(1)
+
+
+@main.command()
 @click.option("--sources", default="mbpp", help="Comma-separated data sources")
 @click.option("--max-samples", type=int, default=500)
 @click.option("--model", default="claude-sonnet-4-6", help="Model for augmentation")
