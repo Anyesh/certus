@@ -62,7 +62,38 @@ Across 90 held-out functions, the finetuned 14B model generates an average of 2.
 
 The structural and bound properties are things that specific-example testing (doctest, unittest) fundamentally cannot express. You can't write a doctest that checks "the result is sorted" for all inputs. You can write a Certus certificate that says it and verify it across random inputs.
 
-## Results
+## Real-world benchmark
+
+We tested Certus on 10 production-style utility functions (not from any training set): `chunk_list`, `flatten_dict`, `deduplicate`, `clamp`, `is_palindrome`, `merge_sorted`, `pascal_row`, `group_by`, `levenshtein_distance`, `matrix_transpose`.
+
+| Function | Inference | Check | Total | Result | Key verified property |
+|---|---|---|---|---|---|
+| `chunk_list` | 7.6s | 6.9s | 14.5s | PASS | `sum(len(chunk) for chunk in result) == len(lst)` |
+| `flatten_dict` | 5.2s | 3.8s | 9.0s | PASS | `isinstance(result, dict)` |
+| `deduplicate` | 4.8s | 6.0s | 10.7s | PASS | `all(result.count(x) == 1 for x in result)` |
+| `clamp` | 8.6s | 5.8s | 14.4s | PASS | `result == min(maximum, max(minimum, value))` |
+| `is_palindrome` | 5.4s | 7.5s | 12.9s | PASS | branched True/False with cleaned string logic |
+| `merge_sorted` | 6.6s | 7.4s | 14.0s | PASS | `all(result[i] <= result[i+1] for ...)` (sortedness) |
+| `pascal_row` | 5.3s | 7.0s | 12.3s | PASS | `len(result) == n + 1`, `result[0] == 1` |
+| `group_by` | 5.7s | 5.9s | 11.6s | FAIL | uses `callable()` outside safe subset |
+| `levenshtein` | 3.8s | 5.2s | 8.9s | PASS | `result >= 0`, `result <= max(len(s1), len(s2))` |
+| `matrix_transpose` | 5.0s | 5.8s | 10.7s | PASS | `len(result) == len(matrix[0])`, dimension swap |
+
+### Performance numbers
+
+| Metric | Value |
+|---|---|
+| Pass rate (real-world) | 9/10 (90%) |
+| Inference throughput | 13.2 tokens/sec |
+| Average inference time | 5.8s per function |
+| Average checker time | 6.1s per function |
+| Average end-to-end | 11.9s per function |
+| Tokens per certificate | 77 avg |
+| Hardware | RTX 4070 Ti SUPER (16GB VRAM), Qwen 14B 4-bit |
+
+The one failure (`group_by`) uses `callable()` in a precondition, which isn't in the expression safe subset. The model correctly identified the constraint; our validator is the bottleneck.
+
+## Evaluation results
 
 We finetuned Qwen 2.5 Coder models (via QLoRA) on 1420 training examples derived from the MBPP dataset and evaluated on 90 held-out samples.
 
