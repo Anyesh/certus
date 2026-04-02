@@ -6,3 +6,8 @@ __pycache__/
 uv.lock
 dist/
 build/
+
+# Model weights (hosted on HuggingFace, not in git)
+models/
+*.safetensors
+*.gguf
