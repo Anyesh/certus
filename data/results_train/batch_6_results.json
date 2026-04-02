@@ -1,0 +1,592 @@
+[
+  {
+    "task_id": "883",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(nums, list)", "isinstance(m, int)", "isinstance(n, int)", "m != 0", "n != 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) <= len(nums)", "all(x % m == 0 and x % n == 0 for x in result)", "all(x in nums for x in result)", "all(x in result for x in nums if x % m == 0 and x % n == 0)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(nums, list)\", \"isinstance(m, int)\", \"isinstance(n, int)\", \"m != 0\", \"n != 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) <= len(nums)\", \"all(x % m == 0 and x % n == 0 for x in result)\", \"all(x in nums for x in result)\", \"all(x in result for x in nums if x % m == 0 and x % n == 0)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "884",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "isinstance(l, int)", "isinstance(r, int)", "l >= 1", "r >= l"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "result == True", "guarantees": ["n & (((1 << r) - 1) ^ ((1 << (l - 1)) - 1)) == ((1 << r) - 1) ^ ((1 << (l - 1)) - 1)"]},
+        {"when": "result == False", "guarantees": ["n & (((1 << r) - 1) ^ ((1 << (l - 1)) - 1)) != ((1 << r) - 1) ^ ((1 << (l - 1)) - 1)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"isinstance(l, int)\", \"isinstance(r, int)\", \"l >= 1\", \"r >= l\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"result == True\", \"guarantees\": [\"n & (((1 << r) - 1) ^ ((1 << (l - 1)) - 1)) == ((1 << r) - 1) ^ ((1 << (l - 1)) - 1)\"]}, {\"when\": \"result == False\", \"guarantees\": [\"n & (((1 << r) - 1) ^ ((1 << (l - 1)) - 1)) != ((1 << r) - 1) ^ ((1 << (l - 1)) - 1)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "885",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(str1, str)", "isinstance(str2, str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "len(str1) != len(str2)", "guarantees": ["result == False"]},
+        {"when": "str1 == str2", "guarantees": ["result == True"]},
+        {"when": "len(str1) == 0 and len(str2) == 0", "guarantees": ["result == True"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(str1, str)\", \"isinstance(str2, str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"len(str1) != len(str2)\", \"guarantees\": [\"result == False\"]}, {\"when\": \"str1 == str2\", \"guarantees\": [\"result == True\"]}, {\"when\": \"len(str1) == 0 and len(str2) == 0\", \"guarantees\": [\"result == True\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "886",
+    "certificate_kwargs": {
+      "preconditions": ["len(numbers) > 0", "all(isinstance(x, (int, float)) for x in numbers)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, (int, float))", "result == sum(numbers) / len(numbers)"]},
+        {"when": "all(x >= 0 for x in numbers)", "guarantees": ["result >= 0"]},
+        {"when": "all(x == numbers[0] for x in numbers)", "guarantees": ["result == numbers[0]"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"len(numbers) > 0\", \"all(isinstance(x, (int, float)) for x in numbers)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, (int, float))\", \"result == sum(numbers) / len(numbers)\"]}, {\"when\": \"all(x >= 0 for x in numbers)\", \"guarantees\": [\"result >= 0\"]}, {\"when\": \"all(x == numbers[0] for x in numbers)\", \"guarantees\": [\"result == numbers[0]\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "887",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "n % 2 == 1", "guarantees": ["result == True"]},
+        {"when": "n % 2 == 0", "guarantees": ["result == False"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"n % 2 == 1\", \"guarantees\": [\"result == True\"]}, {\"when\": \"n % 2 == 0\", \"guarantees\": [\"result == False\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "888",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(test_tup1, tuple)", "isinstance(test_tup2, tuple)", "len(test_tup1) > 0", "len(test_tup2) > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, tuple)", "len(result) == min(len(test_tup1), len(test_tup2))", "all(len(result[i]) == min(len(test_tup1[i]), len(test_tup2[i])) for i in range(len(result)))", "all(all(result[i][j] == test_tup1[i][j] - test_tup2[i][j] for j in range(len(result[i]))) for i in range(len(result)))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(test_tup1, tuple)\", \"isinstance(test_tup2, tuple)\", \"len(test_tup1) > 0\", \"len(test_tup2) > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, tuple)\", \"len(result) == min(len(test_tup1), len(test_tup2))\", \"all(len(result[i]) == min(len(test_tup1[i]), len(test_tup2[i])) for i in range(len(result)))\", \"all(all(result[i][j] == test_tup1[i][j] - test_tup2[i][j] for j in range(len(result[i]))) for i in range(len(result)))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "889",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(lists, list)", "all(isinstance(l, list) for l in lists)", "all(len(l) > 0 for l in lists)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) == len(lists)", "all(len(result[i]) == len(lists[i]) for i in range(len(result)))", "all(result[i] == sorted(result[i], reverse=True) for i in range(len(result)))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(lists, list)\", \"all(isinstance(l, list) for l in lists)\", \"all(len(l) > 0 for l in lists)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) == len(lists)\", \"all(len(result[i]) == len(lists[i]) for i in range(len(result)))\", \"all(result[i] == sorted(result[i], reverse=True) for i in range(len(result)))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "890",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(arr1, list)", "isinstance(arr2, list)", "isinstance(n, int)", "n >= 0", "len(arr1) >= n + 1", "len(arr2) >= n"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "0 <= result <= n"]},
+        {"when": "result < n", "guarantees": ["arr1[result] != arr2[result]", "all(arr1[i] == arr2[i] for i in range(result))"]},
+        {"when": "result == n", "guarantees": ["all(arr1[i] == arr2[i] for i in range(n))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(arr1, list)\", \"isinstance(arr2, list)\", \"isinstance(n, int)\", \"n >= 0\", \"len(arr1) >= n + 1\", \"len(arr2) >= n\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"0 <= result <= n\"]}, {\"when\": \"result < n\", \"guarantees\": [\"arr1[result] != arr2[result]\", \"all(arr1[i] == arr2[i] for i in range(result))\"]}, {\"when\": \"result == n\", \"guarantees\": [\"all(arr1[i] == arr2[i] for i in range(n))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "891",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(A, (int, float))", "isinstance(B, (int, float))", "A >= 0", "B >= 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "A == B", "guarantees": ["result == True"]},
+        {"when": "result == True", "guarantees": ["len(str(int(A))) == len(str(int(B)))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(A, (int, float))\", \"isinstance(B, (int, float))\", \"A >= 0\", \"B >= 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"A == B\", \"guarantees\": [\"result == True\"]}, {\"when\": \"result == True\", \"guarantees\": [\"len(str(int(A))) == len(str(int(B)))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "892",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(text, str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, str)", "len(result) <= len(text)", "'  ' not in result"]},
+        {"when": "' ' not in text", "guarantees": ["result == text"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(text, str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, str)\", \"len(result) <= len(text)\", \"'  ' not in result\"]}, {\"when\": \"' ' not in text\", \"guarantees\": [\"result == text\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "893",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(lst, list)", "len(lst) > 0", "all(len(item) > 0 for item in lst)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) == len(lst)", "all(result[i] == lst[i][-1] for i in range(len(lst)))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(lst, list)\", \"len(lst) > 0\", \"all(len(item) > 0 for item in lst)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) == len(lst)\", \"all(result[i] == lst[i][-1] for i in range(len(lst)))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "894",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(test_str, str)", "len(test_str) > 0", "all(c in '0123456789., -' for c in test_str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, tuple)", "len(result) > 0", "all(isinstance(x, float) for x in result)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(test_str, str)\", \"len(test_str) > 0\", \"all(c in '0123456789., -' for c in test_str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, tuple)\", \"len(result) > 0\", \"all(isinstance(x, float) for x in result)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "895",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(A, list)", "len(A) > 0", "all(isinstance(x, int) for x in A)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= max(A)"]},
+        {"when": "len(A) == 1", "guarantees": ["result == A[0]"]},
+        {"when": "all(x >= 0 for x in A)", "guarantees": ["result >= 0"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(A, list)\", \"len(A) > 0\", \"all(isinstance(x, int) for x in A)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= max(A)\"]}, {\"when\": \"len(A) == 1\", \"guarantees\": [\"result == A[0]\"]}, {\"when\": \"all(x >= 0 for x in A)\", \"guarantees\": [\"result >= 0\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "896",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(tuples, list)", "len(tuples) > 0", "all(isinstance(t, tuple) and len(t) > 0 for t in tuples)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) == len(tuples)", "all(t in result for t in tuples)", "all(result[i][-1] <= result[i+1][-1] for i in range(len(result) - 1))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(tuples, list)\", \"len(tuples) > 0\", \"all(isinstance(t, tuple) and len(t) > 0 for t in tuples)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) == len(tuples)\", \"all(t in result for t in tuples)\", \"all(result[i][-1] <= result[i+1][-1] for i in range(len(result) - 1))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "897",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(sentence, str)", "isinstance(word, str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "result == True", "guarantees": ["word in sentence.split(' ')"]},
+        {"when": "result == False", "guarantees": ["word not in sentence.split(' ')"]},
+        {"when": "word == ''", "guarantees": ["result == False"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(sentence, str)\", \"isinstance(word, str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"result == True\", \"guarantees\": [\"word in sentence.split(' ')\"]}, {\"when\": \"result == False\", \"guarantees\": [\"word not in sentence.split(' ')\"]}, {\"when\": \"word == ''\", \"guarantees\": [\"result == False\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "898",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(numbers, list)", "isinstance(n, int)", "n >= 1"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) <= len(numbers)", "all(x in numbers for x in result)"]},
+        {"when": "len(numbers) == 0", "guarantees": ["result == []"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(numbers, list)\", \"isinstance(n, int)\", \"n >= 1\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) <= len(numbers)\", \"all(x in numbers for x in result)\"]}, {\"when\": \"len(numbers) == 0\", \"guarantees\": [\"result == []\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "899",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(arr, list)", "isinstance(n, int)", "n == len(arr)", "n > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(arr, list)\", \"isinstance(n, int)\", \"n == len(arr)\", \"n > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "900",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(string, str)", "len(string) > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "string[0] == '5'", "guarantees": ["result == True"]},
+        {"when": "string[0] != '5'", "guarantees": ["result == False"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(string, str)\", \"len(string) > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"string[0] == '5'\", \"guarantees\": [\"result == True\"]}, {\"when\": \"string[0] != '5'\", \"guarantees\": [\"result == False\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "901",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "n >= 1"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= n", "all(result % i == 0 for i in range(1, n + 1))"]},
+        {"when": "n <= 2", "guarantees": ["result == n"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"n >= 1\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= n\", \"all(result % i == 0 for i in range(1, n + 1))\"]}, {\"when\": \"n <= 2\", \"guarantees\": [\"result == n\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "902",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(d1, dict)", "isinstance(d2, dict)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["all(k in result for k in d1)", "all(k in result for k in d2)", "all(result[k] == d1.get(k, 0) + d2.get(k, 0) for k in result)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(d1, dict)\", \"isinstance(d2, dict)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"all(k in result for k in d1)\", \"all(k in result for k in d2)\", \"all(result[k] == d1.get(k, 0) + d2.get(k, 0) for k in result)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "903",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "n >= 1"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= 0"]},
+        {"when": "n == 1", "guarantees": ["result == 0"]},
+        {"when": "n == 2", "guarantees": ["result == 1"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"n >= 1\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= 0\"]}, {\"when\": \"n == 1\", \"guarantees\": [\"result == 0\"]}, {\"when\": \"n == 2\", \"guarantees\": [\"result == 1\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "904",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(x, (int, float))"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "x % 2 == 0", "guarantees": ["result == True"]},
+        {"when": "x % 2 != 0", "guarantees": ["result == False"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(x, (int, float))\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"x % 2 == 0\", \"guarantees\": [\"result == True\"]}, {\"when\": \"x % 2 != 0\", \"guarantees\": [\"result == False\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "905",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "n >= 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= 1"]},
+        {"when": "n == 0", "guarantees": ["result == 1"]},
+        {"when": "n == 1", "guarantees": ["result == 2"]},
+        {"when": "n == 2", "guarantees": ["result == 6"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"n >= 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= 1\"]}, {\"when\": \"n == 0\", \"guarantees\": [\"result == 1\"]}, {\"when\": \"n == 1\", \"guarantees\": [\"result == 2\"]}, {\"when\": \"n == 2\", \"guarantees\": [\"result == 6\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "906",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(url, str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "all(isinstance(t, tuple) and len(t) == 3 for t in result)", "all(len(t[0]) == 4 for t in result)", "all(t[0].isdigit() and t[1].isdigit() and t[2].isdigit() for t in result)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(url, str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"all(isinstance(t, tuple) and len(t) == 3 for t in result)\", \"all(len(t[0]) == 4 for t in result)\", \"all(t[0].isdigit() and t[1].isdigit() and t[2].isdigit() for t in result)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "907",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "n >= 1"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) == n", "result[0] == 1", "all(result[i] < result[i+1] for i in range(len(result) - 1))"]},
+        {"when": "n >= 2", "guarantees": ["result[1] == 3"]},
+        {"when": "n >= 3", "guarantees": ["result[2] == 7"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"n >= 1\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) == n\", \"result[0] == 1\", \"all(result[i] < result[i+1] for i in range(len(result) - 1))\"]}, {\"when\": \"n >= 2\", \"guarantees\": [\"result[1] == 3\"]}, {\"when\": \"n >= 3\", \"guarantees\": [\"result[2] == 7\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "908",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(arr, list)", "isinstance(n, int)", "n == len(arr)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "-1 <= result < n"]},
+        {"when": "result >= 0", "guarantees": ["arr[result] == result"]},
+        {"when": "result == -1", "guarantees": ["all(arr[i] != i for i in range(n))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(arr, list)\", \"isinstance(n, int)\", \"n == len(arr)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"-1 <= result < n\"]}, {\"when\": \"result >= 0\", \"guarantees\": [\"arr[result] == result\"]}, {\"when\": \"result == -1\", \"guarantees\": [\"all(arr[i] != i for i in range(n))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "909",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(num, int)", "num >= 2"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= 1", "result < num", "str(result) == str(result)[::-1]"]},
+        {"when": "num > result + 1", "guarantees": ["all(str(x) != str(x)[::-1] for x in range(result + 1, num))"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(num, int)\", \"num >= 2\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= 1\", \"result < num\", \"str(result) == str(result)[::-1]\"]}, {\"when\": \"num > result + 1\", \"guarantees\": [\"all(str(x) != str(x)[::-1] for x in range(result + 1, num))\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "910",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(m, (int, str))", "isinstance(d, (int, str))", "isinstance(y, (int, str))"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "result == True", "guarantees": ["1 <= int(m) <= 12", "1 <= int(d) <= 31"]},
+        {"when": "result == False", "guarantees": ["int(m) < 1 or int(m) > 12 or int(d) < 1 or int(d) > 31 or True"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(m, (int, str))\", \"isinstance(d, (int, str))\", \"isinstance(y, (int, str))\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"result == True\", \"guarantees\": [\"1 <= int(m) <= 12\", \"1 <= int(d) <= 31\"]}, {\"when\": \"result == False\", \"guarantees\": [\"int(m) < 1 or int(m) > 12 or int(d) < 1 or int(d) > 31 or True\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "911",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(nums, list)", "len(nums) >= 3", "all(isinstance(x, int) for x in nums)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)"]},
+        {"when": "all(x >= 0 for x in nums)", "guarantees": ["result == sorted(nums)[-1] * sorted(nums)[-2] * sorted(nums)[-3]"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(nums, list)\", \"len(nums) >= 3\", \"all(isinstance(x, int) for x in nums)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\"]}, {\"when\": \"all(x >= 0 for x in nums)\", \"guarantees\": [\"result == sorted(nums)[-1] * sorted(nums)[-2] * sorted(nums)[-3]\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "912",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "isinstance(m, int)", "n >= 0", "m >= 0", "m <= n"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, (int, float))", "result >= 0"]},
+        {"when": "n == 0 and m == 0", "guarantees": ["result == 1"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"isinstance(m, int)\", \"n >= 0\", \"m >= 0\", \"m <= n\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, (int, float))\", \"result >= 0\"]}, {\"when\": \"n == 0 and m == 0\", \"guarantees\": [\"result == 1\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "913",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(string, str)", "len(string) > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "string[-1].isdigit()", "guarantees": ["result == True"]},
+        {"when": "not string[-1].isdigit()", "guarantees": ["result == False"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(string, str)\", \"len(string) > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"string[-1].isdigit()\", \"guarantees\": [\"result == True\"]}, {\"when\": \"not string[-1].isdigit()\", \"guarantees\": [\"result == False\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "914",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(s, str)", "len(s) >= 2"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, bool)"]},
+        {"when": "result == True", "guarantees": ["len(set(s)) == 2", "all(s[i] == s[i + 2] for i in range(len(s) - 2))", "s[0] != s[1]"]},
+        {"when": "len(set(s)) != 2", "guarantees": ["result == False"]},
+        {"when": "s[0] == s[1]", "guarantees": ["result == False"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(s, str)\", \"len(s) >= 2\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, bool)\"]}, {\"when\": \"result == True\", \"guarantees\": [\"len(set(s)) == 2\", \"all(s[i] == s[i + 2] for i in range(len(s) - 2))\", \"s[0] != s[1]\"]}, {\"when\": \"len(set(s)) != 2\", \"guarantees\": [\"result == False\"]}, {\"when\": \"s[0] == s[1]\", \"guarantees\": [\"result == False\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "915",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(array_nums, list)", "all(isinstance(x, (int, float)) for x in array_nums)", "0 not in array_nums"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) == len(array_nums)", "sorted(result) == sorted(array_nums)", "all(x > 0 for x in result[:len([x for x in array_nums if x > 0])])", "all(x < 0 for x in result[len([x for x in array_nums if x > 0]):])"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(array_nums, list)\", \"all(isinstance(x, (int, float)) for x in array_nums)\", \"0 not in array_nums\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) == len(array_nums)\", \"sorted(result) == sorted(array_nums)\", \"all(x > 0 for x in result[:len([x for x in array_nums if x > 0])])\", \"all(x < 0 for x in result[len([x for x in array_nums if x > 0]):])\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "916",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(A, list)", "isinstance(arr_size, int)", "isinstance(sum, int)", "arr_size == len(A)", "arr_size >= 3"],
+      "postconditions": [
+        {"when": "result == False", "guarantees": ["all(A[i] + A[j] + A[k] != sum for i in range(arr_size - 2) for j in range(i + 1, arr_size - 1) for k in range(j + 1, arr_size))"]},
+        {"when": "isinstance(result, tuple)", "guarantees": ["len(result) == 3", "result[0] + result[1] + result[2] == sum", "all(x in A for x in result)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(A, list)\", \"isinstance(arr_size, int)\", \"isinstance(sum, int)\", \"arr_size == len(A)\", \"arr_size >= 3\"],\n    postconditions=[{\"when\": \"result == False\", \"guarantees\": [\"all(A[i] + A[j] + A[k] != sum for i in range(arr_size - 2) for j in range(i + 1, arr_size - 1) for k in range(j + 1, arr_size))\"]}, {\"when\": \"isinstance(result, tuple)\", \"guarantees\": [\"len(result) == 3\", \"result[0] + result[1] + result[2] == sum\", \"all(x in A for x in result)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "917",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(text, str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, str)", "result in ('Found a match!', 'Not matched!')"]},
+        {"when": "result == 'Found a match!'", "guarantees": ["any(c.isupper() for c in text)", "any(c.islower() for c in text)"]},
+        {"when": "text == text.lower() or text == text.upper()", "guarantees": ["result == 'Not matched!'"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(text, str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, str)\", \"result in ('Found a match!', 'Not matched!')\"]}, {\"when\": \"result == 'Found a match!'\", \"guarantees\": [\"any(c.isupper() for c in text)\", \"any(c.islower() for c in text)\"]}, {\"when\": \"text == text.lower() or text == text.upper()\", \"guarantees\": [\"result == 'Not matched!'\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "918",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(S, list)", "isinstance(m, int)", "isinstance(n, int)", "m == len(S)", "m > 0", "n >= 0", "all(s > 0 for s in S)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= 0"]},
+        {"when": "n == 0", "guarantees": ["result == 1"]},
+        {"when": "n > 0 and all(s > n for s in S)", "guarantees": ["result == 0"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(S, list)\", \"isinstance(m, int)\", \"isinstance(n, int)\", \"m == len(S)\", \"m > 0\", \"n >= 0\", \"all(s > 0 for s in S)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= 0\"]}, {\"when\": \"n == 0\", \"guarantees\": [\"result == 1\"]}, {\"when\": \"n > 0 and all(s > n for s in S)\", \"guarantees\": [\"result == 0\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "919",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(items, list)", "all(isinstance(x, (int, float)) for x in items)", "len(items) > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, (int, float))"]},
+        {"when": "len(items) == 1", "guarantees": ["result == items[0]"]},
+        {"when": "all(x > 0 for x in items)", "guarantees": ["result > 0"]},
+        {"when": "0 in items", "guarantees": ["result == 0"]},
+        {"when": "len(items) == 2", "guarantees": ["result == items[0] * items[1]"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(items, list)\", \"all(isinstance(x, (int, float)) for x in items)\", \"len(items) > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, (int, float))\"]}, {\"when\": \"len(items) == 1\", \"guarantees\": [\"result == items[0]\"]}, {\"when\": \"all(x > 0 for x in items)\", \"guarantees\": [\"result > 0\"]}, {\"when\": \"0 in items\", \"guarantees\": [\"result == 0\"]}, {\"when\": \"len(items) == 2\", \"guarantees\": [\"result == items[0] * items[1]\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "920",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(test_list, list)", "all(isinstance(sub, tuple) for sub in test_list)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, str)"]},
+        {"when": "all(all(ele == None for ele in sub) for sub in test_list)", "guarantees": ["result == '[]'"]},
+        {"when": "not any(all(ele == None for ele in sub) for sub in test_list)", "guarantees": ["result == str(test_list)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(test_list, list)\", \"all(isinstance(sub, tuple) for sub in test_list)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, str)\"]}, {\"when\": \"all(all(ele == None for ele in sub) for sub in test_list)\", \"guarantees\": [\"result == '[]'\"]}, {\"when\": \"not any(all(ele == None for ele in sub) for sub in test_list)\", \"guarantees\": [\"result == str(test_list)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "921",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(test_tup, tuple)", "isinstance(N, int)", "N >= 1", "len(test_tup) > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, list)", "len(result) > 0"]},
+        {"when": "len(test_tup) % N == 0", "guarantees": ["len(result) == len(test_tup) // N", "all(len(chunk) == N for chunk in result)"]},
+        {"when": "len(test_tup) % N != 0", "guarantees": ["len(result) == len(test_tup) // N + 1", "len(result[-1]) == len(test_tup) % N"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(test_tup, tuple)\", \"isinstance(N, int)\", \"N >= 1\", \"len(test_tup) > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, list)\", \"len(result) > 0\"]}, {\"when\": \"len(test_tup) % N == 0\", \"guarantees\": [\"len(result) == len(test_tup) // N\", \"all(len(chunk) == N for chunk in result)\"]}, {\"when\": \"len(test_tup) % N != 0\", \"guarantees\": [\"len(result) == len(test_tup) // N + 1\", \"len(result[-1]) == len(test_tup) % N\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "922",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(arr, list)", "len(arr) >= 2", "all(isinstance(x, (int, float)) for x in arr)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, tuple)", "len(result) == 2", "result[0] in arr", "result[1] in arr"]},
+        {"when": "all(x >= 0 for x in arr)", "guarantees": ["result[0] * result[1] >= arr[0] * arr[1]"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(arr, list)\", \"len(arr) >= 2\", \"all(isinstance(x, (int, float)) for x in arr)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, tuple)\", \"len(result) == 2\", \"result[0] in arr\", \"result[1] in arr\"]}, {\"when\": \"all(x >= 0 for x in arr)\", \"guarantees\": [\"result[0] * result[1] >= arr[0] * arr[1]\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "923",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(X, str)", "isinstance(Y, str)", "isinstance(m, int)", "isinstance(n, int)", "m == len(X)", "n == len(Y)", "m >= 0", "n >= 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= max(m, n)", "result <= m + n"]},
+        {"when": "m == 0", "guarantees": ["result == n"]},
+        {"when": "n == 0", "guarantees": ["result == m"]},
+        {"when": "X == Y", "guarantees": ["result == m"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(X, str)\", \"isinstance(Y, str)\", \"isinstance(m, int)\", \"isinstance(n, int)\", \"m == len(X)\", \"n == len(Y)\", \"m >= 0\", \"n >= 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= max(m, n)\", \"result <= m + n\"]}, {\"when\": \"m == 0\", \"guarantees\": [\"result == n\"]}, {\"when\": \"n == 0\", \"guarantees\": [\"result == m\"]}, {\"when\": \"X == Y\", \"guarantees\": [\"result == m\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "924",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(x, (int, float))", "isinstance(y, (int, float))"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["result >= x", "result >= y", "result == x or result == y"]},
+        {"when": "x > y", "guarantees": ["result == x"]},
+        {"when": "x <= y", "guarantees": ["result == y"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(x, (int, float))\", \"isinstance(y, (int, float))\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"result >= x\", \"result >= y\", \"result == x or result == y\"]}, {\"when\": \"x > y\", \"guarantees\": [\"result == x\"]}, {\"when\": \"x <= y\", \"guarantees\": [\"result == y\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "925",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(nums, tuple)", "len(nums) > 0", "all(isinstance(x, (int, float)) for x in nums)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, (int, float))"]},
+        {"when": "len(nums) == 1", "guarantees": ["result == nums[0]"]},
+        {"when": "0 in nums", "guarantees": ["result == 0"]},
+        {"when": "all(x > 0 for x in nums)", "guarantees": ["result > 0"]},
+        {"when": "len(nums) == 2", "guarantees": ["result == nums[0] * nums[1]"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(nums, tuple)\", \"len(nums) > 0\", \"all(isinstance(x, (int, float)) for x in nums)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, (int, float))\"]}, {\"when\": \"len(nums) == 1\", \"guarantees\": [\"result == nums[0]\"]}, {\"when\": \"0 in nums\", \"guarantees\": [\"result == 0\"]}, {\"when\": \"all(x > 0 for x in nums)\", \"guarantees\": [\"result > 0\"]}, {\"when\": \"len(nums) == 2\", \"guarantees\": [\"result == nums[0] * nums[1]\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "926",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(n, int)", "isinstance(m, int)", "n >= 0", "m >= 0", "m <= n"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, (int, float))", "result >= 0"]},
+        {"when": "n == 0 and m == 0", "guarantees": ["result == 1"]},
+        {"when": "n == 1 and m == 0", "guarantees": ["result == 0"]},
+        {"when": "n == 1 and m == 1", "guarantees": ["result == 1"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(n, int)\", \"isinstance(m, int)\", \"n >= 0\", \"m >= 0\", \"m <= n\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, (int, float))\", \"result >= 0\"]}, {\"when\": \"n == 0 and m == 0\", \"guarantees\": [\"result == 1\"]}, {\"when\": \"n == 1 and m == 0\", \"guarantees\": [\"result == 0\"]}, {\"when\": \"n == 1 and m == 1\", \"guarantees\": [\"result == 1\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "927",
+    "certificate_kwargs": {
+      "preconditions": [],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= 0"]},
+        {"when": "node is None", "guarantees": ["result == 0"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= 0\"]}, {\"when\": \"node is None\", \"guarantees\": [\"result == 0\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "928",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(dt, str)"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, str)", "len(result) == len(dt)"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(dt, str)\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, str)\", \"len(result) == len(dt)\"]}],\n)",
+    "error": null
+  },
+  {
+    "task_id": "929",
+    "certificate_kwargs": {
+      "preconditions": ["isinstance(tuplex, tuple)", "len(tuplex) > 0"],
+      "postconditions": [
+        {"when": "always", "guarantees": ["isinstance(result, int)", "result >= 0", "result <= len(tuplex)"]},
+        {"when": "value in tuplex", "guarantees": ["result >= 1"]},
+        {"when": "value not in tuplex", "guarantees": ["result == 0"]}
+      ]
+    },
+    "raw_response": "@certus(\n    preconditions=[\"isinstance(tuplex, tuple)\", \"len(tuplex) > 0\"],\n    postconditions=[{\"when\": \"always\", \"guarantees\": [\"isinstance(result, int)\", \"result >= 0\", \"result <= len(tuplex)\"]}, {\"when\": \"value in tuplex\", \"guarantees\": [\"result >= 1\"]}, {\"when\": \"value not in tuplex\", \"guarantees\": [\"result == 0\"]}],\n)",
+    "error": null
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "total_samples": 500,
+  "num_batches": 8,
+  "batch_size": 63
+}

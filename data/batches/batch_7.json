@@ -1,0 +1,415 @@
+[
+  {
+    "task_id": "452",
+    "source": "mbpp",
+    "description": "Write a function that gives loss amount if the given amount has loss else return none.",
+    "code": "def loss_amount(actual_cost,sale_amount): \r\n  if(sale_amount > actual_cost):\r\n    amount = sale_amount - actual_cost\r\n    return amount\r\n  else:\r\n    return None",
+    "test_code": "assert loss_amount(1500,1200)==None\nassert loss_amount(100,200)==100\nassert loss_amount(2000,5000)==3000"
+  },
+  {
+    "task_id": "453",
+    "source": "mbpp",
+    "description": "Write a python function to find the sum of even factors of a number.",
+    "code": "import math \r\ndef sumofFactors(n) : \r\n    if (n % 2 != 0) : \r\n        return 0\r\n    res = 1\r\n    for i in range(2, (int)(math.sqrt(n)) + 1) :    \r\n        count = 0\r\n        curr_sum = 1\r\n        curr_term = 1\r\n        while (n % i == 0) : \r\n            count= count + 1\r\n            n = n // i \r\n            if (i == 2 and count == 1) : \r\n                curr_sum = 0\r\n            curr_term = curr_term * i \r\n            curr_sum = curr_sum + curr_term \r\n        res = res * curr_sum  \r\n    if (n >= 2) : \r\n        res = res * (1 + n) \r\n    return res ",
+    "test_code": "assert sumofFactors(18) == 26\nassert sumofFactors(30) == 48\nassert sumofFactors(6) == 8"
+  },
+  {
+    "task_id": "454",
+    "source": "mbpp",
+    "description": "Write a function that matches a word containing 'z'.",
+    "code": "import re\r\ndef text_match_wordz(text):\r\n        patterns = '\\w*z.\\w*'\r\n        if re.search(patterns,  text):\r\n                return 'Found a match!'\r\n        else:\r\n                return('Not matched!')",
+    "test_code": "assert text_match_wordz(\"pythonz.\")==('Found a match!')\nassert text_match_wordz(\"xyz.\")==('Found a match!')\nassert text_match_wordz(\"  lang  .\")==('Not matched!')"
+  },
+  {
+    "task_id": "455",
+    "source": "mbpp",
+    "description": "Write a function to check whether the given month number contains 31 days or not.",
+    "code": "def check_monthnumb_number(monthnum2):\r\n  if(monthnum2==1 or monthnum2==3 or monthnum2==5 or monthnum2==7 or monthnum2==8 or monthnum2==10 or monthnum2==12):\r\n    return True\r\n  else:\r\n    return False",
+    "test_code": "assert check_monthnumb_number(5)==True\nassert check_monthnumb_number(2)==False\nassert check_monthnumb_number(6)==False"
+  },
+  {
+    "task_id": "456",
+    "source": "mbpp",
+    "description": "Write a function to reverse strings in a given list of string values.",
+    "code": "def reverse_string_list(stringlist):\r\n    result = [x[::-1] for x in stringlist]\r\n    return result",
+    "test_code": "assert reverse_string_list(['Red', 'Green', 'Blue', 'White', 'Black'])==['deR', 'neerG', 'eulB', 'etihW', 'kcalB']\nassert reverse_string_list(['john','amal','joel','george'])==['nhoj','lama','leoj','egroeg']\nassert reverse_string_list(['jack','john','mary'])==['kcaj','nhoj','yram']"
+  },
+  {
+    "task_id": "457",
+    "source": "mbpp",
+    "description": "Write a python function to find the sublist having minimum length.",
+    "code": "def Find_Min(lst): \r\n    minList = min((x) for x in lst) \r\n    return minList",
+    "test_code": "assert Find_Min([[1],[1,2],[1,2,3]]) == [1]\nassert Find_Min([[1,1],[1,1,1],[1,2,7,8]]) == [1,1]\nassert Find_Min([['x'],['x','y'],['x','y','z']]) == ['x']"
+  },
+  {
+    "task_id": "458",
+    "source": "mbpp",
+    "description": "Write a function to find the area of a rectangle.",
+    "code": "def rectangle_area(l,b):\r\n  area=l*b\r\n  return area",
+    "test_code": "assert rectangle_area(10,20)==200\nassert rectangle_area(10,5)==50\nassert rectangle_area(4,2)==8"
+  },
+  {
+    "task_id": "459",
+    "source": "mbpp",
+    "description": "Write a function to remove uppercase substrings from a given string by using regex.",
+    "code": "import re\r\ndef remove_uppercase(str1):\r\n  remove_upper = lambda text: re.sub('[A-Z]', '', text)\r\n  result =  remove_upper(str1)\r\n  return (result)",
+    "test_code": "assert remove_uppercase('cAstyoUrFavoRitETVshoWs') == 'cstyoravoitshos'\nassert remove_uppercase('wAtchTheinTernEtrAdIo') == 'wtchheinerntrdo'\nassert remove_uppercase('VoicESeaRchAndreComMendaTionS') == 'oiceachndreomendaion'"
+  },
+  {
+    "task_id": "460",
+    "source": "mbpp",
+    "description": "Write a python function to get the first element of each sublist.",
+    "code": "def Extract(lst): \r\n    return [item[0] for item in lst] ",
+    "test_code": "assert Extract([[1, 2], [3, 4, 5], [6, 7, 8, 9]]) == [1, 3, 6]\nassert Extract([[1,2,3],[4, 5]]) == [1,4]\nassert Extract([[9,8,1],[1,2]]) == [9,1]"
+  },
+  {
+    "task_id": "461",
+    "source": "mbpp",
+    "description": "Write a python function to count the upper case characters in a given string.",
+    "code": "def upper_ctr(str):\r\n    upper_ctr = 0\r\n    for i in range(len(str)):\r\n          if str[i] >= 'A' and str[i] <= 'Z': upper_ctr += 1\r\n          return upper_ctr",
+    "test_code": "assert upper_ctr('PYthon') == 1\nassert upper_ctr('BigData') == 1\nassert upper_ctr('program') == 0"
+  },
+  {
+    "task_id": "462",
+    "source": "mbpp",
+    "description": "Write a function to find all possible combinations of the elements of a given list.",
+    "code": "def combinations_list(list1):\r\n    if len(list1) == 0:\r\n        return [[]]\r\n    result = []\r\n    for el in combinations_list(list1[1:]):\r\n        result += [el, el+[list1[0]]]\r\n    return result",
+    "test_code": "assert combinations_list(['orange', 'red', 'green', 'blue'])==[[], ['orange'], ['red'], ['red', 'orange'], ['green'], ['green', 'orange'], ['green', 'red'], ['green', 'red', 'orange'], ['blue'], ['blue', 'orange'], ['blue', 'red'], ['blue', 'red', 'orange'], ['blue', 'green'], ['blue', 'green', 'orange'], ['blue', 'green', 'red'], ['blue', 'green', 'red', 'orange']]\nassert combinations_list(['red', 'green', 'blue', 'white', 'black', 'orange'])==[[], ['red'], ['green'], ['green', 'red'], ['blue'], ['blue', 'red'], ['blue', 'green'], ['blue', 'green', 'red'], ['white'], ['white', 'red'], ['white', 'green'], ['white', 'green', 'red'], ['white', 'blue'], ['white', 'blue', 'red'], ['white', 'blue', 'green'], ['white', 'blue', 'green', 'red'], ['black'], ['black', 'red'], ['black', 'green'], ['black', 'green', 'red'], ['black', 'blue'], ['black', 'blue', 'red'], ['black', 'blue', 'green'], ['black', 'blue', 'green', 'red'], ['black', 'white'], ['black', 'white', 'red'], ['black', 'white', 'green'], ['black', 'white', 'green', 'red'], ['black', 'white', 'blue'], ['black', 'white', 'blue', 'red'], ['black', 'white', 'blue', 'green'], ['black', 'white', 'blue', 'green', 'red'], ['orange'], ['orange', 'red'], ['orange', 'green'], ['orange', 'green', 'red'], ['orange', 'blue'], ['orange', 'blue', 'red'], ['orange', 'blue', 'green'], ['orange', 'blue', 'green', 'red'], ['orange', 'white'], ['orange', 'white', 'red'], ['orange', 'white', 'green'], ['orange', 'white', 'green', 'red'], ['orange', 'white', 'blue'], ['orange', 'white', 'blue', 'red'], ['orange', 'white', 'blue', 'green'], ['orange', 'white', 'blue', 'green', 'red'], ['orange', 'black'], ['orange', 'black', 'red'], ['orange', 'black', 'green'], ['orange', 'black', 'green', 'red'], ['orange', 'black', 'blue'], ['orange', 'black', 'blue', 'red'], ['orange', 'black', 'blue', 'green'], ['orange', 'black', 'blue', 'green', 'red'], ['orange', 'black', 'white'], ['orange', 'black', 'white', 'red'], ['orange', 'black', 'white', 'green'], ['orange', 'black', 'white', 'green', 'red'], ['orange', 'black', 'white', 'blue'], ['orange', 'black', 'white', 'blue', 'red'], ['orange', 'black', 'white', 'blue', 'green'], ['orange', 'black', 'white', 'blue', 'green', 'red']]\nassert combinations_list(['red', 'green', 'black', 'orange'])==[[], ['red'], ['green'], ['green', 'red'], ['black'], ['black', 'red'], ['black', 'green'], ['black', 'green', 'red'], ['orange'], ['orange', 'red'], ['orange', 'green'], ['orange', 'green', 'red'], ['orange', 'black'], ['orange', 'black', 'red'], ['orange', 'black', 'green'], ['orange', 'black', 'green', 'red']]"
+  },
+  {
+    "task_id": "463",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum product subarray of the given array.",
+    "code": "def max_subarray_product(arr):\r\n\tn = len(arr)\r\n\tmax_ending_here = 1\r\n\tmin_ending_here = 1\r\n\tmax_so_far = 0\r\n\tflag = 0\r\n\tfor i in range(0, n):\r\n\t\tif arr[i] > 0:\r\n\t\t\tmax_ending_here = max_ending_here * arr[i]\r\n\t\t\tmin_ending_here = min (min_ending_here * arr[i], 1)\r\n\t\t\tflag = 1\r\n\t\telif arr[i] == 0:\r\n\t\t\tmax_ending_here = 1\r\n\t\t\tmin_ending_here = 1\r\n\t\telse:\r\n\t\t\ttemp = max_ending_here\r\n\t\t\tmax_ending_here = max (min_ending_here * arr[i], 1)\r\n\t\t\tmin_ending_here = temp * arr[i]\r\n\t\tif (max_so_far < max_ending_here):\r\n\t\t\tmax_so_far = max_ending_here\r\n\tif flag == 0 and max_so_far == 0:\r\n\t\treturn 0\r\n\treturn max_so_far",
+    "test_code": "assert max_subarray_product([1, -2, -3, 0, 7, -8, -2]) == 112\nassert max_subarray_product([6, -3, -10, 0, 2]) == 180 \nassert max_subarray_product([-2, -40, 0, -2, -3]) == 80"
+  },
+  {
+    "task_id": "464",
+    "source": "mbpp",
+    "description": "Write a function to check if all values are same in a dictionary.",
+    "code": "def check_value(dict, n):\r\n    result = all(x == n for x in dict.values()) \r\n    return result",
+    "test_code": "assert check_value({'Cierra Vega': 12, 'Alden Cantrell': 12, 'Kierra Gentry': 12, 'Pierre Cox': 12},10)==False\nassert check_value({'Cierra Vega': 12, 'Alden Cantrell': 12, 'Kierra Gentry': 12, 'Pierre Cox': 12},12)==True\nassert check_value({'Cierra Vega': 12, 'Alden Cantrell': 12, 'Kierra Gentry': 12, 'Pierre Cox': 12},5)==False"
+  },
+  {
+    "task_id": "465",
+    "source": "mbpp",
+    "description": "Write a function to drop empty items from a given dictionary.",
+    "code": "def drop_empty(dict1):\r\n  dict1 = {key:value for (key, value) in dict1.items() if value is not None}\r\n  return dict1",
+    "test_code": "assert drop_empty({'c1': 'Red', 'c2': 'Green', 'c3':None})=={'c1': 'Red', 'c2': 'Green'}\nassert drop_empty({'c1': 'Red', 'c2': None, 'c3':None})=={'c1': 'Red'}\nassert drop_empty({'c1': None, 'c2': 'Green', 'c3':None})=={ 'c2': 'Green'}"
+  },
+  {
+    "task_id": "466",
+    "source": "mbpp",
+    "description": "Write a function to find the peak element in the given array.",
+    "code": "def find_peak_util(arr, low, high, n): \r\n\tmid = low + (high - low)/2\r\n\tmid = int(mid) \r\n\tif ((mid == 0 or arr[mid - 1] <= arr[mid]) and\r\n\t\t(mid == n - 1 or arr[mid + 1] <= arr[mid])): \r\n\t\treturn mid \r\n\telif (mid > 0 and arr[mid - 1] > arr[mid]): \r\n\t\treturn find_peak_util(arr, low, (mid - 1), n) \r\n\telse: \r\n\t\treturn find_peak_util(arr, (mid + 1), high, n) \r\ndef find_peak(arr, n): \r\n\treturn find_peak_util(arr, 0, n - 1, n) ",
+    "test_code": "assert find_peak([1, 3, 20, 4, 1, 0], 6) == 2\nassert find_peak([2, 3, 4, 5, 6], 5) == 4\nassert find_peak([8, 9, 11, 12, 14, 15], 6) == 5 "
+  },
+  {
+    "task_id": "467",
+    "source": "mbpp",
+    "description": "Write a python function to convert decimal number to octal number.",
+    "code": "def decimal_to_Octal(deciNum):\r\n    octalNum = 0\r\n    countval = 1;\r\n    dNo = deciNum;\r\n    while (deciNum!= 0):\r\n        remainder= deciNum % 8;\r\n        octalNum+= remainder*countval;\r\n        countval= countval*10;\r\n        deciNum //= 8; \r\n    return (octalNum)",
+    "test_code": "assert decimal_to_Octal(10) == 12\nassert decimal_to_Octal(2) == 2\nassert decimal_to_Octal(33) == 41"
+  },
+  {
+    "task_id": "468",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum product formed by multiplying numbers of an increasing subsequence of that array.",
+    "code": "def max_product(arr, n ): \r\n\tmpis =[0] * (n) \r\n\tfor i in range(n): \r\n\t\tmpis[i] = arr[i] \r\n\tfor i in range(1, n): \r\n\t\tfor j in range(i): \r\n\t\t\tif (arr[i] > arr[j] and\r\n\t\t\t\t\tmpis[i] < (mpis[j] * arr[i])): \r\n\t\t\t\t\t\tmpis[i] = mpis[j] * arr[i] \r\n\treturn max(mpis)",
+    "test_code": "assert max_product([3, 100, 4, 5, 150, 6], 6) == 45000 \nassert max_product([4, 42, 55, 68, 80], 5) == 50265600\nassert max_product([10, 22, 9, 33, 21, 50, 41, 60], 8) == 21780000 "
+  },
+  {
+    "task_id": "469",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum profit earned from a maximum of k stock transactions",
+    "code": "def max_profit(price, k):\r\n    n = len(price)\r\n    final_profit = [[None for x in range(n)] for y in range(k + 1)]\r\n    for i in range(k + 1):\r\n        for j in range(n):\r\n            if i == 0 or j == 0:\r\n                final_profit[i][j] = 0\r\n            else:\r\n                max_so_far = 0\r\n                for x in range(j):\r\n                    curr_price = price[j] - price[x] + final_profit[i-1][x]\r\n                    if max_so_far < curr_price:\r\n                        max_so_far = curr_price\r\n                final_profit[i][j] = max(final_profit[i][j-1], max_so_far)\r\n    return final_profit[k][n-1]",
+    "test_code": "assert max_profit([1, 5, 2, 3, 7, 6, 4, 5], 3) == 10\nassert max_profit([2, 4, 7, 5, 4, 3, 5], 2) == 7\nassert max_profit([10, 6, 8, 4, 2], 2) == 2"
+  },
+  {
+    "task_id": "470",
+    "source": "mbpp",
+    "description": "Write a function to find the pairwise addition of the elements of the given tuples.",
+    "code": "def add_pairwise(test_tup):\r\n  res = tuple(i + j for i, j in zip(test_tup, test_tup[1:]))\r\n  return (res) ",
+    "test_code": "assert add_pairwise((1, 5, 7, 8, 10)) == (6, 12, 15, 18)\nassert add_pairwise((2, 6, 8, 9, 11)) == (8, 14, 17, 20)\nassert add_pairwise((3, 7, 9, 10, 12)) == (10, 16, 19, 22)"
+  },
+  {
+    "task_id": "471",
+    "source": "mbpp",
+    "description": "Write a python function to find remainder of array multiplication divided by n.",
+    "code": "def find_remainder(arr, lens, n): \r\n    mul = 1\r\n    for i in range(lens):  \r\n        mul = (mul * (arr[i] % n)) % n \r\n    return mul % n ",
+    "test_code": "assert find_remainder([ 100, 10, 5, 25, 35, 14 ],6,11) ==9\nassert find_remainder([1,1,1],3,1) == 0\nassert find_remainder([1,2,1],3,2) == 0"
+  },
+  {
+    "task_id": "472",
+    "source": "mbpp",
+    "description": "Write a python function to check whether the given list contains consecutive numbers or not.",
+    "code": "def check_Consecutive(l): \r\n    return sorted(l) == list(range(min(l),max(l)+1)) ",
+    "test_code": "assert check_Consecutive([1,2,3,4,5]) == True\nassert check_Consecutive([1,2,3,5,6]) == False\nassert check_Consecutive([1,2,1]) == False"
+  },
+  {
+    "task_id": "473",
+    "source": "mbpp",
+    "description": "Write a function to find the tuple intersection of elements in the given tuple list irrespective of their order.",
+    "code": "def tuple_intersection(test_list1, test_list2):\r\n  res = set([tuple(sorted(ele)) for ele in test_list1]) & set([tuple(sorted(ele)) for ele in test_list2])\r\n  return (res)",
+    "test_code": "assert tuple_intersection([(3, 4), (5, 6), (9, 10), (4, 5)] , [(5, 4), (3, 4), (6, 5), (9, 11)]) == {(4, 5), (3, 4), (5, 6)}\nassert tuple_intersection([(4, 1), (7, 4), (11, 13), (17, 14)] , [(1, 4), (7, 4), (16, 12), (10, 13)]) == {(4, 7), (1, 4)}\nassert tuple_intersection([(2, 1), (3, 2), (1, 3), (1, 4)] , [(11, 2), (2, 3), (6, 2), (1, 3)]) == {(1, 3), (2, 3)}"
+  },
+  {
+    "task_id": "474",
+    "source": "mbpp",
+    "description": "Write a function to replace characters in a string.",
+    "code": "def replace_char(str1,ch,newch):\r\n str2 = str1.replace(ch, newch)\r\n return str2",
+    "test_code": "assert replace_char(\"polygon\",'y','l')==(\"pollgon\")\nassert replace_char(\"character\",'c','a')==(\"aharaater\")\nassert replace_char(\"python\",'l','a')==(\"python\")"
+  },
+  {
+    "task_id": "475",
+    "source": "mbpp",
+    "description": "Write a function to sort counter by value.",
+    "code": "from collections import Counter\r\ndef sort_counter(dict1):\r\n x = Counter(dict1)\r\n sort_counter=x.most_common()\r\n return sort_counter",
+    "test_code": "assert sort_counter({'Math':81, 'Physics':83, 'Chemistry':87})==[('Chemistry', 87), ('Physics', 83), ('Math', 81)]\nassert sort_counter({'Math':400, 'Physics':300, 'Chemistry':250})==[('Math', 400), ('Physics', 300), ('Chemistry', 250)]\nassert sort_counter({'Math':900, 'Physics':1000, 'Chemistry':1250})==[('Chemistry', 1250), ('Physics', 1000), ('Math', 900)]"
+  },
+  {
+    "task_id": "476",
+    "source": "mbpp",
+    "description": "Write a python function to find the sum of the largest and smallest value in a given array.",
+    "code": "def big_sum(nums):\r\n      sum= max(nums)+min(nums)\r\n      return sum",
+    "test_code": "assert big_sum([1,2,3]) == 4\nassert big_sum([-1,2,3,4]) == 3\nassert big_sum([2,3,6]) == 8"
+  },
+  {
+    "task_id": "477",
+    "source": "mbpp",
+    "description": "Write a python function to convert the given string to lower case.",
+    "code": "def is_lower(string):\r\n  return (string.lower())",
+    "test_code": "assert is_lower(\"InValid\") == \"invalid\"\nassert is_lower(\"TruE\") == \"true\"\nassert is_lower(\"SenTenCE\") == \"sentence\""
+  },
+  {
+    "task_id": "478",
+    "source": "mbpp",
+    "description": "Write a function to remove lowercase substrings from a given string.",
+    "code": "import re\r\ndef remove_lowercase(str1):\r\n remove_lower = lambda text: re.sub('[a-z]', '', text)\r\n result =  remove_lower(str1)\r\n return result",
+    "test_code": "assert remove_lowercase(\"PYTHon\")==('PYTH')\nassert remove_lowercase(\"FInD\")==('FID')\nassert remove_lowercase(\"STRinG\")==('STRG')"
+  },
+  {
+    "task_id": "479",
+    "source": "mbpp",
+    "description": "Write a python function to find the first digit of a given number.",
+    "code": "def first_Digit(n) :  \r\n    while n >= 10:  \r\n        n = n / 10; \r\n    return int(n) ",
+    "test_code": "assert first_Digit(123) == 1\nassert first_Digit(456) == 4\nassert first_Digit(12) == 1"
+  },
+  {
+    "task_id": "480",
+    "source": "mbpp",
+    "description": "Write a python function to find the maximum occurring character in a given string.",
+    "code": "def get_max_occuring_char(str1):\r\n  ASCII_SIZE = 256\r\n  ctr = [0] * ASCII_SIZE\r\n  max = -1\r\n  ch = ''\r\n  for i in str1:\r\n    ctr[ord(i)]+=1;\r\n  for i in str1:\r\n    if max < ctr[ord(i)]:\r\n      max = ctr[ord(i)]\r\n      ch = i\r\n  return ch",
+    "test_code": "assert get_max_occuring_char(\"data\") == \"a\"\nassert get_max_occuring_char(\"create\") == \"e\"\nassert get_max_occuring_char(\"brilliant girl\") == \"i\""
+  },
+  {
+    "task_id": "481",
+    "source": "mbpp",
+    "description": "Write a function to determine if there is a subset of the given set with sum equal to the given sum.",
+    "code": "def is_subset_sum(set, n, sum):\r\n\tif (sum == 0):\r\n\t\treturn True\r\n\tif (n == 0):\r\n\t\treturn False\r\n\tif (set[n - 1] > sum):\r\n\t\treturn is_subset_sum(set, n - 1, sum)\r\n\treturn is_subset_sum(set, n-1, sum) or is_subset_sum(set, n-1, sum-set[n-1])",
+    "test_code": "assert is_subset_sum([3, 34, 4, 12, 5, 2], 6, 9) == True\nassert is_subset_sum([3, 34, 4, 12, 5, 2], 6, 30) == False\nassert is_subset_sum([3, 34, 4, 12, 5, 2], 6, 15) == True"
+  },
+  {
+    "task_id": "482",
+    "source": "mbpp",
+    "description": "Write a function to find sequences of one upper case letter followed by lower case letters in the given string by using regex.",
+    "code": "import re \r\ndef match(text): \r\n\t\tpattern = '[A-Z]+[a-z]+$'\r\n\t\tif re.search(pattern, text): \r\n\t\t\t\treturn('Yes') \r\n\t\telse: \r\n\t\t\t\treturn('No') ",
+    "test_code": "assert match(\"Geeks\") == 'Yes'\nassert match(\"geeksforGeeks\") == 'Yes'\nassert match(\"geeks\") == 'No'"
+  },
+  {
+    "task_id": "483",
+    "source": "mbpp",
+    "description": "Write a python function to find the first natural number whose factorial is divisible by x.",
+    "code": "def first_Factorial_Divisible_Number(x): \r\n    i = 1;\r\n    fact = 1; \r\n    for i in range(1,x): \r\n        fact = fact * i \r\n        if (fact % x == 0): \r\n            break\r\n    return i ",
+    "test_code": "assert first_Factorial_Divisible_Number(10) == 5\nassert first_Factorial_Divisible_Number(15) == 5\nassert first_Factorial_Divisible_Number(5) == 4"
+  },
+  {
+    "task_id": "484",
+    "source": "mbpp",
+    "description": "Write a function to remove the matching tuples from the given two tuples.",
+    "code": "def remove_matching_tuple(test_list1, test_list2):\r\n  res = [sub for sub in test_list1 if sub not in test_list2]\r\n  return (res) ",
+    "test_code": "assert remove_matching_tuple([('Hello', 'dude'), ('How', 'are'), ('you', '?')], [('Hello', 'dude'), ('How', 'are')]) == [('you', '?')]\nassert remove_matching_tuple([('Part', 'of'), ('the', 'journey'), ('is ', 'end')], [('Journey', 'the'), ('is', 'end')]) == [('Part', 'of'), ('the', 'journey'), ('is ', 'end')]\nassert remove_matching_tuple([('Its', 'been'), ('a', 'long'), ('day', 'without')], [('a', 'long'), ('my', 'friend')]) == [('Its', 'been'), ('day', 'without')]"
+  },
+  {
+    "task_id": "485",
+    "source": "mbpp",
+    "description": "Write a function to find the largest palindromic number in the given array.",
+    "code": "def is_palindrome(n) : \r\n\tdivisor = 1\r\n\twhile (n / divisor >= 10) : \r\n\t\tdivisor *= 10\r\n\twhile (n != 0) : \r\n\t\tleading = n // divisor \r\n\t\ttrailing = n % 10\r\n\t\tif (leading != trailing) : \r\n\t\t\treturn False\r\n\t\tn = (n % divisor) // 10\r\n\t\tdivisor = divisor // 100\r\n\treturn True\r\ndef largest_palindrome(A, n) : \r\n\tA.sort() \r\n\tfor i in range(n - 1, -1, -1) : \r\n\t\tif (is_palindrome(A[i])) : \r\n\t\t\treturn A[i] \r\n\treturn -1",
+    "test_code": "assert largest_palindrome([1, 232, 54545, 999991], 4) == 54545\nassert largest_palindrome([1, 2, 3, 4, 5, 50], 6) == 5\nassert largest_palindrome([1, 3, 7, 9, 45], 5)  == 9"
+  },
+  {
+    "task_id": "486",
+    "source": "mbpp",
+    "description": "Write a function to compute binomial probability for the given number.",
+    "code": "def nCr(n, r): \r\n\tif (r > n / 2): \r\n\t\tr = n - r \r\n\tanswer = 1 \r\n\tfor i in range(1, r + 1): \r\n\t\tanswer *= (n - r + i) \r\n\t\tanswer /= i \r\n\treturn answer \r\ndef binomial_probability(n, k, p): \r\n\treturn (nCr(n, k) * pow(p, k) *\tpow(1 - p, n - k)) ",
+    "test_code": "assert binomial_probability(10, 5, 1.0/3) == 0.13656454808718185\nassert binomial_probability(11, 6, 2.0/4) == 0.2255859375\nassert binomial_probability(12, 7, 3.0/5) == 0.227030335488"
+  },
+  {
+    "task_id": "487",
+    "source": "mbpp",
+    "description": "Write a function to sort a list of tuples in increasing order by the last element in each tuple.",
+    "code": "def sort_tuple(tup): \r\n\tlst = len(tup) \r\n\tfor i in range(0, lst): \r\n\t\tfor j in range(0, lst-i-1): \r\n\t\t\tif (tup[j][-1] > tup[j + 1][-1]): \r\n\t\t\t\ttemp = tup[j] \r\n\t\t\t\ttup[j]= tup[j + 1] \r\n\t\t\t\ttup[j + 1]= temp \r\n\treturn tup",
+    "test_code": "assert sort_tuple([(1, 3), (3, 2), (2, 1)] ) == [(2, 1), (3, 2), (1, 3)]\nassert sort_tuple([(2, 4), (3, 3), (1, 1)] ) == [(1, 1), (3, 3), (2, 4)]\nassert sort_tuple([(3, 9), (6, 7), (4, 3)] ) == [(4, 3), (6, 7), (3, 9)]"
+  },
+  {
+    "task_id": "488",
+    "source": "mbpp",
+    "description": "Write a function to find the area of a pentagon.",
+    "code": "import math\r\ndef area_pentagon(a):\r\n  area=(math.sqrt(5*(5+2*math.sqrt(5)))*pow(a,2))/4.0\r\n  return area",
+    "test_code": "assert area_pentagon(5)==43.01193501472417\nassert area_pentagon(10)==172.0477400588967\nassert area_pentagon(15)==387.10741513251753"
+  },
+  {
+    "task_id": "489",
+    "source": "mbpp",
+    "description": "Write a python function to find the frequency of the largest value in a given array.",
+    "code": "def frequency_Of_Largest(n,arr): \r\n    mn = arr[0] \r\n    freq = 1\r\n    for i in range(1,n): \r\n        if (arr[i] >mn): \r\n            mn = arr[i] \r\n            freq = 1\r\n        elif (arr[i] == mn): \r\n            freq += 1\r\n    return freq ",
+    "test_code": "assert frequency_Of_Largest(5,[1,2,3,4,4]) == 2\nassert frequency_Of_Largest(3,[5,6,5]) == 1\nassert frequency_Of_Largest(4,[2,7,7,7]) == 3"
+  },
+  {
+    "task_id": "490",
+    "source": "mbpp",
+    "description": "Write a function to extract all the pairs which are symmetric in the given tuple list.",
+    "code": "def extract_symmetric(test_list):\r\n  temp = set(test_list) & {(b, a) for a, b in test_list}\r\n  res = {(a, b) for a, b in temp if a < b}\r\n  return (res) ",
+    "test_code": "assert extract_symmetric([(6, 7), (2, 3), (7, 6), (9, 8), (10, 2), (8, 9)] ) == {(8, 9), (6, 7)}\nassert extract_symmetric([(7, 8), (3, 4), (8, 7), (10, 9), (11, 3), (9, 10)] ) == {(9, 10), (7, 8)}\nassert extract_symmetric([(8, 9), (4, 5), (9, 8), (11, 10), (12, 4), (10, 11)] ) == {(8, 9), (10, 11)}"
+  },
+  {
+    "task_id": "491",
+    "source": "mbpp",
+    "description": "Write a function to find the sum of geometric progression series.",
+    "code": "import math\r\ndef sum_gp(a,n,r):\r\n total = (a * (1 - math.pow(r, n ))) / (1- r)\r\n return total",
+    "test_code": "assert sum_gp(1,5,2)==31\nassert sum_gp(1,5,4)==341\nassert sum_gp(2,6,3)==728"
+  },
+  {
+    "task_id": "492",
+    "source": "mbpp",
+    "description": "Write a function to search an element in the given array by using binary search.",
+    "code": "def binary_search(item_list,item):\r\n\tfirst = 0\r\n\tlast = len(item_list)-1\r\n\tfound = False\r\n\twhile( first<=last and not found):\r\n\t\tmid = (first + last)//2\r\n\t\tif item_list[mid] == item :\r\n\t\t\tfound = True\r\n\t\telse:\r\n\t\t\tif item < item_list[mid]:\r\n\t\t\t\tlast = mid - 1\r\n\t\t\telse:\r\n\t\t\t\tfirst = mid + 1\t\r\n\treturn found",
+    "test_code": "assert binary_search([1,2,3,5,8], 6) == False\nassert binary_search([7, 8, 9, 10, 13], 10) == True\nassert binary_search([11, 13, 14, 19, 22, 36], 23) == False"
+  },
+  {
+    "task_id": "493",
+    "source": "mbpp",
+    "description": "Write a function to calculate a grid of hexagon coordinates where function returns a list of lists containing 6 tuples of x, y point coordinates.",
+    "code": "import math\r\ndef calculate_polygons(startx, starty, endx, endy, radius):\r\n    sl = (2 * radius) * math.tan(math.pi / 6)\r\n    p = sl * 0.5\r\n    b = sl * math.cos(math.radians(30))\r\n    w = b * 2\r\n    h = 2 * sl   \r\n    startx = startx - w\r\n    starty = starty - h\r\n    endx = endx + w\r\n    endy = endy + h\r\n    origx = startx\r\n    origy = starty\r\n    xoffset = b\r\n    yoffset = 3 * p\r\n    polygons = []\r\n    row = 1\r\n    counter = 0\r\n    while starty < endy:\r\n        if row % 2 == 0:\r\n            startx = origx + xoffset\r\n        else:\r\n            startx = origx\r\n        while startx < endx:\r\n            p1x = startx\r\n            p1y = starty + p\r\n            p2x = startx\r\n            p2y = starty + (3 * p)\r\n            p3x = startx + b\r\n            p3y = starty + h\r\n            p4x = startx + w\r\n            p4y = starty + (3 * p)\r\n            p5x = startx + w\r\n            p5y = starty + p\r\n            p6x = startx + b\r\n            p6y = starty\r\n            poly = [\r\n                (p1x, p1y),\r\n                (p2x, p2y),\r\n                (p3x, p3y),\r\n                (p4x, p4y),\r\n                (p5x, p5y),\r\n                (p6x, p6y),\r\n                (p1x, p1y)]\r\n            polygons.append(poly)\r\n            counter += 1\r\n            startx += w\r\n        starty += yoffset\r\n        row += 1\r\n    return polygons",
+    "test_code": "assert calculate_polygons(1,1, 4, 4, 3)==[[(-5.0, -4.196152422706632), (-5.0, -0.7320508075688767), (-2.0, 1.0), (1.0, -0.7320508075688767), (1.0, -4.196152422706632), (-2.0, -5.928203230275509), (-5.0, -4.196152422706632)], [(1.0, -4.196152422706632), (1.0, -0.7320508075688767), (4.0, 1.0), (7.0, -0.7320508075688767), (7.0, -4.196152422706632), (4.0, -5.928203230275509), (1.0, -4.196152422706632)], [(7.0, -4.196152422706632), (7.0, -0.7320508075688767), (10.0, 1.0), (13.0, -0.7320508075688767), (13.0, -4.196152422706632), (10.0, -5.928203230275509), (7.0, -4.196152422706632)], [(-2.0, 1.0000000000000004), (-2.0, 4.464101615137755), (1.0, 6.196152422706632), (4.0, 4.464101615137755), (4.0, 1.0000000000000004), (1.0, -0.7320508075688767), (-2.0, 1.0000000000000004)], [(4.0, 1.0000000000000004), (4.0, 4.464101615137755), (7.0, 6.196152422706632), (10.0, 4.464101615137755), (10.0, 1.0000000000000004), (7.0, -0.7320508075688767), (4.0, 1.0000000000000004)], [(-5.0, 6.196152422706632), (-5.0, 9.660254037844387), (-2.0, 11.392304845413264), (1.0, 9.660254037844387), (1.0, 6.196152422706632), (-2.0, 4.464101615137755), (-5.0, 6.196152422706632)], [(1.0, 6.196152422706632), (1.0, 9.660254037844387), (4.0, 11.392304845413264), (7.0, 9.660254037844387), (7.0, 6.196152422706632), (4.0, 4.464101615137755), (1.0, 6.196152422706632)], [(7.0, 6.196152422706632), (7.0, 9.660254037844387), (10.0, 11.392304845413264), (13.0, 9.660254037844387), (13.0, 6.196152422706632), (10.0, 4.464101615137755), (7.0, 6.196152422706632)], [(-2.0, 11.392304845413264), (-2.0, 14.85640646055102), (1.0, 16.588457268119896), (4.0, 14.85640646055102), (4.0, 11.392304845413264), (1.0, 9.660254037844387), (-2.0, 11.392304845413264)], [(4.0, 11.392304845413264), (4.0, 14.85640646055102), (7.0, 16.588457268119896), (10.0, 14.85640646055102), (10.0, 11.392304845413264), (7.0, 9.660254037844387), (4.0, 11.392304845413264)]]\nassert calculate_polygons(5,4,7,9,8)==[[(-11.0, -9.856406460551018), (-11.0, -0.6188021535170058), (-3.0, 4.0), (5.0, -0.6188021535170058), (5.0, -9.856406460551018), (-3.0, -14.475208614068023), (-11.0, -9.856406460551018)], [(5.0, -9.856406460551018), (5.0, -0.6188021535170058), (13.0, 4.0), (21.0, -0.6188021535170058), (21.0, -9.856406460551018), (13.0, -14.475208614068023), (5.0, -9.856406460551018)], [(21.0, -9.856406460551018), (21.0, -0.6188021535170058), (29.0, 4.0), (37.0, -0.6188021535170058), (37.0, -9.856406460551018), (29.0, -14.475208614068023), (21.0, -9.856406460551018)], [(-3.0, 4.0), (-3.0, 13.237604307034012), (5.0, 17.856406460551018), (13.0, 13.237604307034012), (13.0, 4.0), (5.0, -0.6188021535170058), (-3.0, 4.0)], [(13.0, 4.0), (13.0, 13.237604307034012), (21.0, 17.856406460551018), (29.0, 13.237604307034012), (29.0, 4.0), (21.0, -0.6188021535170058), (13.0, 4.0)], [(-11.0, 17.856406460551018), (-11.0, 27.09401076758503), (-3.0, 31.712812921102035), (5.0, 27.09401076758503), (5.0, 17.856406460551018), (-3.0, 13.237604307034012), (-11.0, 17.856406460551018)], [(5.0, 17.856406460551018), (5.0, 27.09401076758503), (13.0, 31.712812921102035), (21.0, 27.09401076758503), (21.0, 17.856406460551018), (13.0, 13.237604307034012), (5.0, 17.856406460551018)], [(21.0, 17.856406460551018), (21.0, 27.09401076758503), (29.0, 31.712812921102035), (37.0, 27.09401076758503), (37.0, 17.856406460551018), (29.0, 13.237604307034012), (21.0, 17.856406460551018)], [(-3.0, 31.712812921102035), (-3.0, 40.95041722813605), (5.0, 45.569219381653056), (13.0, 40.95041722813605), (13.0, 31.712812921102035), (5.0, 27.09401076758503), (-3.0, 31.712812921102035)], [(13.0, 31.712812921102035), (13.0, 40.95041722813605), (21.0, 45.569219381653056), (29.0, 40.95041722813605), (29.0, 31.712812921102035), (21.0, 27.09401076758503), (13.0, 31.712812921102035)]]\nassert calculate_polygons(9,6,4,3,2)==[[(5.0, 2.5358983848622456), (5.0, 4.8452994616207485), (7.0, 6.0), (9.0, 4.8452994616207485), (9.0, 2.5358983848622456), (7.0, 1.3811978464829942), (5.0, 2.5358983848622456)], [(7.0, 6.0), (7.0, 8.309401076758503), (9.0, 9.464101615137753), (11.0, 8.309401076758503), (11.0, 6.0), (9.0, 4.8452994616207485), (7.0, 6.0)]]"
+  },
+  {
+    "task_id": "494",
+    "source": "mbpp",
+    "description": "Write a function to convert the given binary tuple to integer.",
+    "code": "def binary_to_integer(test_tup):\r\n  res = int(\"\".join(str(ele) for ele in test_tup), 2)\r\n  return (str(res)) ",
+    "test_code": "assert binary_to_integer((1, 1, 0, 1, 0, 0, 1)) == '105'\nassert binary_to_integer((0, 1, 1, 0, 0, 1, 0, 1)) == '101'\nassert binary_to_integer((1, 1, 0, 1, 0, 1)) == '53'"
+  },
+  {
+    "task_id": "495",
+    "source": "mbpp",
+    "description": "Write a function to remove lowercase substrings from a given string by using regex.",
+    "code": "import re\r\ndef remove_lowercase(str1):\r\n  remove_lower = lambda text: re.sub('[a-z]', '', text)\r\n  result =  remove_lower(str1)\r\n  return (result)",
+    "test_code": "assert remove_lowercase('KDeoALOklOOHserfLoAJSIskdsf') == 'KDALOOOHLAJSI'\nassert remove_lowercase('ProducTnamEstreAmIngMediAplAYer') == 'PTEAIMAAY'\nassert remove_lowercase('maNufacTuredbYSheZenTechNolOGIes') == 'NTYSZTNOGI'"
+  },
+  {
+    "task_id": "496",
+    "source": "mbpp",
+    "description": "Write a function to find the smallest integers from a given list of numbers using heap queue algorithm.",
+    "code": "import heapq as hq\r\ndef heap_queue_smallest(nums,n):\r\n  smallest_nums = hq.nsmallest(n, nums)\r\n  return smallest_nums",
+    "test_code": "assert heap_queue_smallest( [25, 35, 22, 85, 14, 65, 75, 25, 58],3)==[14, 22, 25] \nassert heap_queue_smallest( [25, 35, 22, 85, 14, 65, 75, 25, 58],2)==[14, 22]\nassert heap_queue_smallest( [25, 35, 22, 85, 14, 65, 75, 22, 58],5)==[14, 22, 22, 25, 35]"
+  },
+  {
+    "task_id": "497",
+    "source": "mbpp",
+    "description": "Write a function to find the surface area of a cone.",
+    "code": "import math\r\ndef surfacearea_cone(r,h):\r\n  l = math.sqrt(r * r + h * h)\r\n  SA = math.pi * r * (r + l)\r\n  return SA",
+    "test_code": "assert surfacearea_cone(5,12)==282.7433388230814\nassert surfacearea_cone(10,15)==880.5179353159282\nassert surfacearea_cone(19,17)==2655.923961165254"
+  },
+  {
+    "task_id": "498",
+    "source": "mbpp",
+    "description": "Write a python function to find gcd of two positive integers.",
+    "code": "def gcd(x, y):\r\n    gcd = 1\r\n    if x % y == 0:\r\n        return y\r\n    for k in range(int(y / 2), 0, -1):\r\n        if x % k == 0 and y % k == 0:\r\n            gcd = k\r\n            break  \r\n    return gcd",
+    "test_code": "assert gcd(12, 17) == 1\nassert gcd(4,6) == 2\nassert gcd(2,9) == 1"
+  },
+  {
+    "task_id": "499",
+    "source": "mbpp",
+    "description": "Write a function to find the diameter of a circle.",
+    "code": "def diameter_circle(r):\r\n  diameter=2*r\r\n  return diameter",
+    "test_code": "assert diameter_circle(10)==20\nassert diameter_circle(40)==80\nassert diameter_circle(15)==30"
+  },
+  {
+    "task_id": "500",
+    "source": "mbpp",
+    "description": "Write a function to concatenate all elements of the given list into a string.",
+    "code": "def concatenate_elements(list):\r\n  ans = ' '\r\n  for i in list:\r\n    ans = ans+ ' '+i\r\n  return (ans) ",
+    "test_code": "assert concatenate_elements(['hello','there','have','a','rocky','day'] ) == '  hello there have a rocky day'\nassert concatenate_elements([ 'Hi', 'there', 'How','are', 'you'] ) == '  Hi there How are you'\nassert concatenate_elements([ 'Part', 'of', 'the','journey', 'is', 'end'] ) == '  Part of the journey is end'"
+  },
+  {
+    "task_id": "501",
+    "source": "mbpp",
+    "description": "Write a python function to find common divisor between two numbers in a given pair.",
+    "code": "def ngcd(x,y):\r\n    i=1\r\n    while(i<=x and i<=y):\r\n        if(x%i==0 and y%i == 0):\r\n            gcd=i;\r\n        i+=1\r\n    return gcd;\r\ndef num_comm_div(x,y):\r\n  n = ngcd(x,y)\r\n  result = 0\r\n  z = int(n**0.5)\r\n  i = 1\r\n  while(i <= z):\r\n    if(n % i == 0):\r\n      result += 2 \r\n      if(i == n/i):\r\n        result-=1\r\n    i+=1\r\n  return result",
+    "test_code": "assert num_comm_div(2,4) == 2\nassert num_comm_div(2,8) == 2\nassert num_comm_div(12,24) == 6"
+  },
+  {
+    "task_id": "502",
+    "source": "mbpp",
+    "description": "Write a python function to find remainder of two numbers.",
+    "code": "def find(n,m):\r\n  r = n%m\r\n  return (r)",
+    "test_code": "assert find(3,3) == 0\nassert find(10,3) == 1\nassert find(16,5) == 1"
+  },
+  {
+    "task_id": "503",
+    "source": "mbpp",
+    "description": "Write a function to add consecutive numbers of a given list.",
+    "code": "def add_consecutive_nums(nums):\r\n    result = [b+a for a, b in zip(nums[:-1], nums[1:])]\r\n    return result",
+    "test_code": "assert add_consecutive_nums([1, 1, 3, 4, 4, 5, 6, 7])==[2, 4, 7, 8, 9, 11, 13]\nassert add_consecutive_nums([4, 5, 8, 9, 6, 10])==[9, 13, 17, 15, 16]\nassert add_consecutive_nums([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])==[3, 5, 7, 9, 11, 13, 15, 17, 19]"
+  },
+  {
+    "task_id": "504",
+    "source": "mbpp",
+    "description": "Write a python function to find the cube sum of first n natural numbers.",
+    "code": "def sum_Of_Series(n): \r\n    sum = 0\r\n    for i in range(1,n + 1): \r\n        sum += i * i*i       \r\n    return sum",
+    "test_code": "assert sum_Of_Series(5) == 225\nassert sum_Of_Series(2) == 9\nassert sum_Of_Series(3) == 36"
+  },
+  {
+    "task_id": "505",
+    "source": "mbpp",
+    "description": "Write a function to move all zeroes to the end of the given array.",
+    "code": "def re_order(A):\r\n    k = 0\r\n    for i in A:\r\n        if i:\r\n            A[k] = i\r\n            k = k + 1\r\n    for i in range(k, len(A)):\r\n        A[i] = 0\r\n    return A",
+    "test_code": "assert re_order([6, 0, 8, 2, 3, 0, 4, 0, 1]) == [6, 8, 2, 3, 4, 1, 0, 0, 0]\nassert re_order([4, 0, 2, 7, 0, 9, 0, 12, 0]) == [4, 2, 7, 9, 12, 0, 0, 0, 0]\nassert re_order([3, 11, 0, 74, 14, 0, 1, 0, 2]) == [3, 11, 74, 14, 1, 2, 0, 0, 0]"
+  },
+  {
+    "task_id": "506",
+    "source": "mbpp",
+    "description": "Write a function to calculate the permutation coefficient of given p(n, k).",
+    "code": "def permutation_coefficient(n, k): \r\n\tP = [[0 for i in range(k + 1)] \r\n\t\t\tfor j in range(n + 1)] \r\n\tfor i in range(n + 1): \r\n\t\tfor j in range(min(i, k) + 1): \r\n\t\t\tif (j == 0): \r\n\t\t\t\tP[i][j] = 1\r\n\t\t\telse: \r\n\t\t\t\tP[i][j] = P[i - 1][j] + ( \r\n\t\t\t\t\t\tj * P[i - 1][j - 1]) \r\n\t\t\tif (j < k): \r\n\t\t\t\tP[i][j + 1] = 0\r\n\treturn P[n][k] ",
+    "test_code": "assert permutation_coefficient(10, 2) == 90\nassert permutation_coefficient(10, 3) == 720\nassert permutation_coefficient(10, 1) == 10"
+  },
+  {
+    "task_id": "507",
+    "source": "mbpp",
+    "description": "Write a function to remove specific words from a given list.",
+    "code": "def remove_words(list1, removewords):\r\n    for word in list(list1):\r\n        if word in removewords:\r\n            list1.remove(word)\r\n    return list1  ",
+    "test_code": "assert remove_words(['red', 'green', 'blue', 'white', 'black', 'orange'],['white', 'orange'])==['red', 'green', 'blue', 'black']\nassert remove_words(['red', 'green', 'blue', 'white', 'black', 'orange'],['black', 'orange'])==['red', 'green', 'blue', 'white']\nassert remove_words(['red', 'green', 'blue', 'white', 'black', 'orange'],['blue', 'white'])==['red', 'green', 'black', 'orange']"
+  },
+  {
+    "task_id": "508",
+    "source": "mbpp",
+    "description": "Write a function to check if the common elements between two given lists are in the same order or not.",
+    "code": "def same_order(l1, l2):\r\n    common_elements = set(l1) & set(l2)\r\n    l1 = [e for e in l1 if e in common_elements]\r\n    l2 = [e for e in l2 if e in common_elements]\r\n    return l1 == l2",
+    "test_code": "assert same_order([\"red\",\"green\",\"black\",\"orange\"],[\"red\",\"pink\",\"green\",\"white\",\"black\"])==True\nassert same_order([\"red\",\"pink\",\"green\",\"white\",\"black\"],[\"white\",\"orange\",\"pink\",\"black\"])==False\nassert same_order([\"red\",\"green\",\"black\",\"orange\"],[\"red\",\"pink\",\"green\",\"white\",\"black\"])==True"
+  },
+  {
+    "task_id": "509",
+    "source": "mbpp",
+    "description": "Write a python function to find the average of odd numbers till a given odd number.",
+    "code": "def average_Odd(n) : \r\n    if (n%2==0) : \r\n        return (\"Invalid Input\") \r\n        return -1 \r\n    sm =0\r\n    count =0\r\n    while (n>=1) : \r\n        count=count+1\r\n        sm = sm + n \r\n        n = n-2\r\n    return sm//count ",
+    "test_code": "assert average_Odd(9) == 5\nassert average_Odd(5) == 3\nassert average_Odd(11) == 6"
+  },
+  {
+    "task_id": "510",
+    "source": "mbpp",
+    "description": "Write a function to find the number of subsequences having product smaller than k for the given non negative array.",
+    "code": "def no_of_subsequences(arr, k): \r\n\tn = len(arr) \r\n\tdp = [[0 for i in range(n + 1)] \r\n\t\t\tfor j in range(k + 1)] \r\n\tfor i in range(1, k + 1): \r\n\t\tfor j in range(1, n + 1): \r\n\t\t\tdp[i][j] = dp[i][j - 1] \r\n\t\t\tif arr[j - 1] <= i and arr[j - 1] > 0: \r\n\t\t\t\tdp[i][j] += dp[i // arr[j - 1]][j - 1] + 1\r\n\treturn dp[k][n]",
+    "test_code": "assert no_of_subsequences([1,2,3,4], 10) == 11\nassert no_of_subsequences([4,8,7,2], 50) == 9\nassert no_of_subsequences([5,6,7,8], 15) == 4"
+  }
+]

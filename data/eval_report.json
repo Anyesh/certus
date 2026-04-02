@@ -1,0 +1,80 @@
+{
+  "total": 90,
+  "parsed": 90,
+  "parse_rate": 1.0,
+  "structural_pass": 82,
+  "structural_rate": 0.9111,
+  "dynamic_pass": 75,
+  "dynamic_rate": 0.8333,
+  "tautological": 1,
+  "tautological_rate": 0.0111,
+  "failures": {
+    "parse_failed": [],
+    "structural_failed": [
+      {
+        "task_id": "511",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "512",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "519",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "541",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "573",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "592",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      },
+      {
+        "task_id": "596",
+        "reason": "Validation errors (unsafe expressions or malformed certificate)"
+      }
+    ],
+    "dynamic_failed": [
+      {
+        "task_id": "518",
+        "reason": "Postcondition violated"
+      },
+      {
+        "task_id": "543",
+        "reason": "Postcondition violated"
+      },
+      {
+        "task_id": "574",
+        "reason": "Postcondition violated"
+      },
+      {
+        "task_id": "575",
+        "reason": "Postcondition violated"
+      },
+      {
+        "task_id": "581",
+        "reason": "Postcondition violated"
+      },
+      {
+        "task_id": "590",
+        "reason": "Postcondition violated"
+      },
+      {
+        "task_id": "598",
+        "reason": "Postcondition violated"
+      }
+    ],
+    "tautological": [
+      {
+        "task_id": "594",
+        "reason": "Tautological: strength 0.0 below threshold 0.1"
+      }
+    ]
+  }
+}

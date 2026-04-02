@@ -1,0 +1,443 @@
+[
+  {
+    "task_id": "200",
+    "source": "mbpp",
+    "description": "Write a function to find all index positions of the maximum values in a given list.",
+    "code": "def position_max(list1):\r\n    max_val = max(list1)\r\n    max_result = [i for i, j in enumerate(list1) if j == max_val]\r\n    return max_result",
+    "test_code": "assert position_max([12,33,23,10,67,89,45,667,23,12,11,10,54])==[7]\nassert position_max([1,2,2,2,4,4,4,5,5,5,5])==[7,8,9,10]\nassert position_max([2,1,5,6,8,3,4,9,10,11,8,12])==[11]"
+  },
+  {
+    "task_id": "201",
+    "source": "mbpp",
+    "description": "Write a python function to check whether the elements in a list are same or not.",
+    "code": "def chkList(lst): \r\n    return len(set(lst)) == 1",
+    "test_code": "assert chkList(['one','one','one']) == True\nassert chkList(['one','Two','Three']) == False\nassert chkList(['bigdata','python','Django']) == False"
+  },
+  {
+    "task_id": "202",
+    "source": "mbpp",
+    "description": "Write a function to remove even characters in a string.",
+    "code": "def remove_even(str1):\r\n str2 = ''\r\n for i in range(1, len(str1) + 1):\r\n    if(i % 2 != 0):\r\n        str2 = str2 + str1[i - 1]\r\n return str2",
+    "test_code": "assert remove_even(\"python\")==(\"pto\")\nassert remove_even(\"program\")==(\"porm\")\nassert remove_even(\"language\")==(\"lnug\")"
+  },
+  {
+    "task_id": "203",
+    "source": "mbpp",
+    "description": "Write a python function to find the hamming distance between given two integers.",
+    "code": "def hamming_Distance(n1,n2) : \r\n    x = n1 ^ n2  \r\n    setBits = 0\r\n    while (x > 0) : \r\n        setBits += x & 1\r\n        x >>= 1\r\n    return setBits  ",
+    "test_code": "assert hamming_Distance(4,8) == 2\nassert hamming_Distance(2,4) == 2\nassert hamming_Distance(1,2) == 2"
+  },
+  {
+    "task_id": "204",
+    "source": "mbpp",
+    "description": "Write a python function to count the occurrence of a given character in a string.",
+    "code": "def count(s,c) : \r\n    res = 0 \r\n    for i in range(len(s)) : \r\n        if (s[i] == c): \r\n            res = res + 1\r\n    return res ",
+    "test_code": "assert count(\"abcc\",\"c\") == 2\nassert count(\"ababca\",\"a\") == 3\nassert count(\"mnmm0pm\",\"m\") == 4"
+  },
+  {
+    "task_id": "205",
+    "source": "mbpp",
+    "description": "Write a function to find the inversions of tuple elements in the given tuple list.",
+    "code": "def inversion_elements(test_tup):\r\n  res = tuple(list(map(lambda x: ~x, list(test_tup))))\r\n  return (res) ",
+    "test_code": "assert inversion_elements((7, 8, 9, 1, 10, 7)) == (-8, -9, -10, -2, -11, -8)\nassert inversion_elements((2, 4, 5, 6, 1, 7)) == (-3, -5, -6, -7, -2, -8)\nassert inversion_elements((8, 9, 11, 14, 12, 13)) == (-9, -10, -12, -15, -13, -14)"
+  },
+  {
+    "task_id": "206",
+    "source": "mbpp",
+    "description": "Write a function to perform the adjacent element concatenation in the given tuples.",
+    "code": "def concatenate_elements(test_tup):\r\n  res = tuple(i + j for i, j in zip(test_tup, test_tup[1:]))\r\n  return (res) ",
+    "test_code": "assert concatenate_elements((\"DSP \", \"IS \", \"BEST \", \"FOR \", \"ALL \", \"UTS\")) == ('DSP IS ', 'IS BEST ', 'BEST FOR ', 'FOR ALL ', 'ALL UTS')\nassert concatenate_elements((\"RES \", \"IS \", \"BEST \", \"FOR \", \"ALL \", \"QESR\")) == ('RES IS ', 'IS BEST ', 'BEST FOR ', 'FOR ALL ', 'ALL QESR')\nassert concatenate_elements((\"MSAM\", \"IS \", \"BEST \", \"FOR \", \"ALL \", \"SKD\")) == ('MSAMIS ', 'IS BEST ', 'BEST FOR ', 'FOR ALL ', 'ALL SKD')"
+  },
+  {
+    "task_id": "207",
+    "source": "mbpp",
+    "description": "Write a function to count the longest repeating subsequences such that the two subsequences don\u2019t have same string characters at same positions.",
+    "code": "def find_longest_repeating_subseq(str): \r\n\tn = len(str) \r\n\tdp = [[0 for k in range(n+1)] for l in range(n+1)] \r\n\tfor i in range(1, n+1): \r\n\t\tfor j in range(1, n+1): \r\n\t\t\tif (str[i-1] == str[j-1] and i != j): \r\n\t\t\t\tdp[i][j] = 1 + dp[i-1][j-1] \r\n\t\t\telse: \r\n\t\t\t\tdp[i][j] = max(dp[i][j-1], dp[i-1][j]) \r\n\treturn dp[n][n]",
+    "test_code": "assert find_longest_repeating_subseq(\"AABEBCDD\") == 3\nassert find_longest_repeating_subseq(\"aabb\") == 2\nassert find_longest_repeating_subseq(\"aab\") == 1"
+  },
+  {
+    "task_id": "208",
+    "source": "mbpp",
+    "description": "Write a function to check the given decimal with a precision of 2 by using regex.",
+    "code": "import re\r\ndef is_decimal(num):\r\n  num_fetch = re.compile(r\"\"\"^[0-9]+(\\.[0-9]{1,2})?$\"\"\")\r\n  result = num_fetch.search(num)\r\n  return bool(result)",
+    "test_code": "assert is_decimal('123.11') == True\nassert is_decimal('0.21') == True\nassert is_decimal('123.1214') == False"
+  },
+  {
+    "task_id": "209",
+    "source": "mbpp",
+    "description": "Write a function to delete the smallest element from the given heap and then insert a new item.",
+    "code": "import heapq as hq\r\ndef heap_replace(heap,a):\r\n  hq.heapify(heap)\r\n  hq.heapreplace(heap, a)\r\n  return heap",
+    "test_code": "assert heap_replace( [25, 44, 68, 21, 39, 23, 89],21)==[21, 25, 23, 44, 39, 68, 89]\nassert heap_replace([25, 44, 68, 21, 39, 23, 89],110)== [23, 25, 68, 44, 39, 110, 89]\nassert heap_replace([25, 44, 68, 21, 39, 23, 89],500)==[23, 25, 68, 44, 39, 500, 89]"
+  },
+  {
+    "task_id": "210",
+    "source": "mbpp",
+    "description": "Write a function to check that the given string contains only a certain set of characters(in this case a-z, a-z and 0-9) by using regex.",
+    "code": "import re\r\ndef is_allowed_specific_char(string):\r\n    get_char = re.compile(r'[^a-zA-Z0-9.]')\r\n    string = get_char.search(string)\r\n    return not bool(string)",
+    "test_code": "assert is_allowed_specific_char(\"ABCDEFabcdef123450\") == True\nassert is_allowed_specific_char(\"*&%@#!}{\") == False\nassert is_allowed_specific_char(\"HELLOhowareyou98765\") == True"
+  },
+  {
+    "task_id": "211",
+    "source": "mbpp",
+    "description": "Write a python function to count numbers whose oth and nth bits are set.",
+    "code": "def count_Num(n): \r\n    if (n == 1): \r\n        return 1\r\n    count = pow(2,n - 2) \r\n    return count ",
+    "test_code": "assert count_Num(2) == 1\nassert count_Num(3) == 2\nassert count_Num(1) == 1"
+  },
+  {
+    "task_id": "212",
+    "source": "mbpp",
+    "description": "Write a python function to find the sum of fourth power of n natural numbers.",
+    "code": "import math  \r\ndef fourth_Power_Sum(n): \r\n    sum = 0\r\n    for i in range(1,n+1) : \r\n        sum = sum + (i*i*i*i) \r\n    return sum",
+    "test_code": "assert fourth_Power_Sum(2) == 17\nassert fourth_Power_Sum(4) == 354\nassert fourth_Power_Sum(6) == 2275"
+  },
+  {
+    "task_id": "213",
+    "source": "mbpp",
+    "description": "Write a function to perform the concatenation of two string tuples.",
+    "code": "def concatenate_strings(test_tup1, test_tup2):\r\n  res = tuple(ele1 + ele2 for ele1, ele2 in zip(test_tup1, test_tup2))\r\n  return (res) ",
+    "test_code": "assert concatenate_strings((\"Manjeet\", \"Nikhil\", \"Akshat\"), (\" Singh\", \" Meherwal\", \" Garg\")) == ('Manjeet Singh', 'Nikhil Meherwal', 'Akshat Garg')\nassert concatenate_strings((\"Shaik\", \"Ayesha\", \"Sanya\"), (\" Dawood\", \" Begum\", \" Singh\")) == ('Shaik Dawood', 'Ayesha Begum', 'Sanya Singh')\nassert concatenate_strings((\"Harpreet\", \"Priyanka\", \"Muskan\"), (\"Kour\", \" Agarwal\", \"Sethi\")) == ('HarpreetKour', 'Priyanka Agarwal', 'MuskanSethi')"
+  },
+  {
+    "task_id": "214",
+    "source": "mbpp",
+    "description": "Write a function to convert radians to degrees.",
+    "code": "import math\r\ndef degree_radian(radian):\r\n degree = radian*(180/math.pi)\r\n return degree",
+    "test_code": "assert degree_radian(90)==5156.620156177409\nassert degree_radian(60)==3437.746770784939\nassert degree_radian(120)==6875.493541569878"
+  },
+  {
+    "task_id": "215",
+    "source": "mbpp",
+    "description": "Write a function to decode a run-length encoded given list.",
+    "code": "def decode_list(alist):\r\n    def aux(g):\r\n        if isinstance(g, list):\r\n            return [(g[1], range(g[0]))]\r\n        else:\r\n            return [(g, [0])]\r\n    return [x for g in alist for x, R in aux(g) for i in R]",
+    "test_code": "assert decode_list([[2, 1], 2, 3, [2, 4], 5,1])==[1,1,2,3,4,4,5,1]\nassert decode_list(['a', 'u', 't', 'o', 'm', 'a', 't', 'i', 'c', 'a', [2, 'l'], 'y'])==['a', 'u', 't', 'o', 'm', 'a', 't', 'i', 'c', 'a', 'l', 'l', 'y']\nassert decode_list(['p', 'y', 't', 'h', 'o', 'n'])==['p', 'y', 't', 'h', 'o', 'n']"
+  },
+  {
+    "task_id": "216",
+    "source": "mbpp",
+    "description": "Write a function to check if a nested list is a subset of another nested list.",
+    "code": "def check_subset_list(list1, list2): \r\n    l1, l2 = list1[0], list2[0] \r\n    exist = True\r\n    for i in list2: \r\n        if i not in list1: \r\n            exist = False\r\n    return exist ",
+    "test_code": "assert check_subset_list([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],[[12, 18, 23, 25, 45], [7, 11, 19, 24, 28], [1, 5, 8, 18, 15, 16]])==False\nassert check_subset_list([[2, 3, 1], [4, 5], [6, 8]],[[4, 5], [6, 8]])==True\nassert check_subset_list([['a', 'b'], ['e'], ['c', 'd']],[['g']])==False"
+  },
+  {
+    "task_id": "217",
+    "source": "mbpp",
+    "description": "Write a python function to find the first repeated character in a given string.",
+    "code": "def first_Repeated_Char(str): \r\n    h = {}\r\n    for ch in str:\r\n        if ch in h: \r\n            return ch;\r\n        else: \r\n            h[ch] = 0\r\n    return '\\0'",
+    "test_code": "assert first_Repeated_Char(\"Google\") == \"o\"\nassert first_Repeated_Char(\"data\") == \"a\"\nassert first_Repeated_Char(\"python\") == '\\0'"
+  },
+  {
+    "task_id": "218",
+    "source": "mbpp",
+    "description": "Write a python function to find the minimum operations required to make two numbers equal.",
+    "code": "import math   \r\ndef min_Operations(A,B):  \r\n    if (A > B): \r\n        swap(A,B)  \r\n    B = B // math.gcd(A,B);  \r\n    return B - 1",
+    "test_code": "assert min_Operations(2,4) == 1\nassert min_Operations(4,10) == 4\nassert min_Operations(1,4) == 3"
+  },
+  {
+    "task_id": "219",
+    "source": "mbpp",
+    "description": "Write a function to extract maximum and minimum k elements in the given tuple.",
+    "code": "\r\ndef extract_min_max(test_tup, K):\r\n  res = []\r\n  test_tup = list(test_tup)\r\n  temp = sorted(test_tup)\r\n  for idx, val in enumerate(temp):\r\n    if idx < K or idx >= len(temp) - K:\r\n      res.append(val)\r\n  res = tuple(res)\r\n  return (res) ",
+    "test_code": "assert extract_min_max((5, 20, 3, 7, 6, 8), 2) == (3, 5, 8, 20)\nassert extract_min_max((4, 5, 6, 1, 2, 7), 3) == (1, 2, 4, 5, 6, 7)\nassert extract_min_max((2, 3, 4, 8, 9, 11, 7), 4) == (2, 3, 4, 7, 8, 9, 11)"
+  },
+  {
+    "task_id": "220",
+    "source": "mbpp",
+    "description": "Write a function to replace maximum n occurrences of spaces, commas, or dots with a colon.",
+    "code": "import re\r\ndef replace_max_specialchar(text,n):\r\n return (re.sub(\"[ ,.]\", \":\", text, n))",
+    "test_code": "assert replace_max_specialchar('Python language, Programming language.',2)==('Python:language: Programming language.')\nassert replace_max_specialchar('a b c,d e f',3)==('a:b:c:d e f')\nassert replace_max_specialchar('ram reshma,ram rahim',1)==('ram:reshma,ram rahim')"
+  },
+  {
+    "task_id": "221",
+    "source": "mbpp",
+    "description": "Write a python function to find the first even number in a given list of numbers.",
+    "code": "def first_even(nums):\r\n    first_even = next((el for el in nums if el%2==0),-1)\r\n    return first_even",
+    "test_code": "assert first_even ([1, 3, 5, 7, 4, 1, 6, 8]) == 4\nassert first_even([2, 3, 4]) == 2\nassert first_even([5, 6, 7]) == 6"
+  },
+  {
+    "task_id": "222",
+    "source": "mbpp",
+    "description": "Write a function to check if all the elements in tuple have same data type or not.",
+    "code": "def check_type(test_tuple):\r\n  res = True\r\n  for ele in test_tuple:\r\n    if not isinstance(ele, type(test_tuple[0])):\r\n      res = False\r\n      break\r\n  return (res) ",
+    "test_code": "assert check_type((5, 6, 7, 3, 5, 6) ) == True\nassert check_type((1, 2, \"4\") ) == False\nassert check_type((3, 2, 1, 4, 5) ) == True"
+  },
+  {
+    "task_id": "223",
+    "source": "mbpp",
+    "description": "Write a function to check for majority element in the given sorted array.",
+    "code": "def is_majority(arr, n, x):\r\n\ti = binary_search(arr, 0, n-1, x)\r\n\tif i == -1:\r\n\t\treturn False\r\n\tif ((i + n//2) <= (n -1)) and arr[i + n//2] == x:\r\n\t\treturn True\r\n\telse:\r\n\t\treturn False\r\ndef binary_search(arr, low, high, x):\r\n\tif high >= low:\r\n\t\tmid = (low + high)//2 \r\n\t\tif (mid == 0 or x > arr[mid-1]) and (arr[mid] == x):\r\n\t\t\treturn mid\r\n\t\telif x > arr[mid]:\r\n\t\t\treturn binary_search(arr, (mid + 1), high, x)\r\n\t\telse:\r\n\t\t\treturn binary_search(arr, low, (mid -1), x)\r\n\treturn -1",
+    "test_code": "assert is_majority([1, 2, 3, 3, 3, 3, 10], 7, 3) == True\nassert is_majority([1, 1, 2, 4, 4, 4, 6, 6], 8, 4) == False\nassert is_majority([1, 1, 1, 2, 2], 5, 1) == True"
+  },
+  {
+    "task_id": "224",
+    "source": "mbpp",
+    "description": "Write a python function to count set bits of a given number.",
+    "code": "def count_Set_Bits(n): \r\n    count = 0\r\n    while (n): \r\n        count += n & 1\r\n        n >>= 1\r\n    return count ",
+    "test_code": "assert count_Set_Bits(2) == 1\nassert count_Set_Bits(4) == 1\nassert count_Set_Bits(6) == 2"
+  },
+  {
+    "task_id": "225",
+    "source": "mbpp",
+    "description": "Write a python function to find the minimum element in a sorted and rotated array.",
+    "code": "def find_Min(arr,low,high): \r\n    while (low < high): \r\n        mid = low + (high - low) // 2;   \r\n        if (arr[mid] == arr[high]): \r\n            high -= 1; \r\n        elif (arr[mid] > arr[high]): \r\n            low = mid + 1; \r\n        else: \r\n            high = mid; \r\n    return arr[high]; ",
+    "test_code": "assert find_Min([1,2,3,4,5],0,4) == 1\nassert find_Min([4,6,8],0,2) == 4\nassert find_Min([2,3,5,7,9],0,4) == 2"
+  },
+  {
+    "task_id": "226",
+    "source": "mbpp",
+    "description": "Write a python function to remove the characters which have odd index values of a given string.",
+    "code": "def odd_values_string(str):\r\n  result = \"\" \r\n  for i in range(len(str)):\r\n    if i % 2 == 0:\r\n      result = result + str[i]\r\n  return result",
+    "test_code": "assert odd_values_string('abcdef') == 'ace'\nassert odd_values_string('python') == 'pto'\nassert odd_values_string('data') == 'dt'"
+  },
+  {
+    "task_id": "227",
+    "source": "mbpp",
+    "description": "Write a function to find minimum of three numbers.",
+    "code": "def min_of_three(a,b,c): \r\n      if (a <= b) and (a <= c): \r\n        smallest = a \r\n      elif (b <= a) and (b <= c): \r\n        smallest = b \r\n      else: \r\n        smallest = c \r\n      return smallest ",
+    "test_code": "assert min_of_three(10,20,0)==0\nassert min_of_three(19,15,18)==15\nassert min_of_three(-10,-20,-30)==-30"
+  },
+  {
+    "task_id": "228",
+    "source": "mbpp",
+    "description": "Write a python function to check whether all the bits are unset in the given range or not.",
+    "code": "def all_Bits_Set_In_The_Given_Range(n,l,r):  \r\n    num = (((1 << r) - 1) ^ ((1 << (l - 1)) - 1)) \r\n    new_num = n & num\r\n    if (new_num == 0): \r\n        return True\r\n    return False",
+    "test_code": "assert all_Bits_Set_In_The_Given_Range(4,1,2) == True\nassert all_Bits_Set_In_The_Given_Range(17,2,4) == True\nassert all_Bits_Set_In_The_Given_Range(39,4,6) == False"
+  },
+  {
+    "task_id": "229",
+    "source": "mbpp",
+    "description": "Write a function to re-arrange the elements of the given array so that all negative elements appear before positive ones.",
+    "code": "def re_arrange_array(arr, n):\r\n  j=0\r\n  for i in range(0, n):\r\n    if (arr[i] < 0):\r\n      temp = arr[i]\r\n      arr[i] = arr[j]\r\n      arr[j] = temp\r\n      j = j + 1\r\n  return arr",
+    "test_code": "assert re_arrange_array([-1, 2, -3, 4, 5, 6, -7, 8, 9], 9) == [-1, -3, -7, 4, 5, 6, 2, 8, 9]\nassert re_arrange_array([12, -14, -26, 13, 15], 5) == [-14, -26, 12, 13, 15]\nassert re_arrange_array([10, 24, 36, -42, -39, -78, 85], 7) == [-42, -39, -78, 10, 24, 36, 85]"
+  },
+  {
+    "task_id": "230",
+    "source": "mbpp",
+    "description": "Write a function to replace blank spaces with any character in a string.",
+    "code": "def replace_blank(str1,char):\r\n str2 = str1.replace(' ', char)\r\n return str2",
+    "test_code": "assert replace_blank(\"hello people\",'@')==(\"hello@people\")\nassert replace_blank(\"python program language\",'$')==(\"python$program$language\")\nassert replace_blank(\"blank space\",\"-\")==(\"blank-space\")"
+  },
+  {
+    "task_id": "231",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum sum in the given right triangle of numbers.",
+    "code": "def max_sum(tri, n): \r\n\tif n > 1: \r\n\t\ttri[1][1] = tri[1][1]+tri[0][0] \r\n\t\ttri[1][0] = tri[1][0]+tri[0][0] \r\n\tfor i in range(2, n): \r\n\t\ttri[i][0] = tri[i][0] + tri[i-1][0] \r\n\t\ttri[i][i] = tri[i][i] + tri[i-1][i-1] \r\n\t\tfor j in range(1, i): \r\n\t\t\tif tri[i][j]+tri[i-1][j-1] >= tri[i][j]+tri[i-1][j]: \r\n\t\t\t\ttri[i][j] = tri[i][j] + tri[i-1][j-1] \r\n\t\t\telse: \r\n\t\t\t\ttri[i][j] = tri[i][j]+tri[i-1][j] \r\n\treturn (max(tri[n-1]))",
+    "test_code": "assert max_sum([[1], [2,1], [3,3,2]], 3) == 6\nassert max_sum([[1], [1, 2], [4, 1, 12]], 3) == 15 \nassert max_sum([[2], [3,2], [13,23,12]], 3) == 28"
+  },
+  {
+    "task_id": "232",
+    "source": "mbpp",
+    "description": "Write a function to get the n largest items from a dataset.",
+    "code": "import heapq\r\ndef larg_nnum(list1,n):\r\n largest=heapq.nlargest(n,list1)\r\n return largest",
+    "test_code": "assert larg_nnum([10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100],2)==[100,90]\nassert larg_nnum([10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100],5)==[100,90,80,70,60]\nassert larg_nnum([10, 20, 50, 70, 90, 20, 50, 40, 60, 80, 100],3)==[100,90,80]"
+  },
+  {
+    "task_id": "233",
+    "source": "mbpp",
+    "description": "Write a function to find the lateral surface area of a cylinder.",
+    "code": "def lateralsuface_cylinder(r,h):\r\n  lateralsurface= 2*3.1415*r*h\r\n  return lateralsurface",
+    "test_code": "assert lateralsuface_cylinder(10,5)==314.15000000000003\nassert lateralsuface_cylinder(4,5)==125.66000000000001\nassert lateralsuface_cylinder(4,10)==251.32000000000002"
+  },
+  {
+    "task_id": "234",
+    "source": "mbpp",
+    "description": "Write a function to find the volume of a cube.",
+    "code": "def volume_cube(l):\r\n  volume = l * l * l\r\n  return volume",
+    "test_code": "assert volume_cube(3)==27\nassert volume_cube(2)==8\nassert volume_cube(5)==125"
+  },
+  {
+    "task_id": "235",
+    "source": "mbpp",
+    "description": "Write a python function to set all even bits of a given number.",
+    "code": "def even_bit_set_number(n): \r\n    count = 0;res = 0;temp = n \r\n    while(temp > 0): \r\n        if (count % 2 == 1): \r\n            res |= (1 << count)\r\n        count+=1\r\n        temp >>= 1\r\n    return (n | res) ",
+    "test_code": "assert even_bit_set_number(10) == 10\nassert even_bit_set_number(20) == 30\nassert even_bit_set_number(30) == 30"
+  },
+  {
+    "task_id": "236",
+    "source": "mbpp",
+    "description": "Write a python function to count the maximum number of equilateral triangles that can be formed within a given equilateral triangle.",
+    "code": "def No_of_Triangle(N,K):\r\n    if (N < K):\r\n        return -1;\r\n    else:\r\n        Tri_up = 0;\r\n        Tri_up = ((N - K + 1) *(N - K + 2)) // 2;\r\n        Tri_down = 0;\r\n        Tri_down = ((N - 2 * K + 1) *(N - 2 * K + 2)) // 2;\r\n        return Tri_up + Tri_down;",
+    "test_code": "assert No_of_Triangle(4,2) == 7\nassert No_of_Triangle(4,3) == 3\nassert No_of_Triangle(1,3) == -1"
+  },
+  {
+    "task_id": "237",
+    "source": "mbpp",
+    "description": "Write a function to check the occurrences of records which occur similar times in the given tuples.",
+    "code": "from collections import Counter \r\ndef check_occurences(test_list):\r\n  res = dict(Counter(tuple(ele) for ele in map(sorted, test_list)))\r\n  return  (res) ",
+    "test_code": "assert check_occurences([(3, 1), (1, 3), (2, 5), (5, 2), (6, 3)] ) == {(1, 3): 2, (2, 5): 2, (3, 6): 1}\nassert check_occurences([(4, 2), (2, 4), (3, 6), (6, 3), (7, 4)] ) == {(2, 4): 2, (3, 6): 2, (4, 7): 1}\nassert check_occurences([(13, 2), (11, 23), (12, 25), (25, 12), (16, 23)] ) == {(2, 13): 1, (11, 23): 1, (12, 25): 2, (16, 23): 1}"
+  },
+  {
+    "task_id": "238",
+    "source": "mbpp",
+    "description": "Write a python function to count number of non-empty substrings of a given string.",
+    "code": "def number_of_substrings(str): \r\n\tstr_len = len(str); \r\n\treturn int(str_len * (str_len + 1) / 2); ",
+    "test_code": "assert number_of_substrings(\"abc\") == 6\nassert number_of_substrings(\"abcd\") == 10\nassert number_of_substrings(\"abcde\") == 15"
+  },
+  {
+    "task_id": "239",
+    "source": "mbpp",
+    "description": "Write a function to find the number of possible sequences of length n such that each of the next element is greater than or equal to twice of the previous element but less than or equal to m.",
+    "code": "def get_total_number_of_sequences(m,n): \r\n\tT=[[0 for i in range(n+1)] for i in range(m+1)] \r\n\tfor i in range(m+1): \r\n\t\tfor j in range(n+1): \r\n\t\t\tif i==0 or j==0: \r\n\t\t\t\tT[i][j]=0\r\n\t\t\telif i<j: \r\n\t\t\t\tT[i][j]=0\r\n\t\t\telif j==1: \r\n\t\t\t\tT[i][j]=i \r\n\t\t\telse: \r\n\t\t\t\tT[i][j]=T[i-1][j]+T[i//2][j-1] \r\n\treturn T[m][n]",
+    "test_code": "assert get_total_number_of_sequences(10, 4) == 4\nassert get_total_number_of_sequences(5, 2) == 6\nassert get_total_number_of_sequences(16, 3) == 84"
+  },
+  {
+    "task_id": "240",
+    "source": "mbpp",
+    "description": "Write a function to replace the last element of the list with another list.",
+    "code": "def replace_list(list1,list2):\r\n list1[-1:] = list2\r\n replace_list=list1\r\n return replace_list\r\n",
+    "test_code": "assert replace_list([1, 3, 5, 7, 9, 10],[2, 4, 6, 8])==[1, 3, 5, 7, 9, 2, 4, 6, 8]\nassert replace_list([1,2,3,4,5],[5,6,7,8])==[1,2,3,4,5,6,7,8]\nassert replace_list([\"red\",\"blue\",\"green\"],[\"yellow\"])==[\"red\",\"blue\",\"yellow\"]"
+  },
+  {
+    "task_id": "241",
+    "source": "mbpp",
+    "description": "Write a function to generate a 3d array having each element as '*'.",
+    "code": "def array_3d(m,n,o):\r\n array_3d = [[ ['*' for col in range(m)] for col in range(n)] for row in range(o)]\r\n return array_3d",
+    "test_code": "assert array_3d(6,4,3)==[[['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*']], [['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*']], [['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*', '*']]]\nassert array_3d(5,3,4)==[[['*', '*', '*', '*', '*'], ['*', '*', '*', '*','*'], ['*', '*', '*', '*', '*']], [['*', '*', '*', '*', '*'],['*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*']], [['*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*']], [['*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*'], ['*', '*', '*', '*', '*']]]\nassert array_3d(1,2,3)==[[['*'],['*']],[['*'],['*']],[['*'],['*']]]"
+  },
+  {
+    "task_id": "242",
+    "source": "mbpp",
+    "description": "Write a function to count total characters in a string.",
+    "code": "def count_charac(str1):\r\n total = 0\r\n for i in str1:\r\n    total = total + 1\r\n return total",
+    "test_code": "assert count_charac(\"python programming\")==18\nassert count_charac(\"language\")==8\nassert count_charac(\"words\")==5"
+  },
+  {
+    "task_id": "243",
+    "source": "mbpp",
+    "description": "Write a function to sort the given list based on the occurrence of first element of tuples.",
+    "code": "def sort_on_occurence(lst): \r\n\tdct = {} \r\n\tfor i, j in lst: \r\n\t\tdct.setdefault(i, []).append(j) \r\n\treturn ([(i, *dict.fromkeys(j), len(j)) \r\n\t\t\t\tfor i, j in dct.items()]) ",
+    "test_code": "assert sort_on_occurence([(1, 'Jake'), (2, 'Bob'), (1, 'Cara')]) == [(1, 'Jake', 'Cara', 2), (2, 'Bob', 1)]\nassert sort_on_occurence([('b', 'ball'), ('a', 'arm'), ('b', 'b'), ('a', 'ant')]) == [('b', 'ball', 'b', 2), ('a', 'arm', 'ant', 2)]\nassert sort_on_occurence([(2, 'Mark'), (3, 'Maze'), (2, 'Sara')]) == [(2, 'Mark', 'Sara', 2), (3, 'Maze', 1)]"
+  },
+  {
+    "task_id": "244",
+    "source": "mbpp",
+    "description": "Write a python function to find the next perfect square greater than a given number.",
+    "code": "import math  \r\ndef next_Perfect_Square(N): \r\n    nextN = math.floor(math.sqrt(N)) + 1\r\n    return nextN * nextN ",
+    "test_code": "assert next_Perfect_Square(35) == 36\nassert next_Perfect_Square(6) == 9\nassert next_Perfect_Square(9) == 16"
+  },
+  {
+    "task_id": "245",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum sum of bi-tonic sub-sequence for the given array.",
+    "code": "def max_sum(arr, n): \r\n\tMSIBS = arr[:] \r\n\tfor i in range(n): \r\n\t\tfor j in range(0, i): \r\n\t\t\tif arr[i] > arr[j] and MSIBS[i] < MSIBS[j] + arr[i]: \r\n\t\t\t\tMSIBS[i] = MSIBS[j] + arr[i] \r\n\tMSDBS = arr[:] \r\n\tfor i in range(1, n + 1): \r\n\t\tfor j in range(1, i): \r\n\t\t\tif arr[-i] > arr[-j] and MSDBS[-i] < MSDBS[-j] + arr[-i]: \r\n\t\t\t\tMSDBS[-i] = MSDBS[-j] + arr[-i] \r\n\tmax_sum = float(\"-Inf\") \r\n\tfor i, j, k in zip(MSIBS, MSDBS, arr): \r\n\t\tmax_sum = max(max_sum, i + j - k) \r\n\treturn max_sum",
+    "test_code": "assert max_sum([1, 15, 51, 45, 33, 100, 12, 18, 9], 9) == 194\nassert max_sum([80, 60, 30, 40, 20, 10], 6) == 210\nassert max_sum([2, 3 ,14, 16, 21, 23, 29, 30], 8) == 138"
+  },
+  {
+    "task_id": "246",
+    "source": "mbpp",
+    "description": "Write a function for computing square roots using the babylonian method.",
+    "code": "def babylonian_squareroot(number):\r\n    if(number == 0):\r\n        return 0;\r\n    g = number/2.0;\r\n    g2 = g + 1;\r\n    while(g != g2):\r\n        n = number/ g;\r\n        g2 = g;\r\n        g = (g + n)/2;\r\n    return g;",
+    "test_code": "assert babylonian_squareroot(10)==3.162277660168379\nassert babylonian_squareroot(2)==1.414213562373095\nassert babylonian_squareroot(9)==3.0"
+  },
+  {
+    "task_id": "247",
+    "source": "mbpp",
+    "description": "Write a function to find the longest palindromic subsequence in the given string.",
+    "code": "def lps(str): \r\n\tn = len(str) \r\n\tL = [[0 for x in range(n)] for x in range(n)] \r\n\tfor i in range(n): \r\n\t\tL[i][i] = 1\r\n\tfor cl in range(2, n+1): \r\n\t\tfor i in range(n-cl+1): \r\n\t\t\tj = i+cl-1\r\n\t\t\tif str[i] == str[j] and cl == 2: \r\n\t\t\t\tL[i][j] = 2\r\n\t\t\telif str[i] == str[j]: \r\n\t\t\t\tL[i][j] = L[i+1][j-1] + 2\r\n\t\t\telse: \r\n\t\t\t\tL[i][j] = max(L[i][j-1], L[i+1][j]); \r\n\treturn L[0][n-1]",
+    "test_code": "assert lps(\"TENS FOR TENS\") == 5 \nassert lps(\"CARDIO FOR CARDS\") == 7\nassert lps(\"PART OF THE JOURNEY IS PART\") == 9 "
+  },
+  {
+    "task_id": "248",
+    "source": "mbpp",
+    "description": "Write a function to calculate the harmonic sum of n-1.",
+    "code": "def harmonic_sum(n):\r\n  if n < 2:\r\n    return 1\r\n  else:\r\n    return 1 / n + (harmonic_sum(n - 1)) ",
+    "test_code": "assert harmonic_sum(7) == 2.5928571428571425\nassert harmonic_sum(4) == 2.083333333333333\nassert harmonic_sum(19) == 3.547739657143682"
+  },
+  {
+    "task_id": "249",
+    "source": "mbpp",
+    "description": "Write a function to find the intersection of two arrays using lambda function.",
+    "code": "def intersection_array(array_nums1,array_nums2):\r\n result = list(filter(lambda x: x in array_nums1, array_nums2)) \r\n return result",
+    "test_code": "assert intersection_array([1, 2, 3, 5, 7, 8, 9, 10],[1, 2, 4, 8, 9])==[1, 2, 8, 9]\nassert intersection_array([1, 2, 3, 5, 7, 8, 9, 10],[3,5,7,9])==[3,5,7,9]\nassert intersection_array([1, 2, 3, 5, 7, 8, 9, 10],[10,20,30,40])==[10]"
+  },
+  {
+    "task_id": "250",
+    "source": "mbpp",
+    "description": "Write a python function to count the occcurences of an element in a tuple.",
+    "code": "def count_X(tup, x): \r\n    count = 0\r\n    for ele in tup: \r\n        if (ele == x): \r\n            count = count + 1\r\n    return count ",
+    "test_code": "assert count_X((10, 8, 5, 2, 10, 15, 10, 8, 5, 8, 8, 2),4) == 0\nassert count_X((10, 8, 5, 2, 10, 15, 10, 8, 5, 8, 8, 2),10) == 3\nassert count_X((10, 8, 5, 2, 10, 15, 10, 8, 5, 8, 8, 2),8) == 4"
+  },
+  {
+    "task_id": "251",
+    "source": "mbpp",
+    "description": "Write a function to insert an element before each element of a list.",
+    "code": "def insert_element(list,element):\r\n list = [v for elt in list for v in (element, elt)]\r\n return list",
+    "test_code": "assert insert_element(['Red', 'Green', 'Black'] ,'c')==['c', 'Red', 'c', 'Green', 'c', 'Black'] \nassert insert_element(['python', 'java'] ,'program')==['program', 'python', 'program', 'java'] \nassert insert_element(['happy', 'sad'] ,'laugh')==['laugh', 'happy', 'laugh', 'sad'] "
+  },
+  {
+    "task_id": "252",
+    "source": "mbpp",
+    "description": "Write a python function to convert complex numbers to polar coordinates.",
+    "code": "import cmath  \r\ndef convert(numbers):    \r\n  num = cmath.polar(numbers)  \r\n  return (num) ",
+    "test_code": "assert convert(1) == (1.0, 0.0)\nassert convert(4) == (4.0,0.0)\nassert convert(5) == (5.0,0.0)"
+  },
+  {
+    "task_id": "253",
+    "source": "mbpp",
+    "description": "Write a python function to count integers from a given list.",
+    "code": "def count_integer(list1):\r\n    ctr = 0\r\n    for i in list1:\r\n        if isinstance(i, int):\r\n            ctr = ctr + 1\r\n    return ctr",
+    "test_code": "assert count_integer([1,2,'abc',1.2]) == 2\nassert count_integer([1,2,3]) == 3\nassert count_integer([1,1.2,4,5.1]) == 2"
+  },
+  {
+    "task_id": "254",
+    "source": "mbpp",
+    "description": "Write a function to find all words starting with 'a' or 'e' in a given string.",
+    "code": "import re\r\ndef words_ae(text):\r\n list = re.findall(\"[ae]\\w+\", text)\r\n return list",
+    "test_code": "assert words_ae(\"python programe\")==['ame']\nassert words_ae(\"python programe language\")==['ame','anguage']\nassert words_ae(\"assert statement\")==['assert', 'atement']"
+  },
+  {
+    "task_id": "255",
+    "source": "mbpp",
+    "description": "Write a function to choose specified number of colours from three different colours and generate all the combinations with repetitions.",
+    "code": "from itertools import combinations_with_replacement \r\ndef combinations_colors(l, n):\r\n    return list(combinations_with_replacement(l,n))\r",
+    "test_code": "assert combinations_colors( [\"Red\",\"Green\",\"Blue\"],1)==[('Red',), ('Green',), ('Blue',)]\nassert combinations_colors( [\"Red\",\"Green\",\"Blue\"],2)==[('Red', 'Red'), ('Red', 'Green'), ('Red', 'Blue'), ('Green', 'Green'), ('Green', 'Blue'), ('Blue', 'Blue')]\nassert combinations_colors( [\"Red\",\"Green\",\"Blue\"],3)==[('Red', 'Red', 'Red'), ('Red', 'Red', 'Green'), ('Red', 'Red', 'Blue'), ('Red', 'Green', 'Green'), ('Red', 'Green', 'Blue'), ('Red', 'Blue', 'Blue'), ('Green', 'Green', 'Green'), ('Green', 'Green', 'Blue'), ('Green', 'Blue', 'Blue'), ('Blue', 'Blue', 'Blue')]"
+  },
+  {
+    "task_id": "256",
+    "source": "mbpp",
+    "description": "Write a python function to count the number of prime numbers less than a given non-negative number.",
+    "code": "def count_Primes_nums(n):\r\n    ctr = 0\r\n    for num in range(n):\r\n        if num <= 1:\r\n            continue\r\n        for i in range(2,num):\r\n            if (num % i) == 0:\r\n                break\r\n        else:\r\n            ctr += 1\r\n    return ctr",
+    "test_code": "assert count_Primes_nums(5) == 2\nassert count_Primes_nums(10) == 4\nassert count_Primes_nums(100) == 25"
+  },
+  {
+    "task_id": "257",
+    "source": "mbpp",
+    "description": "Write a function to swap two numbers.",
+    "code": "def swap_numbers(a,b):\r\n temp = a\r\n a = b\r\n b = temp\r\n return (a,b)",
+    "test_code": "assert swap_numbers(10,20)==(20,10)\nassert swap_numbers(15,17)==(17,15)\nassert swap_numbers(100,200)==(200,100)"
+  },
+  {
+    "task_id": "258",
+    "source": "mbpp",
+    "description": "Write a function to find number of odd elements in the given list using lambda function.",
+    "code": "def count_odd(array_nums):\r\n   count_odd = len(list(filter(lambda x: (x%2 != 0) , array_nums)))\r\n   return count_odd",
+    "test_code": "assert count_odd([1, 2, 3, 5, 7, 8, 10])==4\nassert count_odd([10,15,14,13,-18,12,-20])==2\nassert count_odd([1, 2, 4, 8, 9])==2"
+  },
+  {
+    "task_id": "259",
+    "source": "mbpp",
+    "description": "Write a function to maximize the given two tuples.",
+    "code": "def maximize_elements(test_tup1, test_tup2):\r\n  res = tuple(tuple(max(a, b) for a, b in zip(tup1, tup2))\r\n   for tup1, tup2 in zip(test_tup1, test_tup2))\r\n  return (res) ",
+    "test_code": "assert maximize_elements(((1, 3), (4, 5), (2, 9), (1, 10)), ((6, 7), (3, 9), (1, 1), (7, 3))) == ((6, 7), (4, 9), (2, 9), (7, 10))\nassert maximize_elements(((2, 4), (5, 6), (3, 10), (2, 11)), ((7, 8), (4, 10), (2, 2), (8, 4))) == ((7, 8), (5, 10), (3, 10), (8, 11))\nassert maximize_elements(((3, 5), (6, 7), (4, 11), (3, 12)), ((8, 9), (5, 11), (3, 3), (9, 5))) == ((8, 9), (6, 11), (4, 11), (9, 12))"
+  },
+  {
+    "task_id": "260",
+    "source": "mbpp",
+    "description": "Write a function to find the nth newman\u2013shanks\u2013williams prime number.",
+    "code": "def newman_prime(n): \r\n\tif n == 0 or n == 1: \r\n\t\treturn 1\r\n\treturn 2 * newman_prime(n - 1) + newman_prime(n - 2)",
+    "test_code": "assert newman_prime(3) == 7 \nassert newman_prime(4) == 17\nassert newman_prime(5) == 41"
+  },
+  {
+    "task_id": "261",
+    "source": "mbpp",
+    "description": "Write a function to perform mathematical division operation across the given tuples.",
+    "code": "def division_elements(test_tup1, test_tup2):\r\n  res = tuple(ele1 // ele2 for ele1, ele2 in zip(test_tup1, test_tup2))\r\n  return (res) ",
+    "test_code": "assert division_elements((10, 4, 6, 9),(5, 2, 3, 3)) == (2, 2, 2, 3)\nassert division_elements((12, 6, 8, 16),(6, 3, 4, 4)) == (2, 2, 2, 4)\nassert division_elements((20, 14, 36, 18),(5, 7, 6, 9)) == (4, 2, 6, 2)"
+  },
+  {
+    "task_id": "262",
+    "source": "mbpp",
+    "description": "Write a function to split a given list into two parts where the length of the first part of the list is given.",
+    "code": "def split_two_parts(list1, L):\r\n    return list1[:L], list1[L:]",
+    "test_code": "assert split_two_parts([1,1,2,3,4,4,5,1],3)==([1, 1, 2], [3, 4, 4, 5, 1])\nassert split_two_parts(['a', 'b', 'c', 'd'],2)==(['a', 'b'], ['c', 'd'])\nassert split_two_parts(['p', 'y', 't', 'h', 'o', 'n'],4)==(['p', 'y', 't', 'h'], ['o', 'n'])"
+  }
+]

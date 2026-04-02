@@ -1,0 +1,317 @@
+[
+  {
+    "task_id": "930",
+    "source": "mbpp",
+    "description": "Write a function that matches a string that has an a followed by zero or more b's by using regex.",
+    "code": "import re\r\ndef text_match(text):\r\n        patterns = 'ab*?'\r\n        if re.search(patterns,  text):\r\n                return ('Found a match!')\r\n        else:\r\n                return ('Not matched!')",
+    "test_code": "assert text_match(\"msb\") == 'Not matched!'\nassert text_match(\"a0c\") == 'Found a match!'\nassert text_match(\"abbc\") == 'Found a match!'"
+  },
+  {
+    "task_id": "931",
+    "source": "mbpp",
+    "description": "Write a function to calculate the sum of series 1\u00b3+2\u00b3+3\u00b3+\u2026.+n\u00b3.",
+    "code": "import math \r\ndef sum_series(number):\r\n total = 0\r\n total = math.pow((number * (number + 1)) /2, 2)\r\n return total",
+    "test_code": "assert sum_series(7)==784\nassert sum_series(5)==225\nassert sum_series(15)==14400"
+  },
+  {
+    "task_id": "932",
+    "source": "mbpp",
+    "description": "Write a function to remove duplicate words from a given list of strings.",
+    "code": "def remove_duplic_list(l):\r\n    temp = []\r\n    for x in l:\r\n        if x not in temp:\r\n            temp.append(x)\r\n    return temp",
+    "test_code": "assert remove_duplic_list([\"Python\", \"Exercises\", \"Practice\", \"Solution\", \"Exercises\"])==['Python', 'Exercises', 'Practice', 'Solution']\nassert remove_duplic_list([\"Python\", \"Exercises\", \"Practice\", \"Solution\", \"Exercises\",\"Java\"])==['Python', 'Exercises', 'Practice', 'Solution', 'Java']\nassert remove_duplic_list([\"Python\", \"Exercises\", \"Practice\", \"Solution\", \"Exercises\",\"C++\",\"C\",\"C++\"])==['Python', 'Exercises', 'Practice', 'Solution','C++','C']"
+  },
+  {
+    "task_id": "933",
+    "source": "mbpp",
+    "description": "Write a function to convert camel case string to snake case string by using regex.",
+    "code": "import re\r\ndef camel_to_snake(text):\r\n  str1 = re.sub('(.)([A-Z][a-z]+)', r'\\1_\\2', text)\r\n  return re.sub('([a-z0-9])([A-Z])', r'\\1_\\2', str1).lower()",
+    "test_code": "assert camel_to_snake('GoogleAssistant') == 'google_assistant'\nassert camel_to_snake('ChromeCast') == 'chrome_cast'\nassert camel_to_snake('QuadCore') == 'quad_core'"
+  },
+  {
+    "task_id": "934",
+    "source": "mbpp",
+    "description": "Write a function to find the nth delannoy number.",
+    "code": "def dealnnoy_num(n, m): \r\n\tif (m == 0 or n == 0) : \r\n\t\treturn 1\r\n\treturn dealnnoy_num(m - 1, n) + dealnnoy_num(m - 1, n - 1) + dealnnoy_num(m, n - 1)",
+    "test_code": "assert dealnnoy_num(3, 4) == 129\nassert dealnnoy_num(3, 3) == 63\nassert dealnnoy_num(4, 5) == 681"
+  },
+  {
+    "task_id": "935",
+    "source": "mbpp",
+    "description": "Write a function to calculate the sum of series 1\u00b2+2\u00b2+3\u00b2+\u2026.+n\u00b2.",
+    "code": "def series_sum(number):\r\n total = 0\r\n total = (number * (number + 1) * (2 * number + 1)) / 6\r\n return total",
+    "test_code": "assert series_sum(6)==91\nassert series_sum(7)==140\nassert series_sum(12)==650"
+  },
+  {
+    "task_id": "936",
+    "source": "mbpp",
+    "description": "Write a function to re-arrange the given tuples based on the given ordered list.",
+    "code": "def re_arrange_tuples(test_list, ord_list):\r\n  temp = dict(test_list)\r\n  res = [(key, temp[key]) for key in ord_list]\r\n  return (res) ",
+    "test_code": "assert re_arrange_tuples([(4, 3), (1, 9), (2, 10), (3, 2)],  [1, 4, 2, 3]) == [(1, 9), (4, 3), (2, 10), (3, 2)]\nassert re_arrange_tuples([(5, 4), (2, 10), (3, 11), (4, 3)],  [3, 4, 2, 3]) == [(3, 11), (4, 3), (2, 10), (3, 11)]\nassert re_arrange_tuples([(6, 3), (3, 8), (5, 7), (2, 4)],  [2, 5, 3, 6]) == [(2, 4), (5, 7), (3, 8), (6, 3)]"
+  },
+  {
+    "task_id": "937",
+    "source": "mbpp",
+    "description": "Write a function to count the most common character in a given string.",
+    "code": "from collections import Counter \r\ndef max_char(str1):\r\n    temp = Counter(str1) \r\n    max_char = max(temp, key = temp.get)\r\n    return max_char",
+    "test_code": "assert max_char(\"hello world\")==('l')\nassert max_char(\"hello \")==('l')\nassert max_char(\"python pr\")==('p')"
+  },
+  {
+    "task_id": "938",
+    "source": "mbpp",
+    "description": "Write a function to find three closest elements from three sorted arrays.",
+    "code": "import sys \r\n\r\ndef find_closet(A, B, C, p, q, r): \r\n\tdiff = sys.maxsize \r\n\tres_i = 0\r\n\tres_j = 0\r\n\tres_k = 0\r\n\ti = 0\r\n\tj = 0\r\n\tk = 0\r\n\twhile(i < p and j < q and k < r): \r\n\t\tminimum = min(A[i], min(B[j], C[k])) \r\n\t\tmaximum = max(A[i], max(B[j], C[k])); \r\n\t\tif maximum-minimum < diff: \r\n\t\t\tres_i = i \r\n\t\t\tres_j = j \r\n\t\t\tres_k = k \r\n\t\t\tdiff = maximum - minimum; \r\n\t\tif diff == 0: \r\n\t\t\tbreak\r\n\t\tif A[i] == minimum: \r\n\t\t\ti = i+1\r\n\t\telif B[j] == minimum: \r\n\t\t\tj = j+1\r\n\t\telse: \r\n\t\t\tk = k+1\r\n\treturn A[res_i],B[res_j],C[res_k]",
+    "test_code": "assert find_closet([1, 4, 10],[2, 15, 20],[10, 12],3,3,2) == (10, 15, 10)\nassert find_closet([20, 24, 100],[2, 19, 22, 79, 800],[10, 12, 23, 24, 119],3,5,5) == (24, 22, 23)\nassert find_closet([2, 5, 11],[3, 16, 21],[11, 13],3,3,2) == (11, 16, 11)"
+  },
+  {
+    "task_id": "939",
+    "source": "mbpp",
+    "description": "Write a function to sort a list of dictionaries using lambda function.",
+    "code": "def sorted_models(models):\r\n sorted_models = sorted(models, key = lambda x: x['color'])\r\n return sorted_models",
+    "test_code": "assert sorted_models([{'make':'Nokia', 'model':216, 'color':'Black'}, {'make':'Mi Max', 'model':2, 'color':'Gold'}, {'make':'Samsung', 'model': 7, 'color':'Blue'}])==[{'make': 'Nokia', 'model': 216, 'color': 'Black'}, {'make': 'Samsung', 'model': 7, 'color': 'Blue'}, {'make': 'Mi Max', 'model': 2, 'color': 'Gold'}]\nassert sorted_models([{'make':'Vivo', 'model':20,'color':'Blue'},{'make': 'oppo','model':17,'color':'Gold'},{'make':'Apple','model':11,'color':'red'}])==([{'make':'Vivo', 'model':20,'color':'Blue'},{'make': 'oppo','model':17,'color':'Gold'},{'make':'Apple','model':11,'color':'red'}])\nassert sorted_models([{'make':'micromax','model':40,'color':'grey'},{'make':'poco','model':60,'color':'blue'}])==([{'make':'poco','model':60,'color':'blue'},{'make':'micromax','model':40,'color':'grey'}])"
+  },
+  {
+    "task_id": "940",
+    "source": "mbpp",
+    "description": "Write a function to sort the given array by using heap sort.",
+    "code": "def heap_sort(arr):\r\n    heapify(arr)  \r\n    end = len(arr) - 1\r\n    while end > 0:\r\n        arr[end], arr[0] = arr[0], arr[end]\r\n        shift_down(arr, 0, end - 1)\r\n        end -= 1\r\n    return arr\r\n\r\ndef heapify(arr):\r\n    start = len(arr) // 2\r\n    while start >= 0:\r\n        shift_down(arr, start, len(arr) - 1)\r\n        start -= 1\r\ndef shift_down(arr, start, end):\r\n    root = start\r\n    while root * 2 + 1 <= end:\r\n        child = root * 2 + 1\r\n        if child + 1 <= end and arr[child] < arr[child + 1]:\r\n            child += 1\r\n        if child <= end and arr[root] < arr[child]:\r\n            arr[root], arr[child] = arr[child], arr[root]\r\n            root = child\r\n        else:\r\n            return\r\n",
+    "test_code": "assert heap_sort([12, 2, 4, 5, 2, 3]) == [2, 2, 3, 4, 5, 12]\nassert heap_sort([32, 14, 5, 6, 7, 19]) == [5, 6, 7, 14, 19, 32]\nassert heap_sort([21, 15, 29, 78, 65]) == [15, 21, 29, 65, 78]"
+  },
+  {
+    "task_id": "941",
+    "source": "mbpp",
+    "description": "Write a function to count the elements in a list until an element is a tuple.",
+    "code": "def count_elim(num):\r\n  count_elim = 0\r\n  for n in num:\r\n    if isinstance(n, tuple):\r\n        break\r\n    count_elim += 1\r\n  return count_elim",
+    "test_code": "assert count_elim([10,20,30,(10,20),40])==3\nassert count_elim([10,(20,30),(10,20),40])==1\nassert count_elim([(10,(20,30,(10,20),40))])==0"
+  },
+  {
+    "task_id": "942",
+    "source": "mbpp",
+    "description": "Write a function to check if any list element is present in the given list.",
+    "code": "def check_element(test_tup, check_list):\r\n  res = False\r\n  for ele in check_list:\r\n    if ele in test_tup:\r\n      res = True\r\n      break\r\n  return (res) ",
+    "test_code": "assert check_element((4, 5, 7, 9, 3),  [6, 7, 10, 11]) == True\nassert check_element((1, 2, 3, 4),  [4, 6, 7, 8, 9]) == True\nassert check_element((3, 2, 1, 4, 5),  [9, 8, 7, 6]) == False"
+  },
+  {
+    "task_id": "943",
+    "source": "mbpp",
+    "description": "Write a function to combine two given sorted lists using heapq module.",
+    "code": "from heapq import merge\r\ndef combine_lists(num1,num2):\r\n  combine_lists=list(merge(num1, num2))\r\n  return combine_lists",
+    "test_code": "assert combine_lists([1, 3, 5, 7, 9, 11],[0, 2, 4, 6, 8, 10])==[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]\nassert combine_lists([1, 3, 5, 6, 8, 9], [2, 5, 7, 11])==[1,2,3,5,5,6,7,8,9,11]\nassert combine_lists([1,3,7],[2,4,6])==[1,2,3,4,6,7]"
+  },
+  {
+    "task_id": "944",
+    "source": "mbpp",
+    "description": "Write a function to separate and print the numbers and their position of a given string.",
+    "code": "import re\r\ndef num_position(text):\r\n for m in re.finditer(\"\\d+\", text):\r\n    return m.start()",
+    "test_code": "assert num_position(\"there are 70 flats in this apartment\")==10\nassert num_position(\"every adult have 32 teeth\")==17\nassert num_position(\"isha has 79 chocolates in her bag\")==9"
+  },
+  {
+    "task_id": "945",
+    "source": "mbpp",
+    "description": "Write a function to convert the given tuples into set.",
+    "code": "def tuple_to_set(t):\r\n  s = set(t)\r\n  return (s) ",
+    "test_code": "assert tuple_to_set(('x', 'y', 'z') ) == {'y', 'x', 'z'}\nassert tuple_to_set(('a', 'b', 'c') ) == {'c', 'a', 'b'}\nassert tuple_to_set(('z', 'd', 'e') ) == {'d', 'e', 'z'}"
+  },
+  {
+    "task_id": "946",
+    "source": "mbpp",
+    "description": "Write a function to find the most common elements and their counts of a specified text.",
+    "code": "from collections import Counter \r\ndef most_common_elem(s,a):\r\n  most_common_elem=Counter(s).most_common(a)\r\n  return most_common_elem",
+    "test_code": "assert most_common_elem('lkseropewdssafsdfafkpwe',3)==[('s', 4), ('e', 3), ('f', 3)] \nassert most_common_elem('lkseropewdssafsdfafkpwe',2)==[('s', 4), ('e', 3)]\nassert most_common_elem('lkseropewdssafsdfafkpwe',7)==[('s', 4), ('e', 3), ('f', 3), ('k', 2), ('p', 2), ('w', 2), ('d', 2)]"
+  },
+  {
+    "task_id": "947",
+    "source": "mbpp",
+    "description": "Write a python function to find the length of the shortest word.",
+    "code": "def len_log(list1):\r\n    min=len(list1[0])\r\n    for i in list1:\r\n        if len(i)<min:\r\n            min=len(i)\r\n    return min",
+    "test_code": "assert len_log([\"win\",\"lose\",\"great\"]) == 3\nassert len_log([\"a\",\"ab\",\"abc\"]) == 1\nassert len_log([\"12\",\"12\",\"1234\"]) == 2"
+  },
+  {
+    "task_id": "948",
+    "source": "mbpp",
+    "description": "Write a function to get an item of a tuple.",
+    "code": "def get_item(tup1,index):\r\n  item = tup1[index]\r\n  return item",
+    "test_code": "assert get_item((\"w\", 3, \"r\", \"e\", \"s\", \"o\", \"u\", \"r\", \"c\", \"e\"),3)==('e')\nassert get_item((\"w\", 3, \"r\", \"e\", \"s\", \"o\", \"u\", \"r\", \"c\", \"e\"),-4)==('u')\nassert get_item((\"w\", 3, \"r\", \"e\", \"s\", \"o\", \"u\", \"r\", \"c\", \"e\"),-3)==('r')"
+  },
+  {
+    "task_id": "949",
+    "source": "mbpp",
+    "description": "Write a function to sort the given tuple list basis the total digits in tuple.",
+    "code": "def count_digs(tup):\r\n  return sum([len(str(ele)) for ele in tup ]) \r\ndef sort_list(test_list):\r\n  test_list.sort(key = count_digs)\r\n  return (str(test_list))",
+    "test_code": "assert sort_list([(3, 4, 6, 723), (1, 2), (12345,), (134, 234, 34)] ) == '[(1, 2), (12345,), (3, 4, 6, 723), (134, 234, 34)]'\nassert sort_list([(3, 4, 8), (1, 2), (1234335,), (1345, 234, 334)] ) == '[(1, 2), (3, 4, 8), (1234335,), (1345, 234, 334)]'\nassert sort_list([(34, 4, 61, 723), (1, 2), (145,), (134, 23)] ) == '[(1, 2), (145,), (134, 23), (34, 4, 61, 723)]'"
+  },
+  {
+    "task_id": "950",
+    "source": "mbpp",
+    "description": "Write a function to display sign of the chinese zodiac for given year.",
+    "code": "def chinese_zodiac(year):\r\n if (year - 2000) % 12 == 0:\r\n     sign = 'Dragon'\r\n elif (year - 2000) % 12 == 1:\r\n     sign = 'Snake'\r\n elif (year - 2000) % 12 == 2:\r\n     sign = 'Horse'\r\n elif (year - 2000) % 12 == 3:\r\n     sign = 'sheep'\r\n elif (year - 2000) % 12 == 4:\r\n     sign = 'Monkey'\r\n elif (year - 2000) % 12 == 5:\r\n     sign = 'Rooster'\r\n elif (year - 2000) % 12 == 6:\r\n     sign = 'Dog'\r\n elif (year - 2000) % 12 == 7:\r\n     sign = 'Pig'\r\n elif (year - 2000) % 12 == 8:\r\n     sign = 'Rat'\r\n elif (year - 2000) % 12 == 9:\r\n     sign = 'Ox'\r\n elif (year - 2000) % 12 == 10:\r\n     sign = 'Tiger'\r\n else:\r\n     sign = 'Hare'\r\n return sign",
+    "test_code": "assert chinese_zodiac(1997)==('Ox')\nassert chinese_zodiac(1998)==('Tiger')\nassert chinese_zodiac(1994)==('Dog')"
+  },
+  {
+    "task_id": "951",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum of similar indices in two lists of tuples.",
+    "code": "def max_similar_indices(test_list1, test_list2):\r\n  res = [(max(x[0], y[0]), max(x[1], y[1]))\r\n   for x, y in zip(test_list1, test_list2)]\r\n  return (res) ",
+    "test_code": "assert max_similar_indices([(2, 4), (6, 7), (5, 1)],[(5, 4), (8, 10), (8, 14)]) == [(5, 4), (8, 10), (8, 14)]\nassert max_similar_indices([(3, 5), (7, 8), (6, 2)],[(6, 5), (9, 11), (9, 15)]) == [(6, 5), (9, 11), (9, 15)]\nassert max_similar_indices([(4, 6), (8, 9), (7, 3)],[(7, 6), (10, 12), (10, 16)]) == [(7, 6), (10, 12), (10, 16)]"
+  },
+  {
+    "task_id": "952",
+    "source": "mbpp",
+    "description": "Write a function to compute the value of ncr mod p.",
+    "code": "def nCr_mod_p(n, r, p): \r\n\tif (r > n- r): \r\n\t\tr = n - r \r\n\tC = [0 for i in range(r + 1)] \r\n\tC[0] = 1 \r\n\tfor i in range(1, n + 1): \r\n\t\tfor j in range(min(i, r), 0, -1): \r\n\t\t\tC[j] = (C[j] + C[j-1]) % p \r\n\treturn C[r] ",
+    "test_code": "assert nCr_mod_p(10, 2, 13) == 6\nassert nCr_mod_p(11, 3, 14) == 11\nassert nCr_mod_p(18, 14, 19) == 1"
+  },
+  {
+    "task_id": "953",
+    "source": "mbpp",
+    "description": "Write a python function to find the minimun number of subsets with distinct elements.",
+    "code": "def subset(ar, n): \r\n    res = 0\r\n    ar.sort() \r\n    for i in range(0, n) : \r\n        count = 1\r\n        for i in range(n - 1): \r\n            if ar[i] == ar[i + 1]: \r\n                count+=1\r\n            else: \r\n                break \r\n        res = max(res, count)  \r\n    return res ",
+    "test_code": "assert subset([1, 2, 3, 4],4) == 1\nassert subset([5, 6, 9, 3, 4, 3, 4],7) == 2\nassert subset([1, 2, 3 ],3) == 1"
+  },
+  {
+    "task_id": "954",
+    "source": "mbpp",
+    "description": "Write a function that gives profit amount if the given amount has profit else return none.",
+    "code": "def profit_amount(actual_cost,sale_amount): \r\n if(actual_cost > sale_amount):\r\n    amount = actual_cost - sale_amount\r\n    return amount\r\n else:\r\n    return None",
+    "test_code": "assert profit_amount(1500,1200)==300\nassert profit_amount(100,200)==None\nassert profit_amount(2000,5000)==None"
+  },
+  {
+    "task_id": "955",
+    "source": "mbpp",
+    "description": "Write a function to find out, if the given number is abundant.",
+    "code": "def is_abundant(n):\r\n    fctrsum = sum([fctr for fctr in range(1, n) if n % fctr == 0])\r\n    return fctrsum > n",
+    "test_code": "assert is_abundant(12)==True\nassert is_abundant(13)==False\nassert is_abundant(9)==False"
+  },
+  {
+    "task_id": "956",
+    "source": "mbpp",
+    "description": "Write a function to split the given string at uppercase letters by using regex.",
+    "code": "import re\r\ndef split_list(text):\r\n  return (re.findall('[A-Z][^A-Z]*', text))",
+    "test_code": "assert split_list(\"LearnToBuildAnythingWithGoogle\") == ['Learn', 'To', 'Build', 'Anything', 'With', 'Google']\nassert split_list(\"ApmlifyingTheBlack+DeveloperCommunity\") == ['Apmlifying', 'The', 'Black+', 'Developer', 'Community']\nassert split_list(\"UpdateInTheGoEcoSystem\") == ['Update', 'In', 'The', 'Go', 'Eco', 'System']"
+  },
+  {
+    "task_id": "957",
+    "source": "mbpp",
+    "description": "Write a python function to get the position of rightmost set bit.",
+    "code": "import math\r\ndef get_First_Set_Bit_Pos(n):\r\n     return math.log2(n&-n)+1",
+    "test_code": "assert get_First_Set_Bit_Pos(12) == 3\nassert get_First_Set_Bit_Pos(18) == 2\nassert get_First_Set_Bit_Pos(16) == 5"
+  },
+  {
+    "task_id": "958",
+    "source": "mbpp",
+    "description": "Write a function to convert an integer into a roman numeral.",
+    "code": "def int_to_roman( num):\r\n        val = [1000, 900, 500, 400,100, 90, 50, 40,10, 9, 5, 4,1]\r\n        syb = [\"M\", \"CM\", \"D\", \"CD\",\"C\", \"XC\", \"L\", \"XL\",\"X\", \"IX\", \"V\", \"IV\",\"I\"]\r\n        roman_num = ''\r\n        i = 0\r\n        while  num > 0:\r\n            for _ in range(num // val[i]):\r\n                roman_num += syb[i]\r\n                num -= val[i]\r\n            i += 1\r\n        return roman_num",
+    "test_code": "assert int_to_roman(1)==(\"I\")\nassert int_to_roman(50)==(\"L\")\nassert int_to_roman(4)==(\"IV\")"
+  },
+  {
+    "task_id": "959",
+    "source": "mbpp",
+    "description": "Write a python function to find the average of a list.",
+    "code": "def Average(lst): \r\n    return sum(lst) / len(lst) ",
+    "test_code": "assert Average([15, 9, 55, 41, 35, 20, 62, 49]) == 35.75\nassert Average([4, 5, 1, 2, 9, 7, 10, 8]) == 5.75\nassert Average([1,2,3]) == 2"
+  },
+  {
+    "task_id": "960",
+    "source": "mbpp",
+    "description": "Write a function to solve tiling problem.",
+    "code": "def get_noOfways(n):\r\n    if (n == 0):\r\n        return 0;\r\n    if (n == 1):\r\n        return 1; \r\n    return get_noOfways(n - 1) + get_noOfways(n - 2);",
+    "test_code": "assert get_noOfways(4)==3\nassert get_noOfways(3)==2\nassert get_noOfways(5)==5"
+  },
+  {
+    "task_id": "961",
+    "source": "mbpp",
+    "description": "Write a function to convert a roman numeral to an integer.",
+    "code": "def roman_to_int(s):\r\n        rom_val = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\r\n        int_val = 0\r\n        for i in range(len(s)):\r\n            if i > 0 and rom_val[s[i]] > rom_val[s[i - 1]]:\r\n                int_val += rom_val[s[i]] - 2 * rom_val[s[i - 1]]\r\n            else:\r\n                int_val += rom_val[s[i]]\r\n        return int_val",
+    "test_code": "assert roman_to_int('MMMCMLXXXVI')==3986\nassert roman_to_int('MMMM')==4000\nassert roman_to_int('C')==100"
+  },
+  {
+    "task_id": "962",
+    "source": "mbpp",
+    "description": "Write a python function to find the sum of all even natural numbers within the range l and r.",
+    "code": "def sum_Natural(n): \r\n    sum = (n * (n + 1)) \r\n    return int(sum) \r\ndef sum_Even(l,r): \r\n    return (sum_Natural(int(r / 2)) - sum_Natural(int((l - 1) / 2))) ",
+    "test_code": "assert sum_Even(2,5) == 6\nassert sum_Even(3,8) == 18\nassert sum_Even(4,6) == 10"
+  },
+  {
+    "task_id": "963",
+    "source": "mbpp",
+    "description": "Write a function to calculate the discriminant value.",
+    "code": "def discriminant_value(x,y,z):\r\n    discriminant = (y**2) - (4*x*z)\r\n    if discriminant > 0:\r\n        return (\"Two solutions\",discriminant)\r\n    elif discriminant == 0:\r\n        return (\"one solution\",discriminant)\r\n    elif discriminant < 0:\r\n        return (\"no real solution\",discriminant)",
+    "test_code": "assert discriminant_value(4,8,2)==(\"Two solutions\",32)\nassert discriminant_value(5,7,9)==(\"no real solution\",-131)\nassert discriminant_value(0,0,9)==(\"one solution\",0)"
+  },
+  {
+    "task_id": "964",
+    "source": "mbpp",
+    "description": "Write a python function to check whether the length of the word is even or not.",
+    "code": "def word_len(s): \r\n    s = s.split(' ')   \r\n    for word in s:    \r\n        if len(word)%2==0: \r\n            return True  \r\n        else:\r\n          return False",
+    "test_code": "assert word_len(\"program\") == False\nassert word_len(\"solution\") == True\nassert word_len(\"data\") == True"
+  },
+  {
+    "task_id": "965",
+    "source": "mbpp",
+    "description": "Write a function to convert camel case string to snake case string.",
+    "code": "def camel_to_snake(text):\r\n        import re\r\n        str1 = re.sub('(.)([A-Z][a-z]+)', r'\\1_\\2', text)\r\n        return re.sub('([a-z0-9])([A-Z])', r'\\1_\\2', str1).lower()",
+    "test_code": "assert camel_to_snake('PythonProgram')==('python_program')\nassert camel_to_snake('pythonLanguage')==('python_language')\nassert camel_to_snake('ProgrammingLanguage')==('programming_language')"
+  },
+  {
+    "task_id": "966",
+    "source": "mbpp",
+    "description": "Write a function to remove an empty tuple from a list of tuples.",
+    "code": "def remove_empty(tuple1): #L = [(), (), ('',), ('a', 'b'), ('a', 'b', 'c'), ('d')]\r\n   tuple1 = [t for t in tuple1 if t]\r\n   return tuple1",
+    "test_code": "assert remove_empty([(), (), ('',), ('a', 'b'), ('a', 'b', 'c'), ('d')])==[('',), ('a', 'b'), ('a', 'b', 'c'), 'd']  \nassert remove_empty([(), (), ('',), (\"python\"), (\"program\")])==[('',), (\"python\"), (\"program\")]  \nassert remove_empty([(), (), ('',), (\"java\")])==[('',),(\"java\") ]  "
+  },
+  {
+    "task_id": "967",
+    "source": "mbpp",
+    "description": "Write a python function to accept the strings which contains all vowels.",
+    "code": "def check(string): \r\n  if len(set(string).intersection(\"AEIOUaeiou\"))>=5: \r\n    return ('accepted') \r\n  else: \r\n    return (\"not accepted\") ",
+    "test_code": "assert check(\"SEEquoiaL\") == 'accepted'\nassert check('program') == \"not accepted\"\nassert check('fine') == \"not accepted\""
+  },
+  {
+    "task_id": "968",
+    "source": "mbpp",
+    "description": "Write a python function to find maximum possible value for the given periodic function.",
+    "code": "def floor_Max(A,B,N):\r\n    x = min(B - 1,N)\r\n    return (A*x) // B",
+    "test_code": "assert floor_Max(11,10,9) == 9\nassert floor_Max(5,7,4) == 2\nassert floor_Max(2,2,1) == 1"
+  },
+  {
+    "task_id": "969",
+    "source": "mbpp",
+    "description": "Write a function to join the tuples if they have similar initial elements.",
+    "code": "def join_tuples(test_list):\r\n  res = []\r\n  for sub in test_list:\r\n    if res and res[-1][0] == sub[0]:\r\n      res[-1].extend(sub[1:])\r\n    else:\r\n      res.append([ele for ele in sub])\r\n  res = list(map(tuple, res))\r\n  return (res) ",
+    "test_code": "assert join_tuples([(5, 6), (5, 7), (6, 8), (6, 10), (7, 13)] ) == [(5, 6, 7), (6, 8, 10), (7, 13)]\nassert join_tuples([(6, 7), (6, 8), (7, 9), (7, 11), (8, 14)] ) == [(6, 7, 8), (7, 9, 11), (8, 14)]\nassert join_tuples([(7, 8), (7, 9), (8, 10), (8, 12), (9, 15)] ) == [(7, 8, 9), (8, 10, 12), (9, 15)]"
+  },
+  {
+    "task_id": "970",
+    "source": "mbpp",
+    "description": "Write a function to find minimum of two numbers.",
+    "code": "def min_of_two( x, y ):\r\n    if x < y:\r\n        return x\r\n    return y",
+    "test_code": "assert min_of_two(10,20)==10\nassert min_of_two(19,15)==15\nassert min_of_two(-10,-20)==-20"
+  },
+  {
+    "task_id": "971",
+    "source": "mbpp",
+    "description": "Write a function to find the maximum number of segments of lengths a, b and c that can be formed from n.",
+    "code": "def maximum_segments(n, a, b, c) : \r\n\tdp = [-1] * (n + 10) \r\n\tdp[0] = 0\r\n\tfor i in range(0, n) : \r\n\t\tif (dp[i] != -1) : \r\n\t\t\tif(i + a <= n ): \r\n\t\t\t\tdp[i + a] = max(dp[i] + 1, \r\n\t\t\t\t\t\t\tdp[i + a]) \r\n\t\t\tif(i + b <= n ): \r\n\t\t\t\tdp[i + b] = max(dp[i] + 1, \r\n\t\t\t\t\t\t\tdp[i + b]) \r\n\t\t\tif(i + c <= n ): \r\n\t\t\t\tdp[i + c] = max(dp[i] + 1, \r\n\t\t\t\t\t\t\tdp[i + c]) \r\n\treturn dp[n]",
+    "test_code": "assert maximum_segments(7, 5, 2, 5) == 2\nassert maximum_segments(17, 2, 1, 3) == 17\nassert maximum_segments(18, 16, 3, 6) == 6"
+  },
+  {
+    "task_id": "972",
+    "source": "mbpp",
+    "description": "Write a function to concatenate the given two tuples to a nested tuple.",
+    "code": "def concatenate_nested(test_tup1, test_tup2):\r\n  res = test_tup1 + test_tup2\r\n  return (res) ",
+    "test_code": "assert concatenate_nested((3, 4), (5, 6)) == (3, 4, 5, 6)\nassert concatenate_nested((1, 2), (3, 4)) == (1, 2, 3, 4)\nassert concatenate_nested((4, 5), (6, 8)) == (4, 5, 6, 8)"
+  },
+  {
+    "task_id": "973",
+    "source": "mbpp",
+    "description": "Write a python function to left rotate the string.",
+    "code": "def left_rotate(s,d):\r\n    tmp = s[d : ] + s[0 : d]\r\n    return tmp  ",
+    "test_code": "assert left_rotate(\"python\",2) == \"thonpy\"   \nassert left_rotate(\"bigdata\",3 ) == \"databig\" \nassert left_rotate(\"hadoop\",1 ) == \"adooph\" "
+  },
+  {
+    "task_id": "974",
+    "source": "mbpp",
+    "description": "Write a function to find the minimum total path sum in the given triangle.",
+    "code": "def min_sum_path(A): \r\n\tmemo = [None] * len(A) \r\n\tn = len(A) - 1\r\n\tfor i in range(len(A[n])): \r\n\t\tmemo[i] = A[n][i] \r\n\tfor i in range(len(A) - 2, -1,-1): \r\n\t\tfor j in range( len(A[i])): \r\n\t\t\tmemo[j] = A[i][j] + min(memo[j], \r\n\t\t\t\t\t\t\t\t\tmemo[j + 1]) \r\n\treturn memo[0]",
+    "test_code": "assert min_sum_path([[ 2 ], [3, 9 ], [1, 6, 7 ]]) == 6\nassert min_sum_path([[ 2 ], [3, 7 ], [8, 5, 6 ]]) == 10 \nassert min_sum_path([[ 3 ], [6, 4 ], [5, 2, 7 ]]) == 9"
+  }
+]

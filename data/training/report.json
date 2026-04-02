@@ -1,0 +1,13 @@
+{
+  "total_samples": 874,
+  "with_certificates": 874,
+  "with_errors": 0,
+  "validation_passed": 710,
+  "validation_failed": 164,
+  "training_examples": 1420,
+  "pass_rate": 0.8124,
+  "failure_reasons": {
+    "Validation errors (unsafe expressions or malformed certificate)": 65,
+    "Tautological": 99
+  }
+}

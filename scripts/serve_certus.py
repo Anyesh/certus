@@ -1,7 +1,6 @@
 """Certus inference server. Runs on the GPU machine, serves certificate generation.
 
-Loads the model once, then serves HTTP requests. No external deps beyond
-what's already installed for training (transformers, peft, torch).
+Uses Unsloth for optimized loading and patched attention layers.
 
 Usage:
     python serve_certus.py --model MODEL_PATH [--port 8234]
@@ -19,24 +18,20 @@ MODEL = None
 TOKENIZER = None
 
 
-def load_model(model_path, base_model_name="Qwen/Qwen2.5-Coder-7B-Instruct"):
+def load_model(model_path):
     global MODEL, TOKENIZER
-    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
-    from peft import PeftModel
     import torch
+    from unsloth import FastLanguageModel
 
-    print(f"Loading {base_model_name} + LoRA from {model_path}...")
-    quant_config = BitsAndBytesConfig(
-        load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16
+    print(f"Loading model from {model_path}...")
+    MODEL, TOKENIZER = FastLanguageModel.from_pretrained(
+        model_name=model_path,
+        max_seq_length=2048,
+        dtype=None,
+        load_in_4bit=True,
     )
-    base = AutoModelForCausalLM.from_pretrained(
-        base_model_name,
-        quantization_config=quant_config,
-        device_map="auto",
-    )
-    MODEL = PeftModel.from_pretrained(base, model_path)
-    TOKENIZER = AutoTokenizer.from_pretrained(model_path)
     MODEL.config.use_cache = True
+    torch.set_grad_enabled(False)
     print("Model loaded. Ready to serve.")
 
 
@@ -50,14 +45,14 @@ def generate_certificate(code, max_tokens=512):
     )
     inputs = TOKENIZER(text, return_tensors="pt").to(MODEL.device)
 
-    with torch.no_grad():
-        outputs = MODEL.generate(
-            **inputs,
-            max_new_tokens=max_tokens,
-            temperature=0.1,
-            top_p=0.95,
-            do_sample=True,
-        )
+    outputs = MODEL.generate(
+        **inputs,
+        max_new_tokens=max_tokens,
+        temperature=0.1,
+        top_p=0.95,
+        do_sample=True,
+        use_cache=True,
+    )
 
     return TOKENIZER.decode(
         outputs[0][inputs["input_ids"].shape[-1] :], skip_special_tokens=True
@@ -98,13 +93,10 @@ class CertusHandler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
-    parser.add_argument(
-        "--base-model", default="Qwen/Qwen2.5-Coder-7B-Instruct", help="Base model name"
-    )
     parser.add_argument("--port", type=int, default=8234)
     args = parser.parse_args()
 
-    load_model(args.model, args.base_model)
+    load_model(args.model)
 
     server = HTTPServer(("0.0.0.0", args.port), CertusHandler)
     print(f"Serving on http://0.0.0.0:{args.port}")
