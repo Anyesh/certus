@@ -30,30 +30,37 @@ Code generation is getting very good, but there is no standard way to verify tha
 
 The key insight is that certificates don't need to be *proofs* to be valuable. A certificate that says "this function always returns a non-negative integer" and passes 1000 random tests gives you meaningful confidence, even without a formal proof. The checker catches wrong claims, and the strength score catches vacuous ones.
 
-## How this compares to doctest
+## What problem this solves
 
-A natural question: Python already has doctest. Why do we need certificates?
+Certus might look like doctest (both attach verification metadata to functions) or like type annotations (both declare properties inline). The resemblance is intentional, but the problem it solves is different.
 
-Doctest checks specific input/output pairs ("does `fib(5)` return `5`?"). Certus declares general properties ("for all non-negative n, the result is non-negative") and verifies them across many random inputs. Across 90 held-out functions:
+**Existing tools require a human in the loop.** Someone has to write the doctest examples, the type annotations, the Hypothesis property tests, or the `icontract` preconditions. For hand-written code, that's fine. For AI-generated code, it's backwards: you're asking a human to verify what a machine wrote, which defeats the purpose of generation.
 
-| | Doctest (MBPP tests) | Certus (14B model) |
+**Certus automates both sides.** A finetuned model generates the correctness claims, and an independent checker verifies them with counterexample search. No human writes the properties, and no human reviews the results. The pipeline is: code goes in, verified certificate comes out (or a failure report explaining what the checker disproved).
+
+The closest existing approach is **Design by Contract** (preconditions and postconditions, as in Eiffel or Python's `icontract`). Certus is essentially auto-generated contracts that are auto-verified. The novelty isn't the decorator syntax; it's the closed loop where the model proposes claims and the checker stress-tests them.
+
+### Why not just write Hypothesis tests?
+
+You could. Hypothesis is excellent for property-based testing, and Certus uses it internally. But in practice:
+
+1. **Nobody writes property tests for every function.** It's too much work for generated code that may be rewritten tomorrow. Certus generates them automatically at the same time the code is generated.
+2. **Property tests require knowing what to test.** The hard part isn't running Hypothesis; it's deciding which properties matter. The finetuned model handles that, and it's right 83% of the time on held-out code it's never seen.
+3. **Certificates compose.** A function can declare `depends_on` to reference another function's certificate. The checker traverses these dependencies and verifies the whole chain. Ad-hoc property tests don't compose this way.
+
+### How much does this actually cover?
+
+Across 90 held-out functions, the finetuned 14B model generates an average of 2.9 property guarantees per function, each verified across 30 random inputs via Hypothesis. The guarantee types break down as:
+
+| Type | Share | Example |
 |---|---|---|
-| Checks per function | 3 specific examples | 2.9 general properties |
-| Total verification points | 270 | ~7,740 (30 random inputs each) |
-| Behavioral branches | 0 | 133 (1.5 per function) |
-| Property types | All exact equality | Bounds, structural, equality, type |
-| Catches edge cases? | Only if examples hit them | Probabilistically, via random testing |
-| Catches tautological claims? | N/A | Yes, strength scoring |
+| Bounds | 26% | `result >= 0`, `result <= n` |
+| Structural | 26% | `all(result[i] <= result[i+1] for i in range(len(result)-1))` |
+| Type checks | 22% | `isinstance(result, list)` |
+| Equalities | 21% | `result == a + b`, `result * result == num` |
+| Other | 4% | various |
 
-**Concrete example**: for a function that checks if a subset has a sum divisible by m, doctest verifies 3 specific arrays. Certus declares and verifies:
-```python
-{"when": "result == True",
- "guarantees": ["any(sum(arr[i:j]) % m == 0 for i in range(n) for j in range(i+1, n+1))"]}
-```
-
-This property is verified across randomly generated arrays. If someone changes the implementation and breaks an edge case outside the 3 doctest examples, doctest still passes. Certus has a much higher probability of catching it.
-
-The tradeoff: Certus certificates have a 7.8% semantic error rate where the model generates wrong claims. A human-written doctest is never wrong about the examples it checks. The checker catches 100% of the model's errors, so incorrect certificates never reach the user as "verified," but they do reduce the yield (83.3% of generated certificates survive verification).
+The structural and bound properties are things that specific-example testing (doctest, unittest) fundamentally cannot express. You can't write a doctest that checks "the result is sorted" for all inputs. You can write a Certus certificate that says it and verify it across random inputs.
 
 ## Results
 
