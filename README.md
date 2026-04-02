@@ -205,28 +205,42 @@ The base model is more conservative (4 semantic errors vs 7 for finetuned), but 
 
 ## Quick start
 
-### Verify existing certificates
+### 1. Install Certus
 
 ```bash
-certus check myfile.py
+git clone https://github.com/Gompachiro/certus.git
+cd certus
+uv venv && uv pip install -e .
 ```
 
-### Generate certificates for a Python file
+### 2. Start the inference server (GPU machine)
 
-Start the inference server on a GPU machine (model downloads automatically from HuggingFace on first use):
+The server needs a GPU with at least 8GB VRAM. Install the inference dependencies, then start serving. The model weights download automatically from HuggingFace on first run.
 
 ```bash
-# 14B model (recommended, 16GB VRAM)
+uv pip install -r requirements-train.txt
+
+# 14B model (recommended, needs 16GB VRAM)
 python scripts/serve_certus.py --model Gompachiro/certus-qwen-14b-lora --port 8234
 
-# 7B model (lighter, 8GB VRAM)
+# or 7B model (lighter, needs 8GB VRAM)
 python scripts/serve_certus.py --model Gompachiro/certus-qwen-7b-lora --port 8234
 ```
 
-Then generate and verify:
+### 3. Generate and verify certificates
+
+Point `certus generate` at your inference server (can be the same machine or a different one on the network):
 
 ```bash
-certus generate myfile.py --server http://gpu-host:8234
+certus generate myfile.py --server http://localhost:8234
+```
+
+### Verify existing certificates (no GPU needed)
+
+If you already have code with `@certus` decorators, the checker runs locally with no model:
+
+```bash
+certus check myfile.py
 ```
 
 Output looks like:
