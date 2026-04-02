@@ -2,6 +2,8 @@
 
 A standard for AI-generated code to carry machine-checkable certificates of correctness, plus a Python reference implementation and a finetuned model that generates them.
 
+**Models**: [certus-qwen-14b-lora](https://huggingface.co/Gompachiro/certus-qwen-14b-lora) (recommended) | [certus-qwen-7b-lora](https://huggingface.co/Gompachiro/certus-qwen-7b-lora) (lighter)
+
 ## What this is
 
 When an LLM writes a function, it can also emit a *certificate*: a structured declaration of what the function guarantees about its behavior. Certus defines the format for these certificates and provides tooling to verify them automatically.
@@ -211,10 +213,14 @@ certus check myfile.py
 
 ### Generate certificates for a Python file
 
-Start the inference server on a GPU machine:
+Start the inference server on a GPU machine (model downloads automatically from HuggingFace on first use):
 
 ```bash
-python scripts/serve_certus.py --model models/certus-qwen-14b-lora --port 8234
+# 14B model (recommended, 16GB VRAM)
+python scripts/serve_certus.py --model Gompachiro/certus-qwen-14b-lora --port 8234
+
+# 7B model (lighter, 8GB VRAM)
+python scripts/serve_certus.py --model Gompachiro/certus-qwen-7b-lora --port 8234
 ```
 
 Then generate and verify:
