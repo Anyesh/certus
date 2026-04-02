@@ -53,14 +53,19 @@ def main():
         "--max-seq-length", type=int, default=2048, help="Maximum sequence length"
     )
     parser.add_argument("--lora-r", type=int, default=16, help="LoRA rank")
+    parser.add_argument(
+        "--base-model",
+        default="unsloth/Qwen2.5-Coder-7B-Instruct-bnb-4bit",
+        help="Base model name or path",
+    )
     args = parser.parse_args()
 
     # --- 1. Load model ---
-    print("Loading Qwen 2.5 Coder 7B (4-bit)...")
+    print(f"Loading {args.base_model} (4-bit)...")
     from unsloth import FastLanguageModel
 
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name="unsloth/Qwen2.5-Coder-7B-Instruct-bnb-4bit",
+        model_name=args.base_model,
         max_seq_length=args.max_seq_length,
         dtype=None,  # auto-detect
         load_in_4bit=True,

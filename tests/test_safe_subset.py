@@ -49,7 +49,9 @@ class TestAllowedExpressions:
         validate_expression("sum(result) == abs(total)")
 
     def test_tuple_range(self):
-        validate_expression("all(result[i] <= result[i+1] for i in range(len(result)-1))")
+        validate_expression(
+            "all(result[i] <= result[i+1] for i in range(len(result)-1))"
+        )
 
     def test_attribute_access(self):
         validate_expression("self.tokens >= 0")
@@ -147,3 +149,82 @@ class TestForbiddenExpressions:
     def test_f_string(self):
         with pytest.raises(UnsafeExpressionError):
             validate_expression("f'{result}'")
+
+    def test_forbidden_method_unknown(self):
+        with pytest.raises(UnsafeExpressionError):
+            validate_expression("x.dangerous_method()")
+
+    def test_forbidden_method_on_module(self):
+        # "system" is not in ALLOWED_METHODS
+        with pytest.raises(UnsafeExpressionError):
+            validate_expression("obj.system('cmd')")
+
+
+class TestMethodCalls:
+    """Tests for allowed method call support."""
+
+    def test_str_split(self):
+        validate_expression("result.split()")
+
+    def test_str_split_with_arg(self):
+        validate_expression("result.split(',')")
+
+    def test_str_lower(self):
+        validate_expression("result.lower()")
+
+    def test_str_upper(self):
+        validate_expression("result.upper()")
+
+    def test_str_replace(self):
+        validate_expression("result.replace(' ', '_')")
+
+    def test_str_startswith(self):
+        validate_expression("result.startswith('prefix')")
+
+    def test_str_strip(self):
+        validate_expression("result.strip()")
+
+    def test_str_count(self):
+        validate_expression("result.count('x')")
+
+    def test_str_isdigit(self):
+        validate_expression("result.isdigit()")
+
+    def test_str_join(self):
+        validate_expression("' '.join(result)")
+
+    def test_dict_values(self):
+        validate_expression("result.values()")
+
+    def test_dict_keys(self):
+        validate_expression("result.keys()")
+
+    def test_dict_items(self):
+        validate_expression("result.items()")
+
+    def test_dict_get(self):
+        validate_expression("result.get('key', 0)")
+
+    def test_list_copy(self):
+        validate_expression("result.copy()")
+
+    def test_set_union(self):
+        validate_expression("set(a).union(set(b))")
+
+    def test_set_intersection(self):
+        validate_expression("set(a).intersection(set(b))")
+
+    def test_chained_method_in_comprehension(self):
+        validate_expression("all(x.isdigit() for x in result)")
+
+    def test_method_on_subscript(self):
+        validate_expression("result[0].lower()")
+
+    def test_nested_method_calls(self):
+        validate_expression("len(result.split(','))")
+
+    def test_method_in_comparison(self):
+        validate_expression("result.count('a') > 0")
+
+    def test_sum_dict_values(self):
+        validate_expression("sum(result.values()) == len(list1)")

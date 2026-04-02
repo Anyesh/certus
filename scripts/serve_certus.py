@@ -19,18 +19,18 @@ MODEL = None
 TOKENIZER = None
 
 
-def load_model(model_path):
+def load_model(model_path, base_model_name="Qwen/Qwen2.5-Coder-7B-Instruct"):
     global MODEL, TOKENIZER
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
     from peft import PeftModel
     import torch
 
-    print(f"Loading model from {model_path}...")
+    print(f"Loading {base_model_name} + LoRA from {model_path}...")
     quant_config = BitsAndBytesConfig(
         load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16
     )
     base = AutoModelForCausalLM.from_pretrained(
-        "Qwen/Qwen2.5-Coder-7B-Instruct",
+        base_model_name,
         quantization_config=quant_config,
         device_map="auto",
     )
@@ -98,10 +98,13 @@ class CertusHandler(BaseHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", required=True)
+    parser.add_argument(
+        "--base-model", default="Qwen/Qwen2.5-Coder-7B-Instruct", help="Base model name"
+    )
     parser.add_argument("--port", type=int, default=8234)
     args = parser.parse_args()
 
-    load_model(args.model)
+    load_model(args.model, args.base_model)
 
     server = HTTPServer(("0.0.0.0", args.port), CertusHandler)
     print(f"Serving on http://0.0.0.0:{args.port}")

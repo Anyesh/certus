@@ -4,19 +4,123 @@ from __future__ import annotations
 
 import ast
 
-ALLOWED_BUILTINS = frozenset({
-    "len", "sorted", "all", "any", "min", "max", "sum", "abs",
-    "set", "list", "tuple", "range", "isinstance", "type",
-    "frozenset", "enumerate", "zip", "int", "float", "str", "bool",
-    "old",  # Certus special: value at function entry
-})
+ALLOWED_BUILTINS = frozenset(
+    {
+        "len",
+        "sorted",
+        "all",
+        "any",
+        "min",
+        "max",
+        "sum",
+        "abs",
+        "set",
+        "list",
+        "tuple",
+        "range",
+        "isinstance",
+        "type",
+        "frozenset",
+        "enumerate",
+        "zip",
+        "int",
+        "float",
+        "str",
+        "bool",
+        "old",  # Certus special: value at function entry
+    }
+)
 
-FORBIDDEN_NAMES = frozenset({
-    "eval", "exec", "__import__", "open", "print", "input",
-    "getattr", "setattr", "delattr", "globals", "locals", "compile",
-    "breakpoint", "exit", "quit", "help", "dir", "vars",
-    "classmethod", "staticmethod", "property", "super",
-})
+FORBIDDEN_NAMES = frozenset(
+    {
+        "eval",
+        "exec",
+        "__import__",
+        "open",
+        "print",
+        "input",
+        "getattr",
+        "setattr",
+        "delattr",
+        "globals",
+        "locals",
+        "compile",
+        "breakpoint",
+        "exit",
+        "quit",
+        "help",
+        "dir",
+        "vars",
+        "classmethod",
+        "staticmethod",
+        "property",
+        "super",
+    }
+)
+
+# Method calls allowed on safe types (str, list, dict, set, tuple).
+# These cannot perform I/O, execute code, or escape the sandbox.
+ALLOWED_METHODS = frozenset(
+    {
+        # str
+        "split",
+        "rsplit",
+        "join",
+        "replace",
+        "lower",
+        "upper",
+        "strip",
+        "lstrip",
+        "rstrip",
+        "startswith",
+        "endswith",
+        "count",
+        "find",
+        "rfind",
+        "index",
+        "rindex",
+        "isdigit",
+        "isalpha",
+        "isalnum",
+        "isupper",
+        "islower",
+        "isspace",
+        "title",
+        "capitalize",
+        "swapcase",
+        "zfill",
+        "center",
+        "ljust",
+        "rjust",
+        # list / tuple
+        "copy",
+        "sort",
+        "reverse",
+        # dict
+        "keys",
+        "values",
+        "items",
+        "get",
+        # set / frozenset
+        "add",
+        "union",
+        "intersection",
+        "difference",
+        "symmetric_difference",
+        "issubset",
+        "issuperset",
+        "isdisjoint",
+        # general
+        "append",
+        "extend",
+        "pop",
+        "remove",
+        "insert",
+        "clear",
+        "update",
+        "bit_length",
+    }
+)
 
 
 class UnsafeExpressionError(Exception):
@@ -78,11 +182,7 @@ def _walk(node: ast.AST, expression: str) -> None:
                 raise UnsafeExpressionError(expression, f"dunder attribute: {attr}")
             _walk(value, expression)
         case ast.Call(func=func, args=args, keywords=keywords):
-            func_name = _get_call_name(func)
-            if func_name is None or func_name not in ALLOWED_BUILTINS:
-                raise UnsafeExpressionError(
-                    expression, f"forbidden function call: {func_name or 'unknown'}"
-                )
+            _validate_call(func, expression)
             for a in args:
                 _walk(a, expression)
             for kw in keywords:
@@ -140,9 +240,23 @@ def _walk_comprehension(comp: ast.comprehension, expression: str) -> None:
         _walk(if_clause, expression)
 
 
-def _get_call_name(func: ast.AST) -> str | None:
+def _validate_call(func: ast.AST, expression: str) -> None:
+    """Validate that a call target is either an allowed builtin or an allowed method."""
     match func:
         case ast.Name(id=name):
-            return name
+            if name not in ALLOWED_BUILTINS:
+                raise UnsafeExpressionError(
+                    expression, f"forbidden function call: {name}"
+                )
+        case ast.Attribute(value=value, attr=method_name):
+            if method_name.startswith("__") and method_name.endswith("__"):
+                raise UnsafeExpressionError(
+                    expression, f"dunder method call: {method_name}"
+                )
+            if method_name not in ALLOWED_METHODS:
+                raise UnsafeExpressionError(
+                    expression, f"forbidden method call: {method_name}"
+                )
+            _walk(value, expression)
         case _:
-            return None
+            raise UnsafeExpressionError(expression, "forbidden function call: unknown")
