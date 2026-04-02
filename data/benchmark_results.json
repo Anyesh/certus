@@ -1,0 +1,102 @@
+{
+  "functions": [
+    {
+      "function": "chunk_list",
+      "status": "pass",
+      "inference_time": 7.58,
+      "total_time": 14.47,
+      "tokens_generated": 105,
+      "tokens_per_second": 13.8,
+      "certificate_lines": 4
+    },
+    {
+      "function": "flatten_dict",
+      "status": "pass",
+      "inference_time": 5.24,
+      "total_time": 9.02,
+      "tokens_generated": 63,
+      "tokens_per_second": 12.0,
+      "certificate_lines": 4
+    },
+    {
+      "function": "deduplicate",
+      "status": "pass",
+      "inference_time": 4.77,
+      "total_time": 10.73,
+      "tokens_generated": 61,
+      "tokens_per_second": 12.8,
+      "certificate_lines": 4
+    },
+    {
+      "function": "clamp",
+      "status": "pass",
+      "inference_time": 8.58,
+      "total_time": 14.42,
+      "tokens_generated": 117,
+      "tokens_per_second": 13.6,
+      "certificate_lines": 4
+    },
+    {
+      "function": "is_palindrome",
+      "status": "pass",
+      "inference_time": 5.43,
+      "total_time": 12.93,
+      "tokens_generated": 71,
+      "tokens_per_second": 13.1,
+      "certificate_lines": 4
+    },
+    {
+      "function": "merge_sorted",
+      "status": "pass",
+      "inference_time": 6.63,
+      "total_time": 14.04,
+      "tokens_generated": 85,
+      "tokens_per_second": 12.8,
+      "certificate_lines": 4
+    },
+    {
+      "function": "pascal_row",
+      "status": "pass",
+      "inference_time": 5.28,
+      "total_time": 12.25,
+      "tokens_generated": 61,
+      "tokens_per_second": 11.6,
+      "certificate_lines": 4
+    },
+    {
+      "function": "group_by",
+      "status": "fail",
+      "inference_time": 5.74,
+      "total_time": 11.59,
+      "tokens_generated": 83,
+      "tokens_per_second": 14.5,
+      "certificate_lines": 4
+    },
+    {
+      "function": "levenshtein_distance",
+      "status": "pass",
+      "inference_time": 3.77,
+      "total_time": 8.93,
+      "tokens_generated": 45,
+      "tokens_per_second": 11.9,
+      "certificate_lines": 4
+    },
+    {
+      "function": "matrix_transpose",
+      "status": "pass",
+      "inference_time": 4.98,
+      "total_time": 10.75,
+      "tokens_generated": 77,
+      "tokens_per_second": 15.5,
+      "certificate_lines": 4
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "passed": 9,
+    "total_inference_time": 58.01,
+    "total_checker_time": 61.12,
+    "total_tokens": 768,
+    "tokens_per_second": 13.2
+  }
+}
