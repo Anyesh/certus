@@ -1,0 +1,26 @@
+Loaded 90 model outputs, 90 samples
+
+============================================================
+CERTUS MODEL EVALUATION REPORT
+============================================================
+
+Total samples:           90
+Parse success:           0/90 (0.0%)
+Structural pass:         0/90 (0.0%)
+Dynamic (Hypothesis):    0/90 (0.0%)
+Tautological:            0/90 (0.0%)
+
+--- Failure Breakdown ---
+Parse failures:          90
+Structural failures:     0
+Dynamic failures:        0
+Tautological:            0
+
+--- Parse Failures (first 5) ---
+  task 511: To generate a Certus certificate for the given function `find_Min_Sum`, we need to ensure that the f...
+  task 512: To generate a Certus certificate for the provided functions, we need to ensure that the code adheres...
+  task 513: To generate a Certus certificate for the given Python function `add_str`, we need to define the func...
+  task 514: To generate a Certus certificate for the `sum_elements` function, you would typically need to follow...
+  task 515: To generate a Certus certificate for the given function `modular_sum`, we need to ensure that the fu...
+
+Full report saved to data/eval_report.json
