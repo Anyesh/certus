@@ -10,6 +10,7 @@ from pathlib import Path
 import click
 
 from certus.checker.runner import run_checker
+from certus.sidecar.store import SidecarStore
 
 
 @click.group()
@@ -191,3 +192,69 @@ def pipeline(
     click.echo(f"  Formatted: {report.formatted}")
     click.echo(f"  Pass rate: {report.pass_rate:.1%}")
     click.echo(f"\nOutput: {config.output_dir}")
+
+
+@main.command()
+@click.option(
+    "--project-root",
+    type=click.Path(exists=True),
+    default=".",
+    help="Project root directory",
+)
+def init(project_root: str):
+    store = SidecarStore(project_root)
+    store.init()
+    click.echo(f"Initialized .certus/ in {Path(project_root).resolve()}")
+
+
+@main.command()
+@click.option(
+    "--project-root",
+    type=click.Path(exists=True),
+    default=".",
+    help="Project root directory",
+)
+def status(project_root: str):
+    store = SidecarStore(project_root)
+    files = store.list_certified_files()
+    if not files:
+        click.echo("No certificates found. Run 'certus init' to get started.")
+        return
+    total_certified = 0
+    total_stale = 0
+    for sf in files:
+        certified = len(sf.functions)
+        total_certified += certified
+        stale_entries = store.get_stale_certificates(sf.source_file)
+        stale = len(stale_entries)
+        total_stale += stale
+        uncertified_funcs = store.get_uncertified_functions(sf.source_file)
+        uncertified = len(uncertified_funcs)
+        click.echo(
+            f"  {sf.source_file}: {certified} certified, {uncertified} uncertified, {stale} stale"
+        )
+    click.echo(f"\nTotal: {total_certified} certified, {total_stale} stale")
+
+
+@main.command()
+@click.option(
+    "--project-root",
+    type=click.Path(exists=True),
+    default=".",
+    help="Project root directory",
+)
+def clean(project_root: str):
+    store = SidecarStore(project_root)
+    files = store.list_certified_files()
+    removed = 0
+    for sf in files:
+        stale = store.get_stale_certificates(sf.source_file)
+        for name, reason in stale:
+            if reason == "orphaned":
+                store.remove_certificate(sf.source_file, name)
+                click.echo(f"  Removed orphaned certificate: {sf.source_file}::{name}")
+                removed += 1
+    if removed == 0:
+        click.echo("No orphaned certificates found.")
+    else:
+        click.echo(f"\nRemoved {removed} orphaned certificate(s).")
