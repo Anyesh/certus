@@ -102,3 +102,67 @@ def run_checker(
         dependencies=dep_results,
         strength=strength,
     )
+
+
+def check_from_sidecar(
+    function_name: str,
+    entry: "SidecarFileEntry",
+    source: str,
+    mode: str = "fast",
+    num_runs: int = 1000,
+) -> VerificationReport:
+    import ast  # noqa
+
+    from certus.sidecar.models import SidecarFileEntry  # noqa
+    from certus.spec.schema import Postcondition, Signature  # noqa
+
+    sc = entry.certificate
+
+    tree = ast.parse(source)
+    func_node = None
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if node.name == function_name or function_name.endswith(f".{node.name}"):
+                func_node = node
+                break
+
+    params = {}
+    returns = "Any"
+    if func_node:
+        for arg in func_node.args.args:
+            ann = arg.annotation
+            params[arg.arg] = ast.unparse(ann) if ann else "Any"
+        if func_node.returns:
+            returns = ast.unparse(func_node.returns)
+
+    cert = Certificate(
+        certus="0.1",
+        function=function_name,
+        signature=Signature(
+            params=params,
+            returns=returns,
+            preconditions=sc.preconditions,
+        ),
+        postconditions=[Postcondition(**p) for p in sc.postconditions],
+    )
+
+    namespace: dict = {}
+    compiled = compile(source, "<sidecar>", "exec")
+    exec(compiled, namespace)  # noqa: S102
+
+    func = namespace.get(function_name.split(".")[-1])
+    if func is None:
+        return VerificationReport(
+            function=function_name,
+            certificate_depth="minimal",
+            claims=[
+                ClaimResult(
+                    claim=f"Function '{function_name}' not found in source",
+                    status="unverified",
+                )
+            ],
+            dependencies=[],
+            strength=StrengthScore(rejection_rate=0.0),
+        )
+
+    return run_checker(func, cert, source, mode=mode, num_runs=num_runs)
