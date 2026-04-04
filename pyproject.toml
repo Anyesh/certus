@@ -10,6 +10,7 @@ dependencies = [
     "pyyaml>=6.0",
     "hypothesis>=6.0",
     "click>=8.0",
+    "mcp>=1.0",
 ]
 
 [project.optional-dependencies]
@@ -20,6 +21,7 @@ all = ["certus[checker,pipeline,training]"]
 
 [project.scripts]
 certus = "certus.cli:main"
+certus-mcp = "certus.mcp_server:main"
 
 [project.entry-points.pytest11]
 certus = "certus.pytest_plugin"
