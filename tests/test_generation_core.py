@@ -145,3 +145,41 @@ def test_generate_certificate_uncertifiable_weak():
     )
 
     assert result.passed is False
+
+
+def test_generate_certificate_feedback_loop_improves_quality():
+    tautological = json.dumps(
+        {
+            "preconditions": ["isinstance(a, int)", "isinstance(b, int)"],
+            "postconditions": [{"when": "always", "guarantees": ["result == result"]}],
+        }
+    )
+    strong = GOOD_CERT_JSON
+
+    attempts = []
+    responses = [tautological, strong]
+
+    def llm_call(prompt):
+        idx = len(attempts)
+        attempts.append(prompt)
+        return responses[min(idx, len(responses) - 1)]
+
+    result = generate_certificate(
+        function_code=SAMPLE_CODE,
+        function_name="add",
+        llm_call=llm_call,
+        strength_threshold=0.5,
+        max_attempts=3,
+        num_runs=30,
+    )
+
+    assert result.passed is True
+    assert result.attempts == 2
+    assert len(attempts) == 2
+    # Retry prompt should contain feedback about the tautological certificate
+    retry_prompt = attempts[1].lower()
+    assert (
+        "strength" in retry_prompt
+        or "weak" in retry_prompt
+        or "result == result" in attempts[1]
+    )
