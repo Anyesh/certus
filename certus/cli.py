@@ -1,21 +1,19 @@
-"""Certus CLI."""
-
 from __future__ import annotations
 
 import importlib.util
 import inspect
+import json as json_mod
 import sys
 from pathlib import Path
 
 import click
 
-from certus.checker.runner import run_checker
+from certus.checker.runner import check_from_sidecar, run_checker
 from certus.sidecar.store import SidecarStore
 
 
 @click.group()
 def main():
-    """Certus: Certificate-augmented generation for verifiable AI code."""
     pass
 
 
@@ -23,44 +21,87 @@ def main():
 @click.argument("path", type=click.Path(exists=True))
 @click.option("--mode", type=click.Choice(["fast", "full", "strict"]), default="fast")
 @click.option("--runs", type=int, default=1000, help="Number of dynamic test runs")
-def check(path: str, mode: str, runs: int):
-    """Verify Certus certificates in a Python file."""
-    filepath = Path(path)
+@click.option(
+    "--project-root",
+    type=click.Path(exists=True),
+    default=None,
+    help="Project root directory (auto-detected from file location if omitted)",
+)
+@click.option(
+    "--format",
+    "output_format",
+    type=click.Choice(["summary", "json"]),
+    default="summary",
+    help="Output format",
+)
+def check(
+    path: str, mode: str, runs: int, project_root: str | None, output_format: str
+):
+    filepath = Path(path).resolve()
     source = filepath.read_text()
 
-    spec = importlib.util.spec_from_file_location("_certus_target", filepath)
-    if spec is None or spec.loader is None:
-        click.echo(f"Error: could not load {path}", err=True)
-        sys.exit(1)
+    root = Path(project_root).resolve() if project_root is not None else filepath.parent
 
-    module = importlib.util.module_from_spec(spec)
     try:
-        spec.loader.exec_module(module)
-    except Exception as e:
-        click.echo(f"Error importing {path}: {e}", err=True)
-        sys.exit(1)
+        rel_path = str(filepath.relative_to(root))
+    except ValueError:
+        rel_path = None
 
-    certified = []
-    for name, obj in inspect.getmembers(module):
-        if callable(obj) and hasattr(obj, "__certus__"):
-            certified.append((name, obj))
-    for name, cls in inspect.getmembers(module, inspect.isclass):
-        for mname, method in inspect.getmembers(cls):
-            if callable(method) and hasattr(method, "__certus__"):
-                certified.append((f"{name}.{mname}", method))
+    sidecar_names: set[str] = set()
+    all_results: list[tuple[str, str, object]] = []
 
-    if not certified:
+    store = SidecarStore(root)
+    if rel_path is not None:
+        sidecar_file = store.load_file(rel_path)
+        if sidecar_file is not None:
+            for func_name, entry in sidecar_file.functions.items():
+                report = check_from_sidecar(
+                    func_name, entry, source, mode=mode, num_runs=runs
+                )
+                sidecar_names.add(func_name)
+                all_results.append((func_name, "sidecar", report))
+
+    spec = importlib.util.spec_from_file_location("_certus_target", filepath)
+    if spec is not None and spec.loader is not None:
+        module = importlib.util.module_from_spec(spec)
+        try:
+            spec.loader.exec_module(module)
+        except Exception as e:
+            click.echo(f"Error importing {path}: {e}", err=True)
+            sys.exit(1)
+
+        inline_candidates: list[tuple[str, object]] = []
+        for name, obj in inspect.getmembers(module):
+            if callable(obj) and hasattr(obj, "__certus__"):
+                inline_candidates.append((name, obj))
+        for name, cls in inspect.getmembers(module, inspect.isclass):
+            for mname, method in inspect.getmembers(cls):
+                if callable(method) and hasattr(method, "__certus__"):
+                    inline_candidates.append((f"{name}.{mname}", method))
+
+        for name, func in inline_candidates:
+            if name in sidecar_names:
+                continue
+            cert = func.__certus__
+            report = run_checker(func, cert, source, mode=mode, num_runs=runs)
+            all_results.append((name, "inline", report))
+
+    if not all_results:
         click.echo(f"No Certus certificates found in {path}")
         return
 
     any_failed = False
-    for name, func in certified:
-        cert = func.__certus__
-        report = run_checker(func, cert, source, mode=mode, num_runs=runs)
-
+    for name, source_label, report in all_results:
         s = report.summary
-        icon = "PASS" if s.violated == 0 and s.unverified == 0 else "FAIL"
-        click.echo(f"\n{icon} {name}")
+        passed = s.violated == 0 and s.unverified == 0
+        if not passed:
+            any_failed = True
+
+        if output_format == "json":
+            continue
+
+        icon = "PASS" if passed else "FAIL"
+        click.echo(f"\n{icon} {name} [{source_label}]")
         click.echo(f"  depth: {report.certificate_depth}")
         click.echo(
             f"  proved: {s.proved}  held: {s.held}  violated: {s.violated}  unverified: {s.unverified}"
@@ -69,7 +110,6 @@ def check(path: str, mode: str, runs: int):
         click.echo(f"  strength: {report.strength.rejection_rate}")
 
         if s.violated > 0:
-            any_failed = True
             for c in report.claims:
                 if c.status == "violated":
                     click.echo(f"  VIOLATED: {c.claim}")
@@ -77,10 +117,29 @@ def check(path: str, mode: str, runs: int):
                         click.echo(f"    counterexample: {c.counterexample}")
 
         if s.unverified > 0:
-            any_failed = True
             for c in report.claims:
                 if c.status == "unverified":
                     click.echo(f"  UNVERIFIED: {c.claim}")
+
+    if output_format == "json":
+        output = []
+        for name, source_label, report in all_results:
+            s = report.summary
+            passed = s.violated == 0 and s.unverified == 0
+            output.append(
+                {
+                    "function": name,
+                    "source": source_label,
+                    "status": "passed" if passed else "failed",
+                    "proved": s.proved,
+                    "held": s.held,
+                    "violated": s.violated,
+                    "unverified": s.unverified,
+                    "confidence": s.confidence,
+                    "strength": report.strength.rejection_rate,
+                }
+            )
+        click.echo(json_mod.dumps(output))
 
     if any_failed:
         sys.exit(1)

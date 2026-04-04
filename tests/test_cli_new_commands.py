@@ -85,3 +85,141 @@ def test_clean_removes_orphaned(runner, project):
 
     loaded = store.load_file("src/utils.py")
     assert "nonexistent_func" not in loaded.functions
+
+
+def test_check_sidecar_passing(runner, project):
+    store = SidecarStore(project)
+    store.init()
+
+    from certus.sidecar.hashing import (
+        extract_function_info,
+        compute_signature_hash,
+        compute_body_hash,
+    )
+
+    source = (project / "src" / "utils.py").read_text()
+    funcs = extract_function_info(source)
+    add_info = next(f for f in funcs if f.qualname == "add")
+
+    store.save_certificate(
+        "src/utils.py",
+        "add",
+        SidecarFileEntry(
+            signature_hash=compute_signature_hash(add_info),
+            body_hash=compute_body_hash(add_info),
+            generated_by="test",
+            generated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            certificate=SidecarCertificate(
+                preconditions=["isinstance(a, int)", "isinstance(b, int)"],
+                postconditions=[{"when": "always", "guarantees": ["result == a + b"]}],
+            ),
+        ),
+    )
+
+    result = runner.invoke(
+        main,
+        [
+            "check",
+            str(project / "src" / "utils.py"),
+            "--project-root",
+            str(project),
+            "--runs",
+            "30",
+        ],
+    )
+    assert result.exit_code == 0
+    assert "PASS" in result.output
+
+
+def test_check_sidecar_json_output(runner, project):
+    store = SidecarStore(project)
+    store.init()
+
+    from certus.sidecar.hashing import (
+        extract_function_info,
+        compute_signature_hash,
+        compute_body_hash,
+    )
+    import json as json_mod
+
+    source = (project / "src" / "utils.py").read_text()
+    funcs = extract_function_info(source)
+    add_info = next(f for f in funcs if f.qualname == "add")
+
+    store.save_certificate(
+        "src/utils.py",
+        "add",
+        SidecarFileEntry(
+            signature_hash=compute_signature_hash(add_info),
+            body_hash=compute_body_hash(add_info),
+            generated_by="test",
+            generated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            certificate=SidecarCertificate(
+                preconditions=["isinstance(a, int)", "isinstance(b, int)"],
+                postconditions=[{"when": "always", "guarantees": ["result == a + b"]}],
+            ),
+        ),
+    )
+
+    result = runner.invoke(
+        main,
+        [
+            "check",
+            str(project / "src" / "utils.py"),
+            "--project-root",
+            str(project),
+            "--format",
+            "json",
+            "--runs",
+            "30",
+        ],
+    )
+    assert result.exit_code == 0
+    data = json_mod.loads(result.output)
+    assert isinstance(data, list)
+    assert data[0]["function"] == "add"
+    assert data[0]["status"] == "passed"
+
+
+def test_check_exit_code_1_on_violation(runner, project):
+    store = SidecarStore(project)
+    store.init()
+
+    from certus.sidecar.hashing import (
+        extract_function_info,
+        compute_signature_hash,
+        compute_body_hash,
+    )
+
+    source = (project / "src" / "utils.py").read_text()
+    funcs = extract_function_info(source)
+    add_info = next(f for f in funcs if f.qualname == "add")
+
+    # Wrong postcondition: claims result == a * b (should be a + b)
+    store.save_certificate(
+        "src/utils.py",
+        "add",
+        SidecarFileEntry(
+            signature_hash=compute_signature_hash(add_info),
+            body_hash=compute_body_hash(add_info),
+            generated_by="test",
+            generated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            certificate=SidecarCertificate(
+                preconditions=["isinstance(a, int)", "isinstance(b, int)"],
+                postconditions=[{"when": "always", "guarantees": ["result == a * b"]}],
+            ),
+        ),
+    )
+
+    result = runner.invoke(
+        main,
+        [
+            "check",
+            str(project / "src" / "utils.py"),
+            "--project-root",
+            str(project),
+            "--runs",
+            "30",
+        ],
+    )
+    assert result.exit_code == 1
