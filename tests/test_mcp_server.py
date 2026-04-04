@@ -6,7 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from certus.sidecar.hashing import compute_body_hash, compute_signature_hash, extract_function_info
+from certus.sidecar.hashing import (
+    compute_body_hash,
+    compute_signature_hash,
+    extract_function_info,
+)
 from certus.sidecar.models import SidecarCertificate, SidecarFileEntry
 from certus.sidecar.store import SidecarStore
 
@@ -31,16 +35,20 @@ def project_dir(tmp_path):
     funcs = extract_function_info(source)
     add_info = next(f for f in funcs if f.qualname == "add")
 
-    store.save_certificate("src/utils.py", "add", SidecarFileEntry(
-        signature_hash=compute_signature_hash(add_info),
-        body_hash=compute_body_hash(add_info),
-        generated_by="test",
-        generated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
-        certificate=SidecarCertificate(
-            preconditions=["isinstance(a, int)", "isinstance(b, int)"],
-            postconditions=[{"when": "always", "guarantees": ["result == a + b"]}],
+    store.save_certificate(
+        "src/utils.py",
+        "add",
+        SidecarFileEntry(
+            signature_hash=compute_signature_hash(add_info),
+            body_hash=compute_body_hash(add_info),
+            generated_by="test",
+            generated_at=datetime(2026, 1, 1, tzinfo=timezone.utc),
+            certificate=SidecarCertificate(
+                preconditions=["isinstance(a, int)", "isinstance(b, int)"],
+                postconditions=[{"when": "always", "guarantees": ["result == a + b"]}],
+            ),
         ),
-    ))
+    )
 
     return tmp_path
 
@@ -52,10 +60,14 @@ def test_validate_certificate_tool_passing(project_dir):
         project_root=str(project_dir),
         function_name="add",
         source_file="src/utils.py",
-        certificate_json=json.dumps({
-            "preconditions": ["isinstance(a, int)"],
-            "postconditions": [{"when": "always", "guarantees": ["result == a + b"]}],
-        }),
+        certificate_json=json.dumps(
+            {
+                "preconditions": ["isinstance(a, int)"],
+                "postconditions": [
+                    {"when": "always", "guarantees": ["result == a + b"]}
+                ],
+            }
+        ),
     )
     assert result["structural_pass"]
 
@@ -67,10 +79,12 @@ def test_validate_certificate_tool_unsafe_expression(project_dir):
         project_root=str(project_dir),
         function_name="add",
         source_file="src/utils.py",
-        certificate_json=json.dumps({
-            "preconditions": [],
-            "postconditions": [{"when": "always", "guarantees": [_UNSAFE_EXPR]}],
-        }),
+        certificate_json=json.dumps(
+            {
+                "preconditions": [],
+                "postconditions": [{"when": "always", "guarantees": [_UNSAFE_EXPR]}],
+            }
+        ),
     )
     assert not result["structural_pass"]
 
@@ -106,10 +120,49 @@ def test_save_certificate_tool_enforces_validation(project_dir):
         project_root=str(project_dir),
         function_name="multiply",
         source_file="src/utils.py",
-        certificate_json=json.dumps({
-            "preconditions": [],
-            "postconditions": [{"when": "always", "guarantees": [_UNSAFE_BAD]}],
-        }),
+        certificate_json=json.dumps(
+            {
+                "preconditions": [],
+                "postconditions": [{"when": "always", "guarantees": [_UNSAFE_BAD]}],
+            }
+        ),
     )
     assert not result["saved"]
     assert "feedback" in result
+
+
+# ---------------------------------------------------------------------------
+# MCP server setup test
+# ---------------------------------------------------------------------------
+
+try:
+    import mcp  # noqa: F401
+
+    _MCP_AVAILABLE = True
+except ImportError:
+    _MCP_AVAILABLE = False
+
+
+@pytest.mark.skipif(not _MCP_AVAILABLE, reason="mcp package not installed")
+def test_create_mcp_server_registers_tools():
+    import asyncio
+    from mcp.types import ListToolsRequest
+    from certus.mcp_server import create_mcp_server
+
+    server = create_mcp_server()
+
+    assert server is not None
+    assert server.name == "certus"
+
+    handler = server.request_handlers[ListToolsRequest]
+    tools = asyncio.run(handler(ListToolsRequest(method="tools/list")))
+    tool_names = {t.name for t in tools.root.tools}
+
+    expected = {
+        "validate_certificate",
+        "save_certificate",
+        "list_uncertified",
+        "check_file",
+        "check_project",
+    }
+    assert expected == tool_names

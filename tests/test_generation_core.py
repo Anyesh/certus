@@ -15,15 +15,21 @@ from certus.sidecar.models import SidecarCertificate
 
 SAMPLE_CODE = "def add(a: int, b: int) -> int:\n    return a + b"
 
-GOOD_CERT_JSON = json.dumps({
-    "preconditions": ["isinstance(a, int)", "isinstance(b, int)"],
-    "postconditions": [{"when": "always", "guarantees": ["result == a + b"]}],
-})
+GOOD_CERT_JSON = json.dumps(
+    {
+        "preconditions": ["isinstance(a, int)", "isinstance(b, int)"],
+        "postconditions": [{"when": "always", "guarantees": ["result == a + b"]}],
+    }
+)
 
-WEAK_CERT_JSON = json.dumps({
-    "preconditions": [],
-    "postconditions": [{"when": "always", "guarantees": ["isinstance(result, int)"]}],
-})
+WEAK_CERT_JSON = json.dumps(
+    {
+        "preconditions": [],
+        "postconditions": [
+            {"when": "always", "guarantees": ["isinstance(result, int)"]}
+        ],
+    }
+)
 
 
 def test_parse_llm_response_valid_json():
@@ -72,4 +78,70 @@ def test_validate_and_score_structural_error():
     )
     result = validate_and_score(cert, SAMPLE_CODE, "add", strength_threshold=0.3)
     assert not result.passed
-    assert "structural" in result.feedback.lower() or "unsafe" in result.feedback.lower()
+    assert (
+        "structural" in result.feedback.lower() or "unsafe" in result.feedback.lower()
+    )
+
+
+# ---------------------------------------------------------------------------
+# Integration tests for generate_certificate() end-to-end loop
+# ---------------------------------------------------------------------------
+
+
+def test_generate_certificate_succeeds_first_try():
+    result = generate_certificate(
+        function_code=SAMPLE_CODE,
+        function_name="add",
+        llm_call=lambda prompt: GOOD_CERT_JSON,
+        strength_threshold=0.3,
+        max_attempts=3,
+        num_runs=30,
+    )
+
+    assert result.passed is True
+    assert result.attempts == 1
+    assert result.certificate is not None
+
+
+def test_generate_certificate_retries_on_weak():
+    responses = iter([WEAK_CERT_JSON, GOOD_CERT_JSON])
+
+    result = generate_certificate(
+        function_code=SAMPLE_CODE,
+        function_name="add",
+        llm_call=lambda prompt: next(responses),
+        strength_threshold=0.3,
+        max_attempts=3,
+        num_runs=30,
+    )
+
+    assert result.passed is True
+    assert result.attempts == 2
+
+
+def test_generate_certificate_gives_up_after_max_attempts():
+    result = generate_certificate(
+        function_code=SAMPLE_CODE,
+        function_name="add",
+        llm_call=lambda prompt: "this is not json at all",
+        strength_threshold=0.3,
+        max_attempts=3,
+        num_runs=30,
+    )
+
+    assert result.passed is False
+    assert result.certificate is None
+    assert result.attempts == 3
+
+
+def test_generate_certificate_uncertifiable_weak():
+    result = generate_certificate(
+        function_code=SAMPLE_CODE,
+        function_name="add",
+        llm_call=lambda prompt: WEAK_CERT_JSON,
+        strength_threshold=0.5,
+        max_attempts=2,
+        num_runs=30,
+    )
+
+    assert result.passed is False
